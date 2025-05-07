@@ -1,54 +1,46 @@
-# React + TypeScript + Vite
+# 💻 Frontend – Sistema de Assistência Domiciliar
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este diretório contém o frontend da aplicação, criado com **React + Vite + TypeScript**, estilizado com **Styled Components**.
+---
 
-Currently, two official plugins are available:
+## 🛠️ Tecnologias Utilizadas  
+- React
+- TypeScript
+- Vite
+- Styled Components
+- React Router DOM (rotas)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📁 Estrutura do Projeto  
+```
+src/
+├── assets/ # Imagens e ícones
+├── components/ # Componentes reutilizáveis
+│ └── CountButton.tsx
+├── pages/ # Páginas da aplicação
+│ └── Home/
+│ ├── index.tsx # Estrutura da página
+│ └── style.ts # Estilização com styled-components
+├── routes/ # Arquivo central de rotas da aplicação
+├── App.tsx # Componente raiz
+├── main.tsx # Ponto de entrada
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📏 Padrões e Boas Práticas
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Styled Components**: Todos os estilos são feitos com `styled-components` e separados em arquivos `style.ts` por página ou componente.
+- **Organização de Páginas**: Cada página tem sua pasta (`/Home`, `/Login`, etc.) com `index.tsx` e `style.ts`.
+- **Rotas**: Usamos `react-router-dom` para gerenciar as rotas. O componente `AppRoutes` é centralizado em `src/routes/index.tsx`.
+- **Componentes Reutilizáveis**: Devem ser criados na pasta `components` com estrutura própria se necessário.
+- **Sem CSS externo**: Não utilizar arquivos `.css`, toda estilização deve ser feita via `styled-components`.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 🚧 Em Desenvolvimento  
+
+Funcionalidades futuras planejadas:
+- Integração com API (autenticação e dados dos pacientes)
+- Roteirização geográfica
+- Dashboard para controle dos atendimentos
+
+---
+
+Para dúvidas ou sugestões, consulte o repositório principal ou entre em contato com o mantenedor do projeto.
