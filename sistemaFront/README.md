@@ -41,6 +41,41 @@ Funcionalidades futuras planejadas:
 - Roteirização geográfica
 - Dashboard para controle dos atendimentos
 
+## 🌿 Versionamento e Fluxo de Trabalho com Git  
+
+Para manter a organização e a qualidade do código, seguimos uma estratégia de versionamento baseada em **branches** e **Pull Requests (PRs)**.
+
+### 📌 Regras de Versionamento  
+
+- A branch `main` deve conter **apenas código estável e aprovado**.
+- **Não é permitido fazer commits diretamente na `main`**.
+- Cada desenvolvedor deve criar uma branch separada para cada funcionalidade ou correção.
+
+#### 📛 Nomenclatura de branches sugerida:  
+
+- `feature/nome-da-funcionalidade`
+- `fix/nome-da-correção`
+- `refactor/nome-da-refatoração`
+
+### ✅ Fluxo de Trabalho
+
+1. Crie uma nova branch a partir da `main`.
+2. Desenvolva sua funcionalidade ou correção. Faça commits claros e organizados.
+4. Ao finalizar, abra um **Pull Request (PR)** para a branch `main`.
+5. Aguarde a revisão de pelo menos **um colaborador da equipe**.
+6. Após aprovação, o PR poderá ser mesclado à `main`.
+
+### 🧠 Por que isso é importante?
+
+- Garante colaboração segura e controlada.
+- Permite revisões de código antes da entrega.
+- Ajuda a manter um histórico limpo e compreensível.
+- Facilita o uso de integração contínua e testes automatizados.
+
+> 🔁 Lembre-se: mantenha sua branch sempre atualizada com a `main` usando:
+>
+> ```bash
+> git pull origin main
 ---
 
 Para dúvidas ou sugestões, consulte o repositório principal ou entre em contato com o mantenedor do projeto.
