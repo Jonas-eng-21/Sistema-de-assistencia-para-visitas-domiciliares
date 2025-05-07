@@ -41,6 +41,27 @@ Funcionalidades futuras planejadas:
 - Roteirização geográfica
 - Dashboard para controle dos atendimentos
 
+## 🏃‍♂️ Primeiros Passos
+
+Para começar a trabalhar no projeto, siga os seguintes passos:
+
+1. **Instale as dependências** do projeto:
+
+    ```bash
+    npm install
+    ```
+
+2. **Inicie o servidor de desenvolvimento**:
+
+    ```bash
+    npm run dev
+    ```
+
+Isso vai iniciar o projeto no seu ambiente local, e você poderá acessar o front no seu navegador através de `http://localhost:3000` (ou outra porta que for definida no terminal).
+
+Pronto! Agora é só começar a desenvolver e mandar ver nas funcionalidades! 🚀  
+
+
 ## 🌿 Versionamento e Fluxo de Trabalho com Git  
 
 Para manter a organização e a qualidade do código, seguimos uma estratégia de versionamento baseada em **branches** e **Pull Requests (PRs)**.
