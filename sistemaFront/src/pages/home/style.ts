@@ -18,7 +18,7 @@ export const Card = styled.div`
   background-color: #ffffff;
   border-radius: 10px;
   margin-bottom: 1rem;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
   
 `
 
@@ -58,4 +58,12 @@ export const Input = styled.input`
   font-size: 1rem;
   width: 95%;
   background-color: #F6F9FF;
+`
+
+export const Background = styled.div`
+  background-color: #D2D2D2;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
