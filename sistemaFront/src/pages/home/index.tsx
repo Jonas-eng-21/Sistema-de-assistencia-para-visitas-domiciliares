@@ -2,6 +2,7 @@ import reactLogo from '../../assets/react.svg'
 import viteLogo from '/vite.svg'
 import CountButton from '../../components/CountButton'
 import * as S from './style'
+import RegisterForm from '../../components/RegisterForm'
 
 const Home = () => {
   return (
@@ -21,6 +22,7 @@ const Home = () => {
       <S.Paragraph>
         Click on the Vite and React logos to learn more
       </S.Paragraph>
+      <RegisterForm />
     </S.Container>
   )
 }
