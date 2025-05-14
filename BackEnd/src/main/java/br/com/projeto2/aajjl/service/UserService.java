@@ -5,6 +5,7 @@ import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,12 +15,18 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
     public User create(User user) {
+        user.setSenha(passwordEncoder.encode(user.getSenha())); // Criptografa a senha
         user.setAtivo(true); //Aqui, garanto que todo novo usuário seja ativo por padrão
         return userRepository.save(user);
     }
 
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
     public List<User> getAll() {
         return userRepository.findAll()
                 .stream()
@@ -96,4 +103,19 @@ public class UserService {
     public List<User> getAllInativos() {
         return userRepository.findByAtivoFalse();
     }
+
+    public Optional<User> autenticar(String email, String senha) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isPresent() && optionalUser.get().getAtivo()) {
+            User user = optionalUser.get();
+
+            if (passwordEncoder.matches(senha, user.getSenha())) {
+                return Optional.of(user);
+            }
+        }
+
+        return Optional.empty();
+    }
+
 }

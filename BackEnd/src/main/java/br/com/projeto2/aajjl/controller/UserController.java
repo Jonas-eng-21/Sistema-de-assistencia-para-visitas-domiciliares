@@ -1,9 +1,11 @@
 package br.com.projeto2.aajjl.controller;
 
+import br.com.projeto2.aajjl.model.LoginRequest;
 import br.com.projeto2.aajjl.model.Profissao;
 import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,16 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User created = userService.create(user);
         return ResponseEntity.ok(created);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        try {
+            Optional<User> usuario = userService.autenticar(loginRequest.getEmail(), loginRequest.getPassword());
+            return ResponseEntity.ok(usuario);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválidos");
+        }
     }
 
     //ListAll - GetAll
