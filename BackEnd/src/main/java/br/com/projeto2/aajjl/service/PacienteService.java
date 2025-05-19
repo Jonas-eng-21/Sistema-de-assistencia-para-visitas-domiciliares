@@ -14,10 +14,23 @@ public class PacienteService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @Autowired
+    private EnvioDeEmailService emailService;
+
     public Paciente create(Paciente paciente) {
         paciente.setAtivo(true);
-        return pacienteRepository.save(paciente);
+        Paciente novoPaciente = pacienteRepository.save(paciente);
+
+        // Envia o e-mail de boas-vindas
+        emailService.enviarEmailSimples(
+                novoPaciente.getEmail(),
+                "Bem-vindo ao Sistema de assistencia para visitas domiciliares",
+                "Olá " + novoPaciente.getNome() + ", seu cadastro como paciente foi realizado com sucesso!"
+        );
+
+        return novoPaciente;
     }
+
 
     public List<Paciente> getAll() {
         return pacienteRepository.findAll();
@@ -35,6 +48,9 @@ public class PacienteService {
             }
             if (newData.getCpf() != null && !newData.getCpf().trim().isEmpty()) {
                 paciente.setCpf(newData.getCpf().trim());
+            }
+            if (newData.getEmail() != null && !newData.getEmail().trim().isEmpty()) {
+                paciente.setEmail(newData.getEmail().trim());
             }
             if (newData.getDoenca() != null && !newData.getDoenca().trim().isEmpty()) {
                 paciente.setDoenca(newData.getDoenca().trim());

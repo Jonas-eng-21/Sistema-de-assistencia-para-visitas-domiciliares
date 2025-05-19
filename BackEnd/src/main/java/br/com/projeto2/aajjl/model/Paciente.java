@@ -37,6 +37,7 @@ public class Paciente {
     //atributos da pessoa
     private String nome;
     private String cpf;
+    private String email;
     private String doenca;
     private String observacao;
 
@@ -54,13 +55,16 @@ public class Paciente {
     private Prioridade prioridade;
 
     //construtor
-    public Paciente(String nome, String cpf, String doenca,
-                    String cep, String rua, String numero,
-                    String bairro, String complemento,
-                    String cidade, String estado,
-                    Prioridade prioridade) {
+    public Paciente(Long id, String nome, String cpf,
+                    String email, String doenca, String cep,
+                    String rua, String numero, String bairro,
+                    String complemento, String cidade,
+                    String estado, Prioridade prioridade) {
+
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
+        this.email = email;
         this.doenca = doenca;
         this.cep = cep;
         this.rua = rua;
@@ -70,6 +74,7 @@ public class Paciente {
         this.cidade = cidade;
         this.estado = estado;
         this.prioridade = prioridade;
+
     }
 
     @Override
