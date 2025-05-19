@@ -4,6 +4,7 @@ import br.com.projeto2.aajjl.model.Profissao;
 import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +16,23 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EnvioDeEmailService emailService;
+
     public User create(User user) {
-        user.setAtivo(true); //Aqui, garanto que todo novo usuário seja ativo por padrão
-        return userRepository.save(user);
+        user.setAtivo(true);
+
+        User novoUser = userRepository.save(user);
+
+        emailService.enviarEmailSimples(
+                novoUser.getEmail(),
+                "Bem-vindo ao Sistema de assistencia para visitas domiciliares",
+                "Olá " + novoUser.getNome() + ", seu cadastro foi realizado com sucesso!"
+        );
+
+        return novoUser;
     }
+
 
     public List<User> getAll() {
         return userRepository.findAll()
