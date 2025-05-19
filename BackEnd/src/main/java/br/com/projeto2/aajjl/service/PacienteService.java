@@ -31,7 +31,6 @@ public class PacienteService {
         return novoPaciente;
     }
 
-
     public List<Paciente> getAll() {
         return pacienteRepository.findAll();
     }
