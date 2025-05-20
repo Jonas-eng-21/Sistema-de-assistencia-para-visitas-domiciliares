@@ -5,6 +5,7 @@ import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,17 @@ public class UserService {
     @Autowired
     private EnvioDeEmailService emailService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public User create(User user) {
+
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new RuntimeException("E-mail já cadastrado");
+        }
+
+        user.setSenha(passwordEncoder.encode(user.getSenha()));
+
         user.setAtivo(true);
 
         User novoUser = userRepository.save(user);
