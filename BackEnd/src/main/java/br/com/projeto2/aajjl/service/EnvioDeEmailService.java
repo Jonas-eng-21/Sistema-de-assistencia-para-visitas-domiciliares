@@ -17,7 +17,7 @@ public class EnvioDeEmailService {
         mensagem.setTo(para);
         mensagem.setSubject(assunto);
         mensagem.setText(corpo);
-        mensagem.setFrom("***email@gmail.com"); //Tem que ser o mesmo do aplication.properties
+        mensagem.setFrom("projeto2aajjl@gmail.com"); //Tem que ser o mesmo do aplication.properties
 
         mailSender.send(mensagem);
     }
