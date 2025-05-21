@@ -23,6 +23,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Schedule> agendamentos; //Aqui teremos a lista de agendamentos criados pelo USer especifico
 
+    @OneToMany(mappedBy = "userNotified")
+    private List<Notification> notifications; //Lista de todas as notificações de um usuário
+
     @OneToMany
     @JoinColumn(name = "cadastrado_por_id")
     private List<Patient> pacientes; //Aqui teremos a lista de pacientes cadastrados pelo User especifico
