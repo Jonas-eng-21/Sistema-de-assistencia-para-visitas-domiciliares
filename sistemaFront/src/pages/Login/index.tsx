@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAuth } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const schema = yup.object({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
@@ -114,6 +115,12 @@ const Login = () => {
             >
               Entrar
             </Button>
+            <div className="Txt">
+                <span>Não tem uma conta ainda? </span>
+                <Link to="/cadastro" className="txt2">
+                  <span>Cadastre-se</span>
+                </Link>
+            </div>
           </form>
         </S.Card>
       </S.Container>

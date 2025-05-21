@@ -39,6 +39,18 @@ export const Card = styled.div`
     margin-bottom: 5%;
     margin-top: 5%;
   }
+
+  .txt {
+    mmargin-top: 5%;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .txt2 {
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: 500;
+  }
   
 `
 
