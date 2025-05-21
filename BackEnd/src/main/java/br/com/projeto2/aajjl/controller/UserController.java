@@ -1,5 +1,6 @@
 package br.com.projeto2.aajjl.controller;
 
+import br.com.projeto2.aajjl.dto.ResponseDTO;
 import br.com.projeto2.aajjl.model.Profissao;
 import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.service.UserService;
@@ -20,9 +21,9 @@ public class UserController {
 
     //CReate
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User created = userService.create(user);
-        return ResponseEntity.ok(created);
+    public ResponseEntity<ResponseDTO> createUser(@RequestBody User user) {
+        ResponseDTO response = userService.create(user);
+        return ResponseEntity.ok(response);
     }
 
     //ListAll - GetAll
