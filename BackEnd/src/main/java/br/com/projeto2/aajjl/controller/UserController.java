@@ -1,7 +1,7 @@
 package br.com.projeto2.aajjl.controller;
 
 import br.com.projeto2.aajjl.dto.ResponseDTO;
-import br.com.projeto2.aajjl.model.Profissao;
+import br.com.projeto2.aajjl.model.Profession;
 import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ public class UserController {
 
     //CReate
     @PostMapping
-    public ResponseEntity<ResponseDTO> createUser(@RequestBody User user) {
-        ResponseDTO response = userService.create(user);
+    public ResponseEntity<ResponseDTO> createUser(@RequestBody User newUser) {
+        ResponseDTO response = userService.create(newUser);
         return ResponseEntity.ok(response);
     }
 
@@ -35,14 +35,14 @@ public class UserController {
     //Get by ID
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        Optional<User> user = userService.getById(id);
-        return user.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        Optional<User> foundUser = userService.getById(id);
+        return foundUser.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     //Put
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-        Optional<User> updated = userService.update(id, userDetails);
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User oldUser) {
+        Optional<User> updated = userService.update(id, oldUser);
         return updated.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
@@ -55,14 +55,14 @@ public class UserController {
 
     //Find by nome
     @GetMapping("/search/nome")
-    public ResponseEntity<List<User>> findByNome(@RequestParam String nome) {
-        return ResponseEntity.ok(userService.findByNome(nome));
+    public ResponseEntity<List<User>> findByNome(@RequestParam String name) {
+        return ResponseEntity.ok(userService.findByNome(name));
     }
 
     //Find by Profissao
     @GetMapping("/search/profissao")
-    public ResponseEntity<List<User>> findByProfissao(@RequestParam Profissao profissao) {
-        return ResponseEntity.ok(userService.findByProfissao(profissao));
+    public ResponseEntity<List<User>> findByProfissao(@RequestParam Profession profession) {
+        return ResponseEntity.ok(userService.findByProfissao(profession));
     }
 
     //Find by Ativo(True)

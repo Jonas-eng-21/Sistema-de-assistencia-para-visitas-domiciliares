@@ -1,6 +1,6 @@
 package br.com.projeto2.aajjl.model;
 
-public enum Profissao {
+public enum Profession {
     MEDICO,
     ENFERMEIRO,
     ENFERMEIRO_CHEFE,

@@ -1,6 +1,6 @@
 package br.com.projeto2.aajjl.model;
 
-public enum Turno {
+public enum Shift {
     MATUTIVO,
     VESPERINO,
     NOTURNO
