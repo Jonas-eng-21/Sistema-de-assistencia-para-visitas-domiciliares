@@ -7,7 +7,7 @@ public record ResponseDTO(
         String cpf,
         String consenhoRegional,
         String email,
-        Profissao profissao,
+        br.com.projeto2.aajjl.model.Profession profissao,
         Boolean ativo,
         String token
 ) {}
