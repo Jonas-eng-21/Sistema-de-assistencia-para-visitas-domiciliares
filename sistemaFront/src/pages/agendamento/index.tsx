@@ -15,25 +15,28 @@ const Principal = () => {
                 <S.AgendamentoTitle>Agendamento de Visitas</S.AgendamentoTitle>
                 <form style={{ width: '90%', height: '100%' }}>
                     <S.FormGroup>
-                        <S.FormRow>
-                            <S.FormGroup>
+                        <S.FormRow style={{ alignItems: 'flex-end', width: '100%' }}>
+                            <S.FormGroup style={{ flex: 2, minWidth: 200 }}>
                                 <S.FormFonte htmlFor="paciente">Paciente:</S.FormFonte>
                                 <S.SelectForm id="paciente" name="paciente">
                                     <option value="paciente1">Paciente 1</option>
                                     <option value="paciente2">Paciente 2</option>
                                     <option value="paciente3">Paciente 3</option>
-                                </S.SelectForm>                                
+                                </S.SelectForm>
                             </S.FormGroup>
-                            <S.FormGroup>
-                                <S.TextoAjuda>Caso não encontre, <br/> cadastre um novo paciente:</S.TextoAjuda>
+                            <S.FormGroup style={{ flex: 2, minWidth: 200, display: 'flex', flexDirection: 'column', alignItems: 'end', justifyContent: 'flex-end' }}>
+                                <S.TextoAjuda style={{ textAlign: 'center' }}>
+                                    Caso não encontre, <br /> cadastre um novo paciente:
+                                </S.TextoAjuda>
                             </S.FormGroup>
-                            <S.FormGroup>
+                            <S.FormGroup style={{ flex: 1, minWidth: 150, display: 'flex', justifyContent: 'center', alignItems: 'start' }}>
                                 <S.ButtonCadastro>
-                                    <S.TextoButton2>Adicionar <br/>Paciente</S.TextoButton2>
+                                    <S.TextoButton2>
+                                        Adicionar <br />Paciente
+                                    </S.TextoButton2>
                                     <img src="/plus.svg" alt="Adicionar novo paciente" style={{ width: 24, height: 24 }} />
                                 </S.ButtonCadastro>
                             </S.FormGroup>
-
                         </S.FormRow>
 
                     </S.FormGroup>
