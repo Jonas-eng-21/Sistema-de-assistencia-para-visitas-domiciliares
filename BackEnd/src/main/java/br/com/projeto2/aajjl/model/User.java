@@ -36,6 +36,7 @@ public class User {
 
     //atributos da pessoa
     private String nome;
+    @Column(unique = true)
     private String cpf;
     private String consenhoRegional;
     private String email;
