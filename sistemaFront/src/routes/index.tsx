@@ -1,17 +1,15 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "../pages/home";
+import { Routes, Route } from "react-router-dom";
+import Login from "../pages/Login";
 import Principal from "../pages/principal";
 import { ProtectedRoute } from "./ProtectedRoute";
 import ListagemPaciente from "../pages/ListagemPaciente";
 
 export const AppRoutes = () => {
   return (
-    <BrowserRouter>
+
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
         <Route path="/principal" element={<Principal />} />
-        {/* Outras rotas virão aqui futuramente */}
-        {/* <Route path="listagem" element={<ListagemPaciente />} /> */}
         <Route
           path="/listagem"
           element={
@@ -21,6 +19,5 @@ export const AppRoutes = () => {
           }
         />
       </Routes>
-    </BrowserRouter>
   );
 };

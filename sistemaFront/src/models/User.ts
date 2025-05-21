@@ -1,17 +1,19 @@
 export type Profissao = "MEDICO" | "ENFERMEIRO" | "ASSISTENTE_SOCIAL" | "PSICOLOGO"; // ajuste conforme seu Enum
 
-export type User = {
+export type UserProfile = {
   nome: string;
   cpf: string;
-  email: string;
-  senha: string;
   consenhoRegional: string;
-  profissao: Profissao;
-  ativo?: boolean;
+  email: string;
+  profissao: string;
+  ativo: boolean;
 };
 
-// Se futuramente tiver login com JWT, mantenha isso:
 export type UserProfileToken = {
+  cpf: string;
+  consenhoRegional: string;
+  profissao: string;
+  ativo: boolean;
   email: string;
   nome: string;
   token: string;

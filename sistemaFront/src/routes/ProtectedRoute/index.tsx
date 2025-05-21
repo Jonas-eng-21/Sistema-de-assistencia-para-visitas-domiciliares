@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import type { JSX } from "react";
 
 export const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  const { isAuthenticated } = useAuth();
+  const { isLoggedIn  } = useAuth();
 
-  return isAuthenticated ? children : <Navigate to="/" />;
+  return isLoggedIn()  ? children : <Navigate to="/" />;
 };

@@ -1,8 +1,10 @@
 package br.com.projeto2.aajjl.service;
 
+import br.com.projeto2.aajjl.dto.ResponseDTO;
 import br.com.projeto2.aajjl.model.Profissao;
 import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.repository.UserRepository;
+import br.com.projeto2.aajjl.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +25,10 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User create(User user) {
+    @Autowired
+    private TokenService tokenService;
+
+    public ResponseDTO create(User user) {
 
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new RuntimeException("E-mail já cadastrado");
@@ -35,13 +40,23 @@ public class UserService {
 
         User novoUser = userRepository.save(user);
 
-        emailService.enviarEmailSimples(
+//        emailService.enviarEmailSimples(
+//                novoUser.getEmail(),
+//                "Bem-vindo ao Sistema de assistencia para visitas domiciliares",
+//                "Olá " + novoUser.getNome() + ", seu cadastro foi realizado com sucesso!"
+//        );
+
+        String token = this.tokenService.generateToken(novoUser);
+        return new ResponseDTO(
+                novoUser.getNome(),
+                novoUser.getCpf(),
+                novoUser.getConsenhoRegional(),
                 novoUser.getEmail(),
-                "Bem-vindo ao Sistema de assistencia para visitas domiciliares",
-                "Olá " + novoUser.getNome() + ", seu cadastro foi realizado com sucesso!"
+                novoUser.getProfissao(),
+                novoUser.getAtivo(),
+                token
         );
 
-        return novoUser;
     }
 
 
