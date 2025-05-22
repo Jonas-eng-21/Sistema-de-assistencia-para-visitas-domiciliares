@@ -88,7 +88,8 @@ export const ButtonCadastro = styled.button`
   border: none;
   cursor: pointer;
   font-size: 1.3rem;
-
+    margin-top: 1rem
+    
   &:hover {
     background-color:#81a8f0;
   }
@@ -99,4 +100,36 @@ export const TextoButton2 = styled.p`
   font-weight: 500;
   color: black;
   text-align: center;
+`
+
+export const ButtonAgendamento = styled.button`
+  background-color: #7BD37B;
+  width:30%;
+  color: black;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  align-self: center;
+  font-size: 1.3rem;
+    margin-top: 1rem;
+    padding: 10px;
+    &:hover {
+    background-color:#81a8f0;
+  }
+`
+
+export const ButtonVoltar = styled.button`
+  background-color: #C3CCDE;
+  width:30%;
+  color: black;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  align-self: center;
+  font-size: 1.3rem;
+    margin-top: 1rem;
+    padding: 10px;
+    &:hover {
+    background-color:#81a8f0;
+  }
 `
