@@ -14,9 +14,49 @@ public class ScheduleService {
     @Autowired
     private ScheduleRepository scheduleRepository;
 
+    @Autowired
+    private EmailSenderService emailService;
+
+    private String criarResumoDoAgendamento(Schedule schedule) {
+        return String.format(
+                "Olá!\n\nUm novo agendamento foi criado com os seguintes detalhes:\n\n" +
+                        "- Criado por: %s\n" +
+                        "- Paciente: %s\n" +
+                        "- Médico (User): %s\n" +
+                        "- Data: %02d/%s/%d\n" +
+                        "- Turno: %s\n" +
+                        "- Motivo: %s\n" +
+                        "- Prioridade: %s\n\n" +
+                        "Por favor, fique atento às orientações.",
+                schedule.getUser().getNome(),
+                schedule.getPacinete().getNome(),
+                schedule.getUser().getNome(),
+                schedule.getDia(),
+                schedule.getMes(),
+                schedule.getAno(),
+                schedule.getTurno(),
+                schedule.getMotivoDoAtendimento(),
+                schedule.getPrioridade()
+        );
+    }
+
     public Schedule create(Schedule newSchedule) {
         newSchedule.setConcluido(false); // Agendamentos começam como não concluídos
-        return scheduleRepository.save(newSchedule);
+        Schedule savedSchedule = scheduleRepository.save(newSchedule);
+
+        // Criar a mensagem de resumo
+        String assunto = "Novo agendamento criado";
+        String mensagem = criarResumoDoAgendamento(savedSchedule);
+
+        // Enviar e-mail para o User (quem criou)
+        String emailUser = savedSchedule.getUser().getEmail();
+        emailService.enviarEmailSimples(emailUser, assunto, mensagem);
+
+        // Enviar e-mail para o Paciente
+        String emailPaciente = savedSchedule.getPacinete().getEmail();
+        emailService.enviarEmailSimples(emailPaciente, assunto, mensagem);
+
+        return savedSchedule;
     }
 
     public List<Schedule> getAll() {
