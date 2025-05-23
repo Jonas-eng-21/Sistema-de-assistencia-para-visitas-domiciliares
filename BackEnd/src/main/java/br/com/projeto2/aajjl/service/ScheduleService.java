@@ -44,15 +44,12 @@ public class ScheduleService {
         newSchedule.setConcluido(false); // Agendamentos começam como não concluídos
         Schedule savedSchedule = scheduleRepository.save(newSchedule);
 
-        // Criar a mensagem de resumo
         String assunto = "Novo agendamento criado";
         String mensagem = criarResumoDoAgendamento(savedSchedule);
 
-        // Enviar e-mail para o User (quem criou)
         String emailUser = savedSchedule.getUser().getEmail();
         emailService.enviarEmailSimples(emailUser, assunto, mensagem);
 
-        // Enviar e-mail para o Paciente
         String emailPaciente = savedSchedule.getPacinete().getEmail();
         emailService.enviarEmailSimples(emailPaciente, assunto, mensagem);
 
@@ -68,41 +65,87 @@ public class ScheduleService {
     }
 
     public Optional<Schedule> update(Long id, Schedule newData) {
+
         return scheduleRepository.findById(id).map(schedule -> {
-            if (newData.getUser() != null) {
+
+            StringBuilder modificacoes = new StringBuilder("Modificações realizadas:\n");
+
+            if (newData.getUser() != null && !newData.getUser().equals(schedule.getUser())) {
+                //stringbuilder
+                modificacoes.append("- User alterado: de ").append(schedule.getUser().getNome())
+                        .append(" para ").append(newData.getUser().getNome()).append("\n");
+                //atualização da entidade
                 schedule.setUser(newData.getUser());
             }
-            if (newData.getPacinete() != null) {
+            if (newData.getPacinete() != null && !newData.getPacinete().equals(schedule.getPacinete())) {
+                modificacoes.append("- Paciente alterado: de ").append(schedule.getPacinete().getNome())
+                        .append(" para ").append(newData.getPacinete().getNome()).append("\n");
+
                 schedule.setPacinete(newData.getPacinete());
             }
-            if (newData.getTurno() != null) {
+            if (newData.getTurno() != null && !newData.getTurno().equals(schedule.getTurno())) {
+                modificacoes.append("- Turno alterado: de ").append(schedule.getTurno())
+                        .append(" para ").append(newData.getTurno()).append("\n");
+
                 schedule.setTurno(newData.getTurno());
             }
-            if (newData.getDia() != null) {
+            if (newData.getDia() != null && !newData.getDia().equals(schedule.getDia())) {
+                modificacoes.append("- Dia alterado: de ").append(schedule.getDia())
+                        .append(" para ").append(newData.getDia()).append("\n");
+
                 schedule.setDia(newData.getDia());
             }
-            if (newData.getMes() != null && !newData.getMes().trim().isEmpty()) {
+            if (newData.getMes() != null && !newData.getMes().trim().isEmpty() && !newData.getMes().equals(schedule.getMes())) {
+                modificacoes.append("- Mês alterado: de ").append(schedule.getMes())
+                        .append(" para ").append(newData.getMes()).append("\n");
+
                 schedule.setMes(newData.getMes().trim());
             }
-            if (newData.getAno() != null) {
+            if (newData.getAno() != null && !newData.getAno().equals(schedule.getAno())) {
+                modificacoes.append("- Ano alterado: de ").append(schedule.getAno())
+                        .append(" para ").append(newData.getAno()).append("\n");
+
                 schedule.setAno(newData.getAno());
             }
-            if (newData.getObservacao() != null && !newData.getObservacao().trim().isEmpty()) {
+            if (newData.getObservacao() != null && !newData.getObservacao().trim().isEmpty() && !newData.getObservacao().equals(schedule.getObservacao())) {
+                modificacoes.append("- Observação alterada.\n");
+
                 schedule.setObservacao(newData.getObservacao().trim());
             }
-            if (newData.getMotivoDoAtendimento() != null && !newData.getMotivoDoAtendimento().trim().isEmpty()) {
+            if (newData.getMotivoDoAtendimento() != null && !newData.getMotivoDoAtendimento().trim().isEmpty() && !newData.getMotivoDoAtendimento().equals(schedule.getMotivoDoAtendimento())) {
+                modificacoes.append("- Motivo do Atendimento alterado.\n");
+
                 schedule.setMotivoDoAtendimento(newData.getMotivoDoAtendimento().trim());
             }
-            if (newData.getPrioridade() != null) {
+            if (newData.getPrioridade() != null && !newData.getPrioridade().equals(schedule.getPrioridade())) {
+                modificacoes.append("- Prioridade alterada: de ").append(schedule.getPrioridade())
+                        .append(" para ").append(newData.getPrioridade()).append("\n");
+
                 schedule.setPrioridade(newData.getPrioridade());
             }
-            if (newData.getConcluido() != null) {
+            if (newData.getConcluido() != null && !newData.getConcluido().equals(schedule.getConcluido())) {
+                modificacoes.append("- Status alterado: de ").append(schedule.getConcluido() ? "Concluído" : "Não Concluído")
+                        .append(" para ").append(newData.getConcluido() ? "Concluído" : "Não Concluído").append("\n");
+                
                 schedule.setConcluido(newData.getConcluido());
             }
 
-            return scheduleRepository.save(schedule);
+            Schedule updatedSchedule = scheduleRepository.save(schedule);
+
+            String assunto = "Atualização no agendamento";
+            String mensagem = modificacoes.toString() + "\n\nResumo atual do agendamento:\n\n" +
+                    criarResumoDoAgendamento(updatedSchedule);
+
+            String emailUser = updatedSchedule.getUser().getEmail();
+            emailService.enviarEmailSimples(emailUser, assunto, mensagem);
+
+            String emailPaciente = updatedSchedule.getPacinete().getEmail();
+            emailService.enviarEmailSimples(emailPaciente, assunto, mensagem);
+
+            return updatedSchedule;
         });
     }
+
 
     public boolean delete(Long id) {
         return scheduleRepository.findById(id).map(schedule -> {
