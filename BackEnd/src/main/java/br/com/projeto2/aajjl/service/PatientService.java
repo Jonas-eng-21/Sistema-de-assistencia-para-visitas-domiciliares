@@ -22,7 +22,7 @@ public class PatientService {
         Patient savedPatient = patientRepository.save(newPatient);
 
         // Envia o e-mail de boas-vindas
-        emailService.sendSimpleMail(
+        emailService.enviarEmailSimples(
                 savedPatient.getEmail(),
                 "Bem-vindo ao Sistema de assistencia para visitas domiciliares",
                 "Olá " + savedPatient.getNome() + ", seu cadastro como paciente foi realizado com sucesso!"
