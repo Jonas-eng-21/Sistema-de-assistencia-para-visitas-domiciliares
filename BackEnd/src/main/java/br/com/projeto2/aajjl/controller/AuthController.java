@@ -6,13 +6,12 @@ import br.com.projeto2.aajjl.dto.ResponseDTO;
 import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.repository.UserRepository;
 import br.com.projeto2.aajjl.security.TokenService;
+import br.com.projeto2.aajjl.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -21,9 +20,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthController {
 
+    @Autowired
     private final UserRepository repository;
+
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
     private final TokenService tokenService;
+
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequestDTO body){
@@ -43,4 +49,12 @@ public class AuthController {
         }
         return ResponseEntity.badRequest().build();
     }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestParam String email) {
+        userService.sendPasswordResetToken(email);
+        return ResponseEntity.ok("E-mail de recuperação enviado");
+    }
+
+
 }
