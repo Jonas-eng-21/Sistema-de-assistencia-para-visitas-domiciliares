@@ -126,7 +126,7 @@ public class ScheduleService {
             if (newData.getConcluido() != null && !newData.getConcluido().equals(schedule.getConcluido())) {
                 modificacoes.append("- Status alterado: de ").append(schedule.getConcluido() ? "Concluído" : "Não Concluído")
                         .append(" para ").append(newData.getConcluido() ? "Concluído" : "Não Concluído").append("\n");
-                
+
                 schedule.setConcluido(newData.getConcluido());
             }
 
