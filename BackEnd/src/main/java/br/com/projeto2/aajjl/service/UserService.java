@@ -170,5 +170,21 @@ public class UserService {
         emailService.enviarEmailSimples(user.getEmail(), assunto, mensagem);
     }
 
+    public void resetPassword(String token, String newPassword) {
+        PasswordResetToken resetToken = tokenRepository.findByToken(token)
+                .orElseThrow(() -> new RuntimeException("Token inválido"));
+
+        if (resetToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("Token expirado");
+        }
+
+        User user = resetToken.getUser();
+        user.setSenha(newPassword);
+        userRepository.save(user);
+
+        tokenRepository.delete(resetToken);
+    }
+
+
 
 }
