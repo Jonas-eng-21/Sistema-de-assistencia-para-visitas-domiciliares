@@ -1,16 +1,20 @@
 package br.com.projeto2.aajjl.service;
 
 import br.com.projeto2.aajjl.dto.ResponseDTO;
+import br.com.projeto2.aajjl.model.PasswordResetToken;
 import br.com.projeto2.aajjl.model.Profession;
 import br.com.projeto2.aajjl.model.User;
+import br.com.projeto2.aajjl.repository.PasswordResetTokenRepository;
 import br.com.projeto2.aajjl.repository.UserRepository;
 import br.com.projeto2.aajjl.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -26,6 +30,9 @@ public class UserService {
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private PasswordResetTokenRepository tokenRepository;
 
     public ResponseDTO create(User newUser) {
 
@@ -135,4 +142,33 @@ public class UserService {
     public List<User> getAllInativos() {
         return userRepository.findByAtivoFalse();
     }
+
+
+    public void sendPasswordResetToken(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        //Gera o token
+        String token = UUID.randomUUID().toString();
+
+        PasswordResetToken resetToken = new PasswordResetToken();
+        resetToken.setToken(token);
+        resetToken.setUser(user);
+        resetToken.setExpiryDate(LocalDateTime.now().plusMinutes(30));
+
+        tokenRepository.save(resetToken);
+
+        //Conferir link se é esse mesmo, e lembrar de trocar no host
+        String link = "https://localhost:8080/reset-password?token=" + token;
+
+        String assunto = "Recuperação de Senha";
+        String mensagem = "Olá, " + user.getNome() + ".\n\n" +
+                "Clique no link abaixo para redefinir sua senha:\n" +
+                link + "\n\n" +
+                "Este link expirará em 30 minutos.";
+
+        emailService.enviarEmailSimples(user.getEmail(), assunto, mensagem);
+    }
+
+
 }
