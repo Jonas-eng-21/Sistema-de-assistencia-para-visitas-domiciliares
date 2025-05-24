@@ -56,6 +56,12 @@ public class AuthController {
         return ResponseEntity.ok("E-mail de recuperação enviado");
     }
 
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestParam String token,
+                                                @RequestParam String newPassword) {
+        userService.resetPassword(token, newPassword);
+        return ResponseEntity.ok("Senha alterada com sucesso");
+    }
 
 
 }
