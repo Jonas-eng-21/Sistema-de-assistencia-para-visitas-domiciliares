@@ -57,9 +57,9 @@ const Cadastro = () => {
 
   return (
     <S.Background>
-      <S.Container>
+      <S.Container style={{ width: "auto", minWidth: "600px" }}>
         <S.Title>Cadastro de Profissional</S.Title>
-        <S.Card>
+        <S.Card className="divcadastro" style={{ width: "100%", minWidth: "400px", alignItems: "stretch" }}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="padd">
               <S.TituloForm>Nome:</S.TituloForm>
@@ -168,7 +168,28 @@ const Cadastro = () => {
                 )}
               </FormControl>
             </div>
-            <Button
+            <div style={{ display: "flex", gap: "16px" }}>
+              <Button
+              variant="contained"
+              fullWidth
+              onClick={() => window.history.back()}
+              sx={{
+                backgroundColor: "#bdbdbd",
+                color: "#000000",
+                padding: "10px 0",
+                borderRadius: "8px",
+                fontSize: "1rem",
+                boxShadow: "0 2px 8px rgba(189, 189, 189, 0.15)",
+                textTransform: "none",
+                transition: "background 0.2s",
+                "&:hover": {
+                backgroundColor: "#9e9e9e",
+                },
+              }}
+              >
+              Voltar
+              </Button>
+              <Button
               type="submit"
               variant="contained"
               className="button"
@@ -184,16 +205,17 @@ const Cadastro = () => {
                 textTransform: "none",
                 transition: "background 0.2s",
                 "&:hover": {
-                  backgroundColor: "#6f87b3",
+                backgroundColor: "#6f87b3",
                 },
                 "&.Mui-disabled": {
-                  backgroundColor: "#bdbdbd",
-                  color: "#000000",
+                backgroundColor: "#bdbdbd",
+                color: "#000000",
                 },
               }}
-            >
+              >
               Cadastrar
-            </Button>
+              </Button>
+            </div>
           </form>
         </S.Card>
       </S.Container>
