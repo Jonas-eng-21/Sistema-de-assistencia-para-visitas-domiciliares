@@ -4,6 +4,7 @@ import Principal from "../pages/principal";
 import { ProtectedRoute } from "./ProtectedRoute";
 import ListagemPaciente from "../pages/ListagemPaciente";
 import Cadastro from "../pages/cadastroUser";
+import Agendamento from "../pages/agendamento";
 
 export const AppRoutes = () => {
   return (
@@ -26,6 +27,7 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route path="/agendar-visita" element={<ProtectedRoute><Agendamento /></ProtectedRoute>} />
     </Routes>
   );
 };
