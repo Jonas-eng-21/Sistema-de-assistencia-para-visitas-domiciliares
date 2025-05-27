@@ -1,12 +1,19 @@
 import * as S from './style'
 import Header from '../../components/Header'
 import React from 'react';
+import { useNavigate } from 'react-router-dom'
 
 const Principal = () => {
   // Set the page title
   React.useEffect(() => {
     document.title = "Página Inicial - Agendamento de visitas";
   }, []);
+  const navigate = useNavigate()
+
+  const handleAgendarVisita = () => {
+    // Implementar a lógica para agendar visita
+    navigate('/agendar-visita')
+  }
 
   return (
     <S.Container>
@@ -19,7 +26,7 @@ const Principal = () => {
           </S.ProximasVisitas>
         </S.LadoEsquerdo>
         <S.LadoDireito>
-          <S.Button2>
+          <S.Button2 onClick={handleAgendarVisita}>
             <img src="/calendar-plus.svg" alt="Agendar visita" style={{ width: 75, height: 85 }} />
             <S.TextoButton2>Agendar <br /> Visita</S.TextoButton2>
           </S.Button2>
