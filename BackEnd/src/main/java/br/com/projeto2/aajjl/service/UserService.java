@@ -1,9 +1,13 @@
 package br.com.projeto2.aajjl.service;
 
-import br.com.projeto2.aajjl.model.Profissao;
+import br.com.projeto2.aajjl.dto.ResponseDTO;
+import br.com.projeto2.aajjl.model.Profession;
 import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.repository.UserRepository;
+import br.com.projeto2.aajjl.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +19,46 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User create(User user) {
-        user.setAtivo(true); //Aqui, garanto que todo novo usuário seja ativo por padrão
-        return userRepository.save(user);
+    @Autowired
+    private EmailSenderService emailService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private TokenService tokenService;
+
+    public ResponseDTO create(User newUser) {
+
+        if (userRepository.findByEmail(newUser.getEmail()).isPresent()) {
+            throw new RuntimeException("E-mail já cadastrado");
+        }
+
+        newUser.setSenha(passwordEncoder.encode(newUser.getSenha()));
+
+        newUser.setAtivo(true);
+
+        User savedUser = userRepository.save(newUser);
+
+        emailService.sendSimpleMail(
+                savedUser.getEmail(),
+                "Bem-vindo ao Sistema de assistencia para visitas domiciliares",
+                "Olá " + savedUser.getNome() + ", seu cadastro foi realizado com sucesso!"
+        );
+
+        String token = this.tokenService.generateToken(savedUser);
+        return new ResponseDTO(
+                savedUser.getNome(),
+                savedUser.getCpf(),
+                savedUser.getConsenhoRegional(),
+                savedUser.getEmail(),
+                savedUser.getProfissao(),
+                savedUser.getAtivo(),
+                token
+        );
+
     }
+
 
     public List<User> getAll() {
         return userRepository.findAll()
@@ -31,36 +71,36 @@ public class UserService {
         return userRepository.findById(id).filter(User::getAtivo);
     }
 
-    public Optional<User> update(Long id, User userDetails) {
+    public Optional<User> update(Long id, User newData) {
         return userRepository.findById(id).map(user -> {
 
             // Atualiza so oq foi enviado como nao vazio no userDetails
-            if (userDetails.getNome() != null && !userDetails.getNome().trim().isEmpty()) {
-                user.setNome(userDetails.getNome().trim());
+            if (newData.getNome() != null && !newData.getNome().trim().isEmpty()) {
+                user.setNome(newData.getNome().trim());
             }
 
-            if (userDetails.getCpf() != null && !userDetails.getCpf().trim().isEmpty()) {
-                user.setCpf(userDetails.getCpf().trim());
+            if (newData.getCpf() != null && !newData.getCpf().trim().isEmpty()) {
+                user.setCpf(newData.getCpf().trim());
             }
 
-            if (userDetails.getConsenhoRegional() != null && !userDetails.getConsenhoRegional().trim().isEmpty()) {
-                user.setConsenhoRegional(userDetails.getConsenhoRegional().trim());
+            if (newData.getConsenhoRegional() != null && !newData.getConsenhoRegional().trim().isEmpty()) {
+                user.setConsenhoRegional(newData.getConsenhoRegional().trim());
             }
 
-            if (userDetails.getEmail() != null && !userDetails.getEmail().trim().isEmpty()) {
-                user.setEmail(userDetails.getEmail().trim());
+            if (newData.getEmail() != null && !newData.getEmail().trim().isEmpty()) {
+                user.setEmail(newData.getEmail().trim());
             }
 
-            if (userDetails.getSenha() != null && !userDetails.getSenha().trim().isEmpty()) {
-                user.setSenha(userDetails.getSenha().trim());
+            if (newData.getSenha() != null && !newData.getSenha().trim().isEmpty()) {
+                user.setSenha(newData.getSenha().trim());
             }
 
-            if (userDetails.getProfissao() != null) {
-                user.setProfissao(userDetails.getProfissao());
+            if (newData.getProfissao() != null) {
+                user.setProfissao(newData.getProfissao());
             }
 
-            if (userDetails.getAtivo() != null) {
-                user.setAtivo(userDetails.getAtivo());
+            if (newData.getAtivo() != null) {
+                user.setAtivo(newData.getAtivo());
             }
 
             return userRepository.save(user);
@@ -82,7 +122,7 @@ public class UserService {
                 .toList();
     }
 
-    public List<User> findByProfissao(Profissao profissao) {
+    public List<User> findByProfissao(Profession profissao) {
         return userRepository.findByProfissao(profissao)
                 .stream()
                 .filter(User::getAtivo)

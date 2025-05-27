@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Paciente {
+public class Patient {
 
     //atributos do sistema
     @Id
@@ -24,7 +24,7 @@ public class Paciente {
 
     //Atributos de relacionamento das tabelas no BD
     @OneToMany(mappedBy = "pacinete")
-    private List<Agendamento> agendamentos; //aqui temos a lista de agendamentos relacionados ao cliente
+    private List<Schedule> agendamentos; //aqui temos a lista de agendamentos relacionados ao cliente
 
     @ManyToOne
     @JoinColumn(name = "cadastrado_por_id")
@@ -37,6 +37,7 @@ public class Paciente {
     //atributos da pessoa
     private String nome;
     private String cpf;
+    private String email;
     private String doenca;
     private String observacao;
 
@@ -51,16 +52,19 @@ public class Paciente {
 
     //Prioridade como Enum
     @Enumerated(EnumType.STRING)
-    private Prioridade prioridade;
+    private Priority prioridade;
 
     //construtor
-    public Paciente(String nome, String cpf, String doenca,
-                    String cep, String rua, String numero,
-                    String bairro, String complemento,
-                    String cidade, String estado,
-                    Prioridade prioridade) {
+    public Patient(Long id, String nome, String cpf,
+                   String email, String doenca, String cep,
+                   String rua, String numero, String bairro,
+                   String complemento, String cidade,
+                   String estado, Priority prioridade) {
+
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
+        this.email = email;
         this.doenca = doenca;
         this.cep = cep;
         this.rua = rua;
@@ -70,6 +74,7 @@ public class Paciente {
         this.cidade = cidade;
         this.estado = estado;
         this.prioridade = prioridade;
+
     }
 
     @Override

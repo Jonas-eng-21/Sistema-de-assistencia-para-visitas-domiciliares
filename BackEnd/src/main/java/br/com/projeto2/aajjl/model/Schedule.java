@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Agendamento {
+public class Schedule {
 
     //atributos do sistema
     @Id
@@ -32,10 +32,10 @@ public class Agendamento {
     //Paciente do agendamento(Quem é atendido)
     @ManyToOne
     @JoinColumn(name = "paciente_id", nullable = false)
-    private Paciente pacinete; //aqui temos o paciente do agendamento em questão
+    private Patient pacinete; //aqui temos o paciente do agendamento em questão
 
     //Atributos do agendamento em si
-    private Turno turno;
+    private Shift turno;
     //Data
     private Integer dia;
     private String mes;
@@ -43,13 +43,13 @@ public class Agendamento {
 
     private String observacao;
     private String motivoDoAtendimento;
-    private Prioridade prioridade;
+    private Priority prioridade;
 
     //Construtor
-    public Agendamento(Boolean concluido, User user, Paciente pacinete,
-                       Turno turno, Integer dia, String mes, Integer ano,
-                       String observacao, String motivoDoAtendimento,
-                       Prioridade prioridade) {
+    public Schedule(Boolean concluido, User user, Patient pacinete,
+                    Shift turno, Integer dia, String mes, Integer ano,
+                    String observacao, String motivoDoAtendimento,
+                    Priority prioridade) {
 
         this.concluido = concluido;
         this.user = user;
