@@ -12,40 +12,44 @@ import java.util.List;
 @Setter
 public class User {
 
-    //atributos do sistema
+    // Atributos do sistema
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     @Setter(AccessLevel.NONE)
     private Long id;
 
-    //Atributos de relacionamento de tabelas no BD
+    // Atributos de relacionamento de tabelas no BD
     @OneToMany(mappedBy = "user")
-    private List<Schedule> agendamentos; //Aqui teremos a lista de agendamentos criados pelo USer especifico
+    private List<Schedule> agendamentos; // Lista de agendamentos criados pelo User
 
     @OneToMany(mappedBy = "userNotified")
-    private List<Notification> notifications; //Lista de todas as notificações de um usuário
+    private List<Notification> notifications; // Lista de notificações do usuário
 
     @OneToMany
     @JoinColumn(name = "cadastrado_por_id")
-    private List<Patient> pacientes; //Aqui teremos a lista de pacientes cadastrados pelo User especifico
+    private List<Patient> pacientes; // Lista de pacientes cadastrados pelo User
 
-    //Atributo para User Ativo ou Inativo
+    // Atributo para User Ativo ou Inativo
     private Boolean ativo;
 
-    //Profissoes
+    // Profissões
     @Enumerated(EnumType.STRING)
     private Profession profissao;
 
-    //atributos da pessoa
+    // Atributos da pessoa
     private String nome;
+
     @Column(unique = true)
     private String cpf;
+
     private String consenhoRegional;
+
     private String email;
+
     private String senha;
 
-    //Construtor completo pois o liso nao precisa pois o Lombook ja tem o @NoArgsConstructor
+    // Construtor completo
     public User(Profession profissao, String nome, String cpf,
                 String email, String senha,
                 String consenhoRegional) {
@@ -68,6 +72,4 @@ public class User {
                 ", email='" + email + '\'' +
                 '}';
     }
-
-    //Lombok resolve get set e no arguments builder
 }
