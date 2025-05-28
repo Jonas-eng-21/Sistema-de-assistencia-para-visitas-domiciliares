@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import * as S from "./style";
+import { useAuth } from "../../context/AuthContext";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   return (
     <>
@@ -35,8 +37,9 @@ const Header = () => {
           <div style={{ display: "flex" }}>
             <p>
               Bem-vindo(a)
-              <br /> Usuário
+              <br /> {user?.nome || "Usuário"}
             </p>
+
             <button
               style={{
                 background: "none",
