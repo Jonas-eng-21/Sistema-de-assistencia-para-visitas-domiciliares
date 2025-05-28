@@ -10,7 +10,10 @@ const Header = () => {
     <>
       <S.HeaderContainer>
         <S.HeaderAtalhos>
-          <p>
+          <p
+            style={{ cursor: "pointer", color: "blue" }}
+            onClick={() => navigate("/principal")}
+          >
             Página
             <br /> Inicial
           </p>
@@ -27,6 +30,13 @@ const Header = () => {
           <p>
             Novo
             <br /> Paciente
+          </p>
+          <p
+            style={{ cursor: "pointer", color: "blue" }}
+            onClick={() => navigate("/cadastro-de-Profissional")}
+          >
+            Novo
+            <br /> Profissional
           </p>
           <p>
             Nova
