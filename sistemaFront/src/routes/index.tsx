@@ -19,6 +19,7 @@ export const AppRoutes = () => {
         }
       />
       <Route path="/cadastro" element={<Cadastro />} />
+      <Route path="/login" element={<Login />} />
       <Route
         path="/principal"
         element={
