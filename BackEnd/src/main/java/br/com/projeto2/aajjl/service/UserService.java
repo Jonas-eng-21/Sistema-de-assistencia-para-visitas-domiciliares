@@ -1,6 +1,6 @@
 package br.com.projeto2.aajjl.service;
 
-import br.com.projeto2.aajjl.dto.ResponseDTO;
+import br.com.projeto2.aajjl.dto.responses.ResponseDTO;
 import br.com.projeto2.aajjl.model.Profession;
 import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.repository.UserRepository;

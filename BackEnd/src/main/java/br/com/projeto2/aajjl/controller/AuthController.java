@@ -1,8 +1,7 @@
 package br.com.projeto2.aajjl.controller;
 
-import br.com.projeto2.aajjl.dto.LoginRequestDTO;
-import br.com.projeto2.aajjl.dto.RegisterRequestDTO;
-import br.com.projeto2.aajjl.dto.ResponseDTO;
+import br.com.projeto2.aajjl.dto.requests.LoginRequestDTO;
+import br.com.projeto2.aajjl.dto.responses.ResponseDTO;
 import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.repository.UserRepository;
 import br.com.projeto2.aajjl.security.TokenService;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
