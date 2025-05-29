@@ -12,22 +12,22 @@ const Header = () => {
         <>
             <S.HeaderContainer>
                 <S.HeaderAtalhos>
-                    <p style={{ cursor: "pointer", color: "blue" }}
+                    <p style={{ cursor: "pointer" }}
                         onClick={() => navigate("/principal")}>
                         Página<br /> Inicial
                     </p>
                     <p>
                         Calendário de <br /> de visitas
                     </p>
-                    <p style={{ cursor: "pointer", color: "blue" }}
+                    <p style={{ cursor: "pointer"}}
                         onClick={() => navigate("/listagem")}>
                         Listar<br /> Pacientes
                     </p>
-                    <p style={{ cursor: "pointer", color: "blue" }}
+                    <p style={{ cursor: "pointer"}}
                         onClick={() => navigate("/cadastro-de-Paciente")}>
                         Novo<br /> Paciente
                     </p>
-                    <p style={{ cursor: "pointer", color: "blue" }}
+                    <p style={{ cursor: "pointer"}}
                         onClick={() => navigate("/cadastro-de-Profissional")}>
                         Novo<br /> Profissional
                     </p>
