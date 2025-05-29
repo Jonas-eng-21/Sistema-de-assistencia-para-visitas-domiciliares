@@ -33,3 +33,11 @@ export const buttonStyle = styled.button`
   alignItems: 'center',
   justifyContent: 'center'
 `;
+
+export const navegacaoHeader = styled.p`
+   cursor: "pointer", 
+   transition: "background 0.2s, 
+   color 0.2s", 
+   borderRadius: "6px", 
+   padding: "4px 8px"
+   `
