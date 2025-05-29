@@ -20,9 +20,23 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Paper from "@mui/material/Paper";
 import ControlPointTwoToneIcon from "@mui/icons-material/ControlPointTwoTone";
+import { useNavigate } from "react-router-dom";
 
 const Row = ({ patient }: { patient: Patient }) => {
   const [open, setOpen] = React.useState(false);
+
+  const getPrioridadeColor = (prioridade: string) => {
+    switch (prioridade.toUpperCase()) {
+      case "VERMELHO":
+        return "red";
+      case "AMARELO":
+        return "yellow";
+      case "VERDE":
+        return "green";
+      default:
+        return "black";
+    }
+  };
 
   return (
     <>
@@ -36,7 +50,17 @@ const Row = ({ patient }: { patient: Patient }) => {
         <TableCell>{patient.cpf}</TableCell>
         <TableCell>{patient.email}</TableCell>
         <TableCell>{patient.doenca}</TableCell>
-        <TableCell>{patient.prioridade}</TableCell>
+        <TableCell>
+          <span
+            style={{
+              color: getPrioridadeColor(patient.prioridade),
+              fontWeight: "bold",
+            }}
+          >
+            {patient.prioridade.charAt(0).toUpperCase() +
+              patient.prioridade.slice(1).toLowerCase()}
+          </span>
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell colSpan={6} style={{ paddingBottom: 0, paddingTop: 0 }}>
@@ -58,11 +82,13 @@ const Row = ({ patient }: { patient: Patient }) => {
 
 const ListagemPaciente = () => {
   const [patients, setPatients] = React.useState<Patient[]>([]);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const fetchPatients = async () => {
       const data = await getAllPatientsAPI();
       if (data) setPatients(data);
+      console.log("Pacientes carregados:", data);
     };
 
     fetchPatients();
@@ -72,7 +98,10 @@ const ListagemPaciente = () => {
     <S.Container>
       <Header />
       <S.ContainerTable>
-        <Button className="button">
+        <Button
+          className="button"
+          onClick={() => navigate("/cadastro-de-Paciente")}
+        >
           <p className="text">Novo Paciente</p>
           <ControlPointTwoToneIcon />
         </Button>

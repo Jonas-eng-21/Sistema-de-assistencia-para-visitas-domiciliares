@@ -27,7 +27,10 @@ const Header = () => {
             Listar
             <br /> Pacientes
           </p>
-          <p>
+          <p
+            style={{ cursor: "pointer", color: "blue" }}
+            onClick={() => navigate("/cadastro-de-Paciente")}
+          >
             Novo
             <br /> Paciente
           </p>
