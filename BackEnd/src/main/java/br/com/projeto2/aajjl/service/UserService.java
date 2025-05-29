@@ -39,11 +39,11 @@ public class UserService {
 
         User savedUser = userRepository.save(newUser);
 
-        emailService.enviarEmailSimples(
+        /*emailService.enviarEmailSimples(
                 savedUser.getEmail(),
                 "Bem-vindo ao Sistema de assistencia para visitas domiciliares",
                 "Olá " + savedUser.getNome() + ", seu cadastro foi realizado com sucesso!"
-        );
+        );*/
 
         String token = this.tokenService.generateToken(savedUser);
         return new ResponseDTO(
