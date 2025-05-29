@@ -7,6 +7,7 @@ import Cadastro from "../pages/cadastroUser";
 import { useAuth } from "../context/AuthContext";
 import CadastroProfissional from "../pages/cadastroProfissional";
 import CadastroPaciente from "../pages/cadastroPaciente";
+import Agendamento from "../pages/agendamento";
 
 export const AppRoutes = () => {
   const { isLoggedIn, isReady } = useAuth();
@@ -51,6 +52,14 @@ export const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <CadastroPaciente />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/agendar-visita"
+        element={
+          <ProtectedRoute>
+            <Agendamento />
           </ProtectedRoute>
         }
       />

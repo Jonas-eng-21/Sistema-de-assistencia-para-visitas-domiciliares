@@ -6,7 +6,6 @@ import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.repository.UserRepository;
 import br.com.projeto2.aajjl.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +39,7 @@ public class UserService {
 
         User savedUser = userRepository.save(newUser);
 
-        emailService.sendSimpleMail(
+        emailService.enviarEmailSimples(
                 savedUser.getEmail(),
                 "Bem-vindo ao Sistema de assistencia para visitas domiciliares",
                 "Olá " + savedUser.getNome() + ", seu cadastro foi realizado com sucesso!"
