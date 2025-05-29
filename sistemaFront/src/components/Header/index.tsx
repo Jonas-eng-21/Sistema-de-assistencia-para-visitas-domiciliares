@@ -1,10 +1,12 @@
 import * as S from './style';
 import React from 'react';
-import { useAuth } from "../../context/AuthContext"; 
+import { useAuth } from "../../context/AuthContext";
+
 
 const Header: React.FC = () => {
-    const { user } = useAuth();
+    const { user, logout} = useAuth();
     const [showOptions, setShowOptions] = React.useState(false);
+    // const navigate = useNavigate();
 
     return (
         <S.HeaderContainer>
@@ -42,7 +44,6 @@ const Header: React.FC = () => {
                             background: 'none',
                             border: 'none',
                             cursor: 'pointer',
-                            marginTop: "40%",
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
