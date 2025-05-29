@@ -1,0 +1,19 @@
+[33m7590aa6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeat-auth[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: pull origin main: Fast-forward
+[33m6bf00ce[m HEAD@{1}: pull origin main: Fast-forward
+[33m2eff2b4[m[33m ([m[1;31morigin/feat-auth[m[33m)[m HEAD@{2}: commit: Sistema de autenticação completo
+[33md135729[m HEAD@{3}: commit: Refatorando sistema de autenticação no Back e Front - Sistema funcional 100%
+[33md55b3a9[m HEAD@{4}: commit (merge): resolving conflict and complete merge
+[33mb11e3c6[m HEAD@{5}: commit: work in progress
+[33mc49b411[m HEAD@{6}: commit: Refatorando sistema de autenticação de usuários no backend
+[33m173206a[m HEAD@{7}: merge origin/Antonio-Dev: Merge made by the 'ort' strategy.
+[33m25d594e[m HEAD@{8}: reset: moving to 25d594e32fb60c9159c8678ef118549b6db2d70a
+[33mfae5faa[m HEAD@{9}: pull: Fast-forward
+[33m25d594e[m HEAD@{10}: reset: moving to 25d594e32fb60c9159c8678ef118549b6db2d70a
+[33mfae5faa[m HEAD@{11}: commit: Sistema de login no back está em andamento
+[33m023e726[m HEAD@{12}: commit: Sistema de login no back está em andamento
+[33m25d594e[m HEAD@{13}: commit: Implementação do estado global de autenticação com Context API, persistência via localStorage e rotas protegidas
+[33m9c4ae58[m HEAD@{14}: commit: feat: implementa cadastro de usuário no front integrado à API e MySQL local
+[33mba59335[m HEAD@{15}: commit: Sistema de autenticação do front
+[33m4eec4cb[m[33m ([m[1;32mmain[m[33m)[m HEAD@{16}: checkout: moving from main to feat-auth
+[33m4eec4cb[m[33m ([m[1;32mmain[m[33m)[m HEAD@{17}: pull: Fast-forward
+[33mfbf4d49[m HEAD@{18}: clone: from https://github.com/Jonas-eng-21/Sistema-de-assistencia-para-visitas-domiciliares.git
