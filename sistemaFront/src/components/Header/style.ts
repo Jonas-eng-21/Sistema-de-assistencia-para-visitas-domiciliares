@@ -18,8 +18,26 @@ export const HeaderAtalhos = styled.div`
 
 export const HeaderLadoDireito = styled.div`
   display: flex;
-    justify-content: space-between;
-    margin-right: 2em;
-    align-items: right;
-    gap: 1em;
-`
+  align-items: center; /* centraliza os itens verticalmente */
+  justify-content: flex-end;
+  gap: 1em;
+  margin-right: 2em;
+`;
+
+export const buttonStyle = styled.button`
+  background: 'none',
+  border: 'none',
+  cursor: 'pointer',
+  padding: '5px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+`;
+
+export const navegacaoHeader = styled.p`
+   cursor: "pointer", 
+   transition: "background 0.2s, 
+   color 0.2s", 
+   borderRadius: "6px", 
+   padding: "4px 8px"
+   `

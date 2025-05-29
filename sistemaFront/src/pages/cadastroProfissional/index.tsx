@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAuth } from "../../context/AuthContext";
+import Header from "../../components/Header";
 
 const schema = yup.object({
   nome: yup.string().required("Nome é obrigatório"),
@@ -30,7 +31,7 @@ const schema = yup.object({
 
 type FormData = yup.InferType<typeof schema>;
 
-const Cadastro = () => {
+const CadastroProfissional = () => {
   const { registerUser } = useAuth();
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -56,13 +57,12 @@ const Cadastro = () => {
   };
 
   return (
-    <S.Background>
-      <S.Container style={{ width: "auto", minWidth: "600px" }}>
+      <S.Container>
+        <Header />
         <S.Title>Cadastro de Profissional</S.Title>
-        <S.Card className="divcadastro" style={{ width: "100%", minWidth: "400px", alignItems: "stretch" }}>
+        <S.Card>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="padd">
-              <S.TituloForm>Nome:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Nome"
@@ -73,7 +73,6 @@ const Cadastro = () => {
               />
             </div>
             <div className="padd">
-              <S.TituloForm>CPF:</S.TituloForm>
               <TextField
                 fullWidth
                 label="CPF"
@@ -84,7 +83,6 @@ const Cadastro = () => {
               />
             </div>
             <div className="padd">
-              <S.TituloForm>Conselho Regional:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Conselho Regional"
@@ -95,7 +93,6 @@ const Cadastro = () => {
               />
             </div>
             <div className="padd">
-              <S.TituloForm>Email:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Email"
@@ -106,7 +103,6 @@ const Cadastro = () => {
               />
             </div>
             <div className="padd">
-              <S.TituloForm>Senha:</S.TituloForm>
               <FormControl variant="filled" fullWidth>
                 <InputLabel htmlFor="filled-password">Senha</InputLabel>
                 <FilledInput
@@ -134,7 +130,6 @@ const Cadastro = () => {
               </FormControl>
             </div>
             <div className="padd">
-              <S.TituloForm>Profissão:</S.TituloForm>
               <FormControl fullWidth variant="filled">
                 <InputLabel id="profissao-label">Profissão</InputLabel>
                 <Select
@@ -168,59 +163,19 @@ const Cadastro = () => {
                 )}
               </FormControl>
             </div>
-            <div style={{ display: "flex", gap: "16px" }}>
-              <Button
-              variant="contained"
-              fullWidth
-              onClick={() => window.history.back()}
-              sx={{
-                backgroundColor: "#bdbdbd",
-                color: "#000000",
-                padding: "10px 0",
-                borderRadius: "8px",
-                fontSize: "1rem",
-                boxShadow: "0 2px 8px rgba(189, 189, 189, 0.15)",
-                textTransform: "none",
-                transition: "background 0.2s",
-                "&:hover": {
-                backgroundColor: "#9e9e9e",
-                },
-              }}
-              >
-              Voltar
-              </Button>
-              <Button
+            <Button
               type="submit"
               variant="contained"
               className="button"
               fullWidth
               disabled={!isValid}
-              sx={{
-                backgroundColor: "#98B8F3",
-                color: "#000000",
-                padding: "10px 0",
-                borderRadius: "8px",
-                fontSize: "1rem",
-                boxShadow: "0 2px 8px rgba(25, 118, 210, 0.15)",
-                textTransform: "none",
-                transition: "background 0.2s",
-                "&:hover": {
-                backgroundColor: "#6f87b3",
-                },
-                "&.Mui-disabled": {
-                backgroundColor: "#bdbdbd",
-                color: "#000000",
-                },
-              }}
-              >
+            >
               Cadastrar
-              </Button>
-            </div>
+            </Button>
           </form>
         </S.Card>
       </S.Container>
-    </S.Background>
   );
 };
 
-export default Cadastro;
+export default CadastroProfissional;
