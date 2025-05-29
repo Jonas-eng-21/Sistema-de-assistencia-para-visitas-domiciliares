@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as S from "./style";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAuth } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const schema = yup.object({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
@@ -22,7 +22,8 @@ const schema = yup.object({
 type FormData = yup.InferType<typeof schema>;
 
 const Login = () => {
-  const { loginUser } = useAuth();
+  const { loginUser, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const {
@@ -48,6 +49,12 @@ const Login = () => {
   const onSubmit = (data: FormData) => {
     loginUser(data.email, data.senha);
   };
+
+  useEffect(() => {
+    if (isLoggedIn()) {
+      navigate("/principal", { replace: true });
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <S.Background>
