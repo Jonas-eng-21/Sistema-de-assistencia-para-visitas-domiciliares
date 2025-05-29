@@ -1,6 +1,6 @@
 package br.com.projeto2.aajjl.service;
 
-import br.com.projeto2.aajjl.dto.ResponseDTO;
+import br.com.projeto2.aajjl.dto.responses.ResponseDTO;
 import br.com.projeto2.aajjl.model.Profession;
 import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.repository.UserRepository;
@@ -39,11 +39,11 @@ public class UserService {
 
         User savedUser = userRepository.save(newUser);
 
-        emailService.enviarEmailSimples(
+        /*emailService.enviarEmailSimples(
                 savedUser.getEmail(),
                 "Bem-vindo ao Sistema de assistencia para visitas domiciliares",
                 "Olá " + savedUser.getNome() + ", seu cadastro foi realizado com sucesso!"
-        );
+        );*/
 
         String token = this.tokenService.generateToken(savedUser);
         return new ResponseDTO(

@@ -1,10 +1,15 @@
 package br.com.projeto2.aajjl.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Agendamento")
@@ -32,32 +37,34 @@ public class Schedule {
     //Paciente do agendamento(Quem é atendido)
     @ManyToOne
     @JoinColumn(name = "paciente_id", nullable = false)
-    private Patient pacinete; //aqui temos o paciente do agendamento em questão
+    private Patient paciente; //aqui temos o paciente do agendamento em questão
 
     //Atributos do agendamento em si
     private Shift turno;
     //Data
-    private Integer dia;
-    private String mes;
-    private Integer ano;
+    @Column(name = "data_agendamento")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dataAgendamento;
+    @CreationTimestamp
+    @Column(name = "data_criacao", nullable = false, updatable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dataCriacao;
 
     private String observacao;
     private String motivoDoAtendimento;
     private Priority prioridade;
 
     //Construtor
-    public Schedule(Boolean concluido, User user, Patient pacinete,
-                    Shift turno, Integer dia, String mes, Integer ano,
+    public Schedule(Boolean concluido, User user, Patient paciente,
+                    Shift turno, LocalDateTime dataAgendamento,
                     String observacao, String motivoDoAtendimento,
                     Priority prioridade) {
 
         this.concluido = concluido;
         this.user = user;
-        this.pacinete = pacinete;
+        this.paciente = paciente;
         this.turno = turno;
-        this.dia = dia;
-        this.mes = mes;
-        this.ano = ano;
+        this.dataAgendamento = dataAgendamento;
         this.observacao = observacao;
         this.motivoDoAtendimento = motivoDoAtendimento;
         this.prioridade = prioridade;
@@ -68,11 +75,9 @@ public class Schedule {
         return "Agendamento{" +
                 "concluido=" + concluido +
                 ", user=" + user +
-                ", pacinete=" + pacinete +
+                ", paciente=" + paciente +
                 ", turno=" + turno +
-                ", dia=" + dia +
-                ", mes='" + mes + '\'' +
-                ", ano=" + ano +
+                ", data=" + dataAgendamento +
                 ", observacao='" + observacao + '\'' +
                 ", motivoDoAtendimento='" + motivoDoAtendimento + '\'' +
                 ", prioridade=" + prioridade +
