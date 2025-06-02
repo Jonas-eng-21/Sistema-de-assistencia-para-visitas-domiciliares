@@ -5,7 +5,8 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import ListagemPaciente from "../pages/ListagemPaciente";
 import Cadastro from "../pages/cadastroUser";
 import Agendamento from "../pages/agendamento";
-import ForgotPassword from './pages/ForgotPassword';
+import ForgotPassword from '../pages/ForgotPassword';
+import ResetPassword from '../pages/ResetPassword';
 
 export const AppRoutes = () => {
   return (
@@ -30,6 +31,7 @@ export const AppRoutes = () => {
       />
       <Route path="/agendar-visita" element={<ProtectedRoute><Agendamento /></ProtectedRoute>} />
         
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
         
     </Routes>
