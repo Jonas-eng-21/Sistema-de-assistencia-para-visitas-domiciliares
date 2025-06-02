@@ -117,9 +117,17 @@ const Login = () => {
             </Button>
             <div className="Txt">
                 <span>Não tem uma conta ainda? </span>
-                <Link to="/cadastro" className="txt2">
-                  <span>Cadastre-se</span>
-                </Link>
+              <span>Não tem uma conta ainda? </span>
+              <Link to="/cadastro" className="txt2">
+                <span>Cadastre-se</span>
+              </Link>
+            </div>
+
+            <div className="Txt" style={{ marginTop: "8px" }}>
+              <span>Esqueceu sua senha? </span>
+              <Link to="/forgotpassword" className="txt2">
+                <span>clique aqui</span>
+              </Link>
             </div>
           </form>
         </S.Card>
