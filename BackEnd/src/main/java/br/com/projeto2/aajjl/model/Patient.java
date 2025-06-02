@@ -1,11 +1,13 @@
 package br.com.projeto2.aajjl.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -40,6 +42,9 @@ public class Patient {
     private String email;
     private String doenca;
     private String observacao;
+    @Column(name = "data_nascimento")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dataNascimento;
 
     //atributos endereço
     private String cep;
@@ -59,7 +64,7 @@ public class Patient {
                    String email, String doenca, String cep,
                    String rua, String numero, String bairro,
                    String complemento, String cidade,
-                   String estado, Priority prioridade) {
+                   String estado, Priority prioridade, LocalDate dataNascimento) {
 
         this.id = id;
         this.nome = nome;
@@ -74,6 +79,7 @@ public class Patient {
         this.cidade = cidade;
         this.estado = estado;
         this.prioridade = prioridade;
+        this.dataNascimento = dataNascimento;
 
     }
 

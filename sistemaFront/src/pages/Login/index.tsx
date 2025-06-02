@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as S from "./style";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAuth } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const schema = yup.object({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
@@ -22,7 +22,8 @@ const schema = yup.object({
 type FormData = yup.InferType<typeof schema>;
 
 const Login = () => {
-  const { loginUser } = useAuth();
+  const { loginUser, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const {
@@ -49,12 +50,19 @@ const Login = () => {
     loginUser(data.email, data.senha);
   };
 
+  useEffect(() => {
+    if (isLoggedIn()) {
+      navigate("/principal", { replace: true });
+    }
+  }, [isLoggedIn, navigate]);
+
   return (
     <S.Background>
       <S.Container>
         <S.Title>Agendamento de visitas</S.Title>
         <S.Card>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <S.TituloForm>Email:</S.TituloForm>
             <div className="padd">
               <TextField
                 fullWidth
@@ -66,10 +74,8 @@ const Login = () => {
               />
             </div>
             <div className="padd">
-              <FormControl
-                sx={{ marginTop: 1, width: "100%" }}
-                variant="filled"
-              >
+              <S.TituloForm>Senha:</S.TituloForm>
+              <FormControl sx={{width: "100%" }} variant="filled"  >
                 <InputLabel
                   id="filled-basic"
                   htmlFor="filled-adornment-password"
@@ -112,14 +118,35 @@ const Login = () => {
               className="button"
               fullWidth
               disabled={!isValid}
+              sx={{
+                backgroundColor: "#98B8F3",
+                color: "#000000",
+                padding: "10px 0",
+                borderRadius: "8px",
+                fontSize: "1rem",
+                boxShadow: "0 2px 8px rgba(25, 118, 210, 0.15)",
+                textTransform: "none",
+                transition: "background 0.2s",
+                "&:hover": {
+                  backgroundColor: "#6f87b3",
+                },
+                "&.Mui-disabled": {
+                  backgroundColor: "#bdbdbd",
+                  color: "#000000",
+                },
+              }}
             >
               Entrar
             </Button>
-            <div className="Txt">
+
+            {/* TODO: Tirar o cadastro antes do dia da aprensentação, o usuario só pode ser cadastrado pelo admin */}
+            <div className="Txt" style={{ marginTop: "1.5rem" }}>
+
               <span>Não tem uma conta ainda? </span>
               <Link to="/cadastro" className="txt2">
                 <span>Cadastre-se</span>
               </Link>
+
             </div>
 
             <div className="Txt" style={{ marginTop: "8px" }}>
@@ -127,6 +154,7 @@ const Login = () => {
               <Link to="/forgot-password" className="txt2">
                 <span>clique aqui</span>
               </Link>
+
             </div>
           </form>
         </S.Card>
