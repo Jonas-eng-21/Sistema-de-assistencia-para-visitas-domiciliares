@@ -116,7 +116,6 @@ const Login = () => {
               Entrar
             </Button>
             <div className="Txt">
-                <span>Não tem uma conta ainda? </span>
               <span>Não tem uma conta ainda? </span>
               <Link to="/cadastro" className="txt2">
                 <span>Cadastre-se</span>
@@ -125,7 +124,7 @@ const Login = () => {
 
             <div className="Txt" style={{ marginTop: "8px" }}>
               <span>Esqueceu sua senha? </span>
-              <Link to="/forgotpassword" className="txt2">
+              <Link to="/forgot-password" className="txt2">
                 <span>clique aqui</span>
               </Link>
             </div>
