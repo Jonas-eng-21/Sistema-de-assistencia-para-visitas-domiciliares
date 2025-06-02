@@ -18,6 +18,7 @@ public class ScheduleController {
 
     @PostMapping
     public ResponseEntity<Schedule> create(@RequestBody Schedule newSchedule) {
+        newSchedule.setConcluido(false); //AGENDAMENTO INICIA COMO NAO CONCLUIDO
         return ResponseEntity.ok(scheduleService.create(newSchedule));
     }
 

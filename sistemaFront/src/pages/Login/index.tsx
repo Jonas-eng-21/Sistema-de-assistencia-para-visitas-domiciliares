@@ -138,12 +138,23 @@ const Login = () => {
             >
               Entrar
             </Button>
+
             {/* TODO: Tirar o cadastro antes do dia da aprensentação, o usuario só pode ser cadastrado pelo admin */}
             <div className="Txt" style={{ marginTop: "1.5rem" }}>
+
               <span>Não tem uma conta ainda? </span>
               <Link to="/cadastro" className="txt2">
                 <span>Cadastre-se</span>
               </Link>
+
+            </div>
+
+            <div className="Txt" style={{ marginTop: "8px" }}>
+              <span>Esqueceu sua senha? </span>
+              <Link to="/forgot-password" className="txt2">
+                <span>clique aqui</span>
+              </Link>
+
             </div>
           </form>
         </S.Card>
