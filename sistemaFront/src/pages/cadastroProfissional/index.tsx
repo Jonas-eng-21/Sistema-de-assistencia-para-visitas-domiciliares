@@ -60,9 +60,10 @@ const CadastroProfissional = () => {
       <S.Container>
         <Header />
         <S.Title>Cadastro de Profissional</S.Title>
-        <S.Card>
+        <S.Card className="divcadastro" style={{ width: "100%", minWidth: "400px", alignItems: "stretch", padding: "20px" }}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="padd">
+              <S.TituloForm>Nome:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Nome"
@@ -73,6 +74,7 @@ const CadastroProfissional = () => {
               />
             </div>
             <div className="padd">
+              <S.TituloForm>CPF:</S.TituloForm>
               <TextField
                 fullWidth
                 label="CPF"
@@ -83,6 +85,7 @@ const CadastroProfissional = () => {
               />
             </div>
             <div className="padd">
+              <S.TituloForm>Conselho Regional:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Conselho Regional"
@@ -93,6 +96,7 @@ const CadastroProfissional = () => {
               />
             </div>
             <div className="padd">
+              <S.TituloForm>Email:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Email"
@@ -103,6 +107,7 @@ const CadastroProfissional = () => {
               />
             </div>
             <div className="padd">
+              <S.TituloForm>Senha:</S.TituloForm>
               <FormControl variant="filled" fullWidth>
                 <InputLabel htmlFor="filled-password">Senha</InputLabel>
                 <FilledInput
@@ -130,6 +135,7 @@ const CadastroProfissional = () => {
               </FormControl>
             </div>
             <div className="padd">
+              <S.TituloForm>Profissão:</S.TituloForm>
               <FormControl fullWidth variant="filled">
                 <InputLabel id="profissao-label">Profissão</InputLabel>
                 <Select
@@ -169,6 +175,23 @@ const CadastroProfissional = () => {
               className="button"
               fullWidth
               disabled={!isValid}
+              sx={{
+                backgroundColor: "#98B8F3",
+                color: "#000000",
+                padding: "10px 0",
+                borderRadius: "8px",
+                fontSize: "1rem",
+                boxShadow: "0 2px 8px rgba(25, 118, 210, 0.15)",
+                textTransform: "none",
+                transition: "background 0.2s",
+                "&:hover": {
+                backgroundColor: "#6f87b3",
+                },
+                "&.Mui-disabled": {
+                backgroundColor: "#bdbdbd",
+                color: "#000000",
+                },
+              }}
             >
               Cadastrar
             </Button>
