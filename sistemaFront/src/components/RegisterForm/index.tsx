@@ -13,8 +13,17 @@ const RegisterForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const dados = {
+      nome,
+      email,
+      senha,
+      cpf,
+      profissao,
+      consenhoRegional: conselho,
+       ativo: true,
+    };
     try {
-      const response = await registerAPI(nome, email, senha);
+      const response = await registerAPI(dados);
       setMensagem("Usuário cadastrado com sucesso!");
       console.log(response);
     } catch (error) {
@@ -78,7 +87,8 @@ const RegisterForm = () => {
         <option value="ASSISTENTE_SOCIAL">Assistente Social</option>
         <option value="PSICOLOGO">Psicólogo</option>
       </select>
-      <br /><br />
+      <br />
+      <br />
 
       <button type="submit">Cadastrar</button>
       <p>{mensagem}</p>
