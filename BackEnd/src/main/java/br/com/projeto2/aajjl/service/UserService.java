@@ -1,6 +1,7 @@
 package br.com.projeto2.aajjl.service;
 
-import br.com.projeto2.aajjl.dto.ResponseDTO;
+
+import br.com.projeto2.aajjl.dto.responses.ResponseDTO;
 import br.com.projeto2.aajjl.model.PasswordResetToken;
 
 import br.com.projeto2.aajjl.model.Profession;
