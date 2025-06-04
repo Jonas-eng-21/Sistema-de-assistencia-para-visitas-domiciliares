@@ -1,5 +1,7 @@
 package br.com.projeto2.aajjl.controller;
 
+import br.com.projeto2.aajjl.dto.requests.ScheduleRequestDTO;
+import br.com.projeto2.aajjl.dto.responses.ScheduleResponseDTO;
 import br.com.projeto2.aajjl.model.Schedule;
 import br.com.projeto2.aajjl.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,9 @@ public class ScheduleController {
     private ScheduleService scheduleService;
 
     @PostMapping
-    public ResponseEntity<Schedule> create(@RequestBody Schedule newSchedule) {
-        newSchedule.setConcluido(false); //AGENDAMENTO INICIA COMO NAO CONCLUIDO
-        return ResponseEntity.ok(scheduleService.create(newSchedule));
+    public ResponseEntity<ScheduleResponseDTO> create(@RequestBody ScheduleRequestDTO newSchedule) {
+        ScheduleResponseDTO scheduleResponseDTO = scheduleService.create(newSchedule);
+        return ResponseEntity.ok(scheduleResponseDTO);
     }
 
     @GetMapping

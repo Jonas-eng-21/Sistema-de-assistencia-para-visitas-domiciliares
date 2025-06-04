@@ -1,7 +1,8 @@
 package br.com.projeto2.aajjl.service;
 
+import br.com.projeto2.aajjl.dto.requests.ScheduleRequestDTO;
+import br.com.projeto2.aajjl.dto.responses.ScheduleResponseDTO;
 import br.com.projeto2.aajjl.model.Schedule;
-import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class ScheduleService {
         );
     }
 
-    public Schedule create(Schedule newSchedule) {
+    public ScheduleResponseDTO create(ScheduleRequestDTO newSchedule) {
         newSchedule.setConcluido(false); // Agendamentos começam como não concluídos
         Schedule savedSchedule = scheduleRepository.save(newSchedule);
 

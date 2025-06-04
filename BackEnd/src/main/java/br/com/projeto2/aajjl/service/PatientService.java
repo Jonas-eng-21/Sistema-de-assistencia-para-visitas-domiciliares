@@ -1,5 +1,7 @@
 package br.com.projeto2.aajjl.service;
 
+import br.com.projeto2.aajjl.dto.requests.PatientRequestDTO;
+import br.com.projeto2.aajjl.dto.responses.PatientResponseDTO;
 import br.com.projeto2.aajjl.model.Patient;
 import br.com.projeto2.aajjl.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ public class PatientService {
     @Autowired
     private EmailSenderService emailService;
 
-    public Patient create(Patient newPatient) {
+    public PatientResponseDTO create(PatientRequestDTO newPatient) {
         newPatient.setAtivo(true);
         Patient savedPatient = patientRepository.save(newPatient);
 
