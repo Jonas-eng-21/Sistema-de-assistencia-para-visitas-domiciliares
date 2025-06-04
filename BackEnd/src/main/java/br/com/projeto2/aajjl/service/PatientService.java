@@ -38,7 +38,7 @@ public class PatientService {
     public Optional<Patient> getById(Long id) {
         return patientRepository.findById(id);
     }
-    
+
 
     public Optional<Patient> update(Long id, Patient newData) {
         return patientRepository.findById(id).map(patient -> {
