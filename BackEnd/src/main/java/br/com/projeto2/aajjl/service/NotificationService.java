@@ -16,11 +16,16 @@ public class NotificationService {
     @Autowired
     private NotificationRepository notificationRepository;
 
-    public NotificationResponseDTO create(NotificationRequestDTO newNotification) {
-
+    public NotificationResponseDTO create(Notification newNotification) {
         newNotification.setVisto(false);
-
-        return notificationRepository.save(newNotification);
+        Notification save = notificationRepository.save(newNotification);
+        return new NotificationResponseDTO(
+                save.getId(),
+                save.getUserNotified(),
+                save.getSchedule_id(),
+                save.getTexto(),
+                save.getVisto()
+        );
 
     }
 
