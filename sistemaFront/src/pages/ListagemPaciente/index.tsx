@@ -18,12 +18,14 @@ import {
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import EditIcon from "@mui/icons-material/Edit";
 import Paper from "@mui/material/Paper";
 import ControlPointTwoToneIcon from "@mui/icons-material/ControlPointTwoTone";
 import { useNavigate } from "react-router-dom";
 
 const Row = ({ patient }: { patient: Patient }) => {
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const getPrioridadeColor = (prioridade: string | number) => {
     const prioridadeStr = String(prioridade).toUpperCase();
@@ -64,6 +66,11 @@ const Row = ({ patient }: { patient: Patient }) => {
             {String(patient.prioridade).charAt(0).toUpperCase() +
               String(patient.prioridade).slice(1).toLowerCase()}
           </span>
+        </TableCell>
+        <TableCell>
+          <Button onClick={() => navigate("/editar-paciente", { state: { id: patient.id } })}>
+            <EditIcon />
+          </Button>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -119,6 +126,7 @@ const ListagemPaciente = () => {
                 <TableCell>Email</TableCell>
                 <TableCell>Doença</TableCell>
                 <TableCell>Prioridade</TableCell>
+                <TableCell>Editar paciente</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

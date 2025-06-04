@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <>
@@ -47,6 +47,13 @@ const Header = () => {
           </p>
         </S.HeaderAtalhos>
         <S.HeaderLadoDireito>
+          <p
+            style={{ cursor: "pointer", color: "red" }}
+            onClick={logout}
+          >
+            Logout
+            <br /> 
+          </p>
           <div style={{ display: "flex" }}>
             <p>
               Bem-vindo(a)

@@ -5,8 +5,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Header from "../../components/Header";
-import { createPatientAPI } from "../../services/PacienteService";
+import {
+  getPatientByIdAPI,
+  updatePatientAPI,
+} from "../../services/PacienteService";
 import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const schema = yup.object({
   nome: yup.string().required("Nome é obrigatório"),
@@ -35,35 +40,86 @@ const schema = yup.object({
 
 type FormData = yup.InferType<typeof schema>;
 
-const CadastroPaciente = () => {
+const EditarPaciente = () => {
+  const location = useLocation();
+  const { id } = location.state || {};
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
+    reset,
   } = useForm<FormData>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
 
+  const prioridadeToNumber = (prioridadeStr: string): number => {
+    switch (prioridadeStr.toUpperCase()) {
+      case "VERMELHO":
+        return 0;
+      case "AMARELO":
+        return 1;
+      case "VERDE":
+        return 2;
+      default:
+        return 2;
+    }
+  };
+
+
+  useEffect(() => {
+    const fetchPaciente = async () => {
+      if (!id) return;
+
+      const paciente = await getPatientByIdAPI(Number(id));
+
+      if (paciente) {
+        reset({
+          nome: paciente.nome,
+          cpf: paciente.cpf,
+          email: paciente.email,
+          doenca: paciente.doenca,
+          observacao: paciente.observacao,
+          cep: paciente.cep,
+          rua: paciente.rua,
+          numero: paciente.numero,
+          bairro: paciente.bairro,
+          complemento: paciente.complemento,
+          cidade: paciente.cidade,
+          estado: paciente.estado,
+          prioridade: prioridadeToNumber(String(paciente.prioridade)),
+        });
+      } else {
+        toast.error("Paciente não encontrado");
+      }
+    };
+
+    fetchPaciente();
+  }, [id, reset]);
+
   const onSubmit = async (data: FormData) => {
     try {
-      await createPatientAPI({
+      if (!id) return;
+
+      await updatePatientAPI(Number(id), {
         ...data,
         observacao: data.observacao ?? "",
         complemento: data.complemento ?? "",
-        ativo: true,
       });
-      toast.success("Paciente cadastrado com sucesso!");
+      toast.success("Paciente atualizado com sucesso!");
+      navigate("/listagem");
     } catch (error) {
-      console.error("Erro ao cadastrar paciente:", error);
-      toast.error("Erro ao cadastrar paciente");
+      console.error("Erro ao atualizar paciente:", error);
+      toast.error("Erro ao atualizar paciente");
     }
   };
 
   return (
     <S.Container>
       <Header />
-      <S.Title>Cadastro de Paciente</S.Title>
+      <S.Title>Editar dados do Paciente</S.Title>
       <S.Card>
         <form onSubmit={handleSubmit(onSubmit)}>
           <S.ContainerInputs>
@@ -75,6 +131,11 @@ const CadastroPaciente = () => {
                 {...register("nome")}
                 error={!!errors.nome}
                 helperText={errors.nome?.message}
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
               />
             </S.Entrada>
             <S.Entrada>
@@ -85,6 +146,11 @@ const CadastroPaciente = () => {
                 {...register("cpf")}
                 error={!!errors.cpf}
                 helperText={errors.cpf?.message}
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
               />
             </S.Entrada>
             <S.Entrada>
@@ -95,6 +161,11 @@ const CadastroPaciente = () => {
                 {...register("email")}
                 error={!!errors.email}
                 helperText={errors.email?.message}
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
               />
             </S.Entrada>
           </S.ContainerInputs>
@@ -107,6 +178,11 @@ const CadastroPaciente = () => {
                 {...register("doenca")}
                 error={!!errors.doenca}
                 helperText={errors.doenca?.message}
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
               />
             </S.Entrada>
             <S.Entrada>
@@ -117,6 +193,11 @@ const CadastroPaciente = () => {
                 {...register("cep")}
                 error={!!errors.cep}
                 helperText={errors.cep?.message}
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
               />
             </S.Entrada>
             <S.Entrada>
@@ -127,6 +208,11 @@ const CadastroPaciente = () => {
                 {...register("rua")}
                 error={!!errors.rua}
                 helperText={errors.rua?.message}
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
               />
             </S.Entrada>
             <S.Entrada></S.Entrada>
@@ -140,6 +226,11 @@ const CadastroPaciente = () => {
                 {...register("numero")}
                 error={!!errors.numero}
                 helperText={errors.numero?.message}
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
               />
             </S.Entrada>
 
@@ -151,6 +242,11 @@ const CadastroPaciente = () => {
                 {...register("bairro")}
                 error={!!errors.bairro}
                 helperText={errors.bairro?.message}
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
               />
             </S.Entrada>
             <S.Entrada>
@@ -161,6 +257,11 @@ const CadastroPaciente = () => {
                 {...register("complemento")}
                 error={!!errors.complemento}
                 helperText={errors.complemento?.message}
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
               />
             </S.Entrada>
           </S.ContainerInputs>
@@ -173,6 +274,11 @@ const CadastroPaciente = () => {
                 {...register("cidade")}
                 error={!!errors.cidade}
                 helperText={errors.cidade?.message}
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
               />
             </S.Entrada>
             <S.Entrada>
@@ -183,6 +289,11 @@ const CadastroPaciente = () => {
                 {...register("estado")}
                 error={!!errors.estado}
                 helperText={errors.estado?.message}
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
               />
             </S.Entrada>
             <S.Entrada>
@@ -195,6 +306,11 @@ const CadastroPaciente = () => {
                 {...register("prioridade")}
                 error={!!errors.prioridade}
                 helperText={errors.prioridade?.message}
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
               >
                 <MenuItem value={0}>Vermelho</MenuItem>
                 <MenuItem value={1}>Amarelo</MenuItem>
@@ -210,6 +326,11 @@ const CadastroPaciente = () => {
               {...register("observacao")}
               error={!!errors.observacao}
               helperText={errors.observacao?.message}
+              slotProps={{
+                inputLabel: {
+                  shrink: true,
+                },
+              }}
             />
           </S.Entrada>
           <Button
@@ -219,7 +340,7 @@ const CadastroPaciente = () => {
             fullWidth
             disabled={!isValid}
           >
-            Cadastrar
+            Atualizar
           </Button>
         </form>
       </S.Card>
@@ -227,4 +348,4 @@ const CadastroPaciente = () => {
   );
 };
 
-export default CadastroPaciente;
+export default EditarPaciente;
