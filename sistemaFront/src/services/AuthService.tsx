@@ -1,6 +1,6 @@
 import axios from "axios";
 import { handleError } from "../helpers/ErrorHandler.";
-import type { UserProfileToken } from "../models/User";
+import type { Profession, User, UserProfileToken } from "../models/User";
 import type { RegisterData } from "../context/AuthContext";
 
 const api = "http://localhost:8080";
@@ -29,6 +29,79 @@ export const registerAPI = async (dados: RegisterData) => {
       ativo: true,
     });
     return data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+
+export const getUserByIdAPI = async (id: number) => {
+  try {
+    const response = await axios.get<User>(`${api}/${id}`);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+
+export const updateUserAPI = async (id: number, user: Partial<User>) => {
+  try {
+    const response = await axios.put<User>(`${api}/${id}`, user);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+
+export const deleteUserAPI = async (id: number) => {
+  try {
+    await axios.delete(`${api}/${id}`);
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+
+export const findUsersByNameAPI = async (name: string) => {
+  try {
+    const response = await axios.get<User[]>(`${api}/search/nome`, {
+      params: { name },
+    });
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+
+export const findUsersByProfessionAPI = async (profession: Profession) => {
+  try {
+    const response = await axios.get<User[]>(`${api}/search/profissao`, {
+      params: { profession },
+    });
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+
+export const getAllAtivosAPI = async () => {
+  try {
+    const response = await axios.get<User[]>(`${api}/ativos`);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+
+export const getAllInativosAPI = async () => {
+  try {
+    const response = await axios.get<User[]>(`${api}/inativos`);
+    return response.data;
   } catch (error) {
     handleError(error);
   }

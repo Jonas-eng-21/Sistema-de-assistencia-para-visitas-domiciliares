@@ -1,20 +1,32 @@
-export type Profissao = "MEDICO" | "ENFERMEIRO" | "ASSISTENTE_SOCIAL" | "PSICOLOGO"; // ajuste conforme seu Enum
+export type Profession = "MEDICO" | "ENFERMEIRO" | "ASSISTENTE_SOCIAL" | "PSICOLOGO";
 
-export type UserProfile = {
+
+export type User = {
+  id: number;
   nome: string;
   cpf: string;
   consenhoRegional: string;
   email: string;
-  profissao: string;
+  senha?: string;
+  profissao: Profession;
   ativo: boolean;
 };
 
 export type UserProfileToken = {
+  nome: string;
   cpf: string;
   consenhoRegional: string;
-  profissao: string;
-  ativo: boolean;
   email: string;
-  nome: string;
+  profissao: Profession;
+  ativo: boolean;
   token: string;
+};
+
+export type RegisterData = {
+  nome: string;
+  cpf: string;
+  consenhoRegional: string;
+  email: string;
+  senha: string;
+  profissao: Profession;
 };
