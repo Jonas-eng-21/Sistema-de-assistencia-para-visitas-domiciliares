@@ -4,6 +4,7 @@ package br.com.projeto2.aajjl.service;
 import br.com.projeto2.aajjl.dto.responses.ResponseDTO;
 import br.com.projeto2.aajjl.model.PasswordResetToken;
 
+import br.com.projeto2.aajjl.model.Patient;
 import br.com.projeto2.aajjl.model.Profession;
 import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.repository.PasswordResetTokenRepository;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -79,40 +81,42 @@ public class UserService {
         return userRepository.findById(id).filter(User::getAtivo);
     }
 
-    public Optional<User> update(Long id, User newData) {
-        return userRepository.findById(id).map(user -> {
+    public Optional<User> update(Long id, User novo) {
 
-            // Atualiza so oq foi enviado como nao vazio no userDetails
-            if (newData.getNome() != null && !newData.getNome().trim().isEmpty()) {
-                user.setNome(newData.getNome().trim());
+        User atual = userRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Não foi possível atualizar: usuário " + id + " não encontrado."));
+
+        for (Field field : User.class.getDeclaredFields()) {
+            field.setAccessible(true);
+
+            if ("id".equals(field.getName())) {
+                continue;
             }
 
-            if (newData.getCpf() != null && !newData.getCpf().trim().isEmpty()) {
-                user.setCpf(newData.getCpf().trim());
-            }
+            try {
+                Object novoValor = field.get(novo);
 
-            if (newData.getConsenhoRegional() != null && !newData.getConsenhoRegional().trim().isEmpty()) {
-                user.setConsenhoRegional(newData.getConsenhoRegional().trim());
-            }
+                if (novoValor == null) {
+                    continue;
+                }
+                if (novoValor instanceof String str && str.trim().isEmpty()) {
+                    continue;
+                }
 
-            if (newData.getEmail() != null && !newData.getEmail().trim().isEmpty()) {
-                user.setEmail(newData.getEmail().trim());
-            }
+                if (novoValor instanceof String str) {
+                    novoValor = str.trim();
+                }
 
-            if (newData.getSenha() != null && !newData.getSenha().trim().isEmpty()) {
-                user.setSenha(newData.getSenha().trim());
-            }
+                field.set(atual, novoValor);
 
-            if (newData.getProfissao() != null) {
-                user.setProfissao(newData.getProfissao());
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(
+                        "Erro ao atualizar o campo " + field.getName(), e);
             }
+        }
 
-            if (newData.getAtivo() != null) {
-                user.setAtivo(newData.getAtivo());
-            }
-
-            return userRepository.save(user);
-        });
+        return Optional.of(userRepository.save(atual));
     }
 
     public boolean delete(Long id) {

@@ -1,10 +1,12 @@
 package br.com.projeto2.aajjl.service;
 
 import br.com.projeto2.aajjl.model.Schedule;
+import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,68 +64,42 @@ public class ScheduleService {
         return scheduleRepository.findById(id);
     }
 
-    public Optional<Schedule> update(Long id, Schedule newData) {
+    public Optional<Schedule> update(Long id, Schedule novo) {
 
-        return scheduleRepository.findById(id).map(schedule -> {
+        Schedule atual = scheduleRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Não foi possível atualizar: agendamento " + id + " não encontrado."));
 
-            StringBuilder modificacoes = new StringBuilder("Modificações realizadas:\n");
+        for (Field field : Schedule.class.getDeclaredFields()) {
+            field.setAccessible(true);
 
-            if (newData.getUser() != null && !newData.getUser().equals(schedule.getUser())) {
-                //stringbuilder
-                modificacoes.append("- User alterado: de ").append(schedule.getUser().getNome())
-                        .append(" para ").append(newData.getUser().getNome()).append("\n");
-                //atualização da entidade
-                schedule.setUser(newData.getUser());
-            }
-            if (newData.getPaciente() != null && !newData.getPaciente().equals(schedule.getPaciente())) {
-                modificacoes.append("- Paciente alterado: de ").append(schedule.getPaciente().getNome())
-                        .append(" para ").append(newData.getPaciente().getNome()).append("\n");
-
-                schedule.setPaciente(newData.getPaciente());
-            }
-            if (newData.getTurno() != null && !newData.getTurno().equals(schedule.getTurno())) {
-                modificacoes.append("- Turno alterado: de ").append(schedule.getTurno())
-                        .append(" para ").append(newData.getTurno()).append("\n");
-
-                schedule.setTurno(newData.getTurno());
-            }
-            if (newData.getObservacao() != null && !newData.getObservacao().trim().isEmpty() && !newData.getObservacao().equals(schedule.getObservacao())) {
-                modificacoes.append("- Observação alterada.\n");
-
-                schedule.setObservacao(newData.getObservacao().trim());
-            }
-            if (newData.getMotivoDoAtendimento() != null && !newData.getMotivoDoAtendimento().trim().isEmpty() && !newData.getMotivoDoAtendimento().equals(schedule.getMotivoDoAtendimento())) {
-                modificacoes.append("- Motivo do Atendimento alterado.\n");
-
-                schedule.setMotivoDoAtendimento(newData.getMotivoDoAtendimento().trim());
-            }
-            if (newData.getPrioridade() != null && !newData.getPrioridade().equals(schedule.getPrioridade())) {
-                modificacoes.append("- Prioridade alterada: de ").append(schedule.getPrioridade())
-                        .append(" para ").append(newData.getPrioridade()).append("\n");
-
-                schedule.setPrioridade(newData.getPrioridade());
-            }
-            if (newData.getConcluido() != null && !newData.getConcluido().equals(schedule.getConcluido())) {
-                modificacoes.append("- Status alterado: de ").append(schedule.getConcluido() ? "Concluído" : "Não Concluído")
-                        .append(" para ").append(newData.getConcluido() ? "Concluído" : "Não Concluído").append("\n");
-
-                schedule.setConcluido(newData.getConcluido());
+            if ("id".equals(field.getName())) {
+                continue;
             }
 
-            Schedule updatedSchedule = scheduleRepository.save(schedule);
+            try {
+                Object novoValor = field.get(novo);
 
-            String assunto = "Atualização no agendamento";
-            String mensagem = modificacoes.toString() + "\n\nResumo atual do agendamento:\n\n" +
-                    criarResumoDoAgendamento(updatedSchedule);
+                if (novoValor == null) {
+                    continue;
+                }
+                if (novoValor instanceof String str && str.trim().isEmpty()) {
+                    continue;
+                }
 
-            String emailUser = updatedSchedule.getUser().getEmail();
-            emailService.enviarEmailSimples(emailUser, assunto, mensagem);
+                if (novoValor instanceof String str) {
+                    novoValor = str.trim();
+                }
 
-            String emailPaciente = updatedSchedule.getPaciente().getEmail();
-            emailService.enviarEmailSimples(emailPaciente, assunto, mensagem);
+                field.set(atual, novoValor);
 
-            return updatedSchedule;
-        });
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(
+                        "Erro ao atualizar o campo " + field.getName(), e);
+            }
+        }
+
+        return Optional.of(scheduleRepository.save(atual));
     }
 
 
