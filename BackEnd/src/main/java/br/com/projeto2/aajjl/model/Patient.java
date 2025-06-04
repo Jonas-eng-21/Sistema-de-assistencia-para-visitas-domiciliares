@@ -25,7 +25,7 @@ public class Patient {
     private Long id;
 
     //Atributos de relacionamento das tabelas no BD
-    @OneToMany(mappedBy = "pacinete")
+    @OneToMany(mappedBy = "paciente")
     private List<Schedule> agendamentos; //aqui temos a lista de agendamentos relacionados ao cliente
 
     @ManyToOne
