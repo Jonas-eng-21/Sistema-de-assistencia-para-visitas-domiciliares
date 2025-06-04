@@ -77,6 +77,8 @@ const CadastroPaciente = () => {
                 helperText={errors.nome?.message}
               />
             </S.Entrada>
+          </S.ContainerInputs>
+          <S.ContainerInputs>
             <S.Entrada>
               <TextField
                 fullWidth
@@ -87,6 +89,8 @@ const CadastroPaciente = () => {
                 helperText={errors.cpf?.message}
               />
             </S.Entrada>
+          </S.ContainerInputs>
+          <S.ContainerInputs>
             <S.Entrada>
               <TextField
                 fullWidth
@@ -97,6 +101,21 @@ const CadastroPaciente = () => {
                 helperText={errors.email?.message}
               />
             </S.Entrada>
+          </S.ContainerInputs>
+          <S.ContainerInputs><S.Entrada>
+            <TextField
+              fullWidth
+              select
+              label="Prioridade"
+              variant="filled"
+              {...register("prioridade")}
+              error={!!errors.prioridade}
+              helperText={errors.prioridade?.message}>
+              <MenuItem value={0}>Vermelho</MenuItem>
+              <MenuItem value={1}>Amarelo</MenuItem>
+              <MenuItem value={2}>Verde</MenuItem>
+            </TextField>
+          </S.Entrada>
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
@@ -109,16 +128,8 @@ const CadastroPaciente = () => {
                 helperText={errors.doenca?.message}
               />
             </S.Entrada>
-            <S.Entrada>
-              <TextField
-                fullWidth
-                label="CEP"
-                variant="filled"
-                {...register("cep")}
-                error={!!errors.cep}
-                helperText={errors.cep?.message}
-              />
-            </S.Entrada>
+          </S.ContainerInputs>
+          <S.ContainerInputs>
             <S.Entrada>
               <TextField
                 fullWidth
@@ -129,7 +140,6 @@ const CadastroPaciente = () => {
                 helperText={errors.rua?.message}
               />
             </S.Entrada>
-            <S.Entrada></S.Entrada>
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
@@ -142,7 +152,18 @@ const CadastroPaciente = () => {
                 helperText={errors.numero?.message}
               />
             </S.Entrada>
-
+            <S.Entrada>
+              <TextField
+                fullWidth
+                label="Complemento"
+                variant="filled"
+                {...register("complemento")}
+                error={!!errors.complemento}
+                helperText={errors.complemento?.message}
+              />
+            </S.Entrada>
+          </S.ContainerInputs>
+          <S.ContainerInputs>
             <S.Entrada>
               <TextField
                 fullWidth
@@ -156,11 +177,11 @@ const CadastroPaciente = () => {
             <S.Entrada>
               <TextField
                 fullWidth
-                label="Complemento"
+                label="CEP"
                 variant="filled"
-                {...register("complemento")}
-                error={!!errors.complemento}
-                helperText={errors.complemento?.message}
+                {...register("cep")}
+                error={!!errors.cep}
+                helperText={errors.cep?.message}
               />
             </S.Entrada>
           </S.ContainerInputs>
@@ -184,21 +205,6 @@ const CadastroPaciente = () => {
                 error={!!errors.estado}
                 helperText={errors.estado?.message}
               />
-            </S.Entrada>
-            <S.Entrada>
-              <TextField
-                fullWidth
-                select
-                label="Prioridade"
-                variant="filled"
-                {...register("prioridade")}
-                error={!!errors.prioridade}
-                helperText={errors.prioridade?.message}
-              >
-                <MenuItem value={0}>Vermelho</MenuItem>
-                <MenuItem value={1}>Amarelo</MenuItem>
-                <MenuItem value={2}>Verde</MenuItem>
-              </TextField>
             </S.Entrada>
           </S.ContainerInputs>
           <S.Entrada>
