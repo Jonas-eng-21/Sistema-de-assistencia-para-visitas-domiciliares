@@ -108,19 +108,19 @@ const CadastroPaciente = () => {
           <S.ContainerInputs>
             <S.Entrada>
               <S.TituloForm>Prioridade:</S.TituloForm>
-            <TextField
-              fullWidth
-              select
-              label="Prioridade"
-              variant="filled"
-              {...register("prioridade")}
-              error={!!errors.prioridade}
-              helperText={errors.prioridade?.message}>
-              <MenuItem value={0}>Vermelho</MenuItem>
-              <MenuItem value={1}>Amarelo</MenuItem>
-              <MenuItem value={2}>Verde</MenuItem>
-            </TextField>
-          </S.Entrada>
+              <TextField
+                fullWidth
+                select
+                label="Prioridade"
+                variant="filled"
+                {...register("prioridade")}
+                error={!!errors.prioridade}
+                helperText={errors.prioridade?.message}>
+                <MenuItem value={0}>Vermelho</MenuItem>
+                <MenuItem value={1}>Amarelo</MenuItem>
+                <MenuItem value={2}>Verde</MenuItem>
+              </TextField>
+            </S.Entrada>
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
@@ -231,15 +231,57 @@ const CadastroPaciente = () => {
               helperText={errors.observacao?.message}
             />
           </S.Entrada>
-          <Button
-            type="submit"
-            variant="contained"
-            className="button"
-            fullWidth
-            disabled={!isValid}
-          >
-            Cadastrar
-          </Button>
+          <div style={{ display: "flex", gap: "16px" }}>
+            <Button
+              variant="contained"
+              fullWidth
+              onClick={() => window.history.back()}
+              sx={{
+                backgroundColor: "#bdbdbd",
+                color: "#000000",
+                padding: "10px 0",
+                borderRadius: "8px",
+                fontSize: "1rem",
+                boxShadow: "0 2px 8px rgba(189, 189, 189, 0.15)",
+                textTransform: "none",
+                transition: "background 0.2s",
+                "&:hover": {
+                  backgroundColor: "#9e9e9e",
+                },
+              }}
+            >
+              Voltar
+            </Button>
+
+            <Button
+              type="submit"
+              variant="contained"
+              className="button"
+              fullWidth
+              disabled={!isValid}
+              sx={{
+              backgroundColor: "#98B8F3",
+              color: "#000000",
+              padding: "10px 0",
+              borderRadius: "8px",
+              fontSize: "1rem",
+              boxShadow: "0 2px 8px rgba(25, 118, 210, 0.15)",
+              textTransform: "none",
+              transition: "background 0.2s",
+              "&:hover": {
+                backgroundColor: "#6f87b3",
+              },
+              "&.Mui-disabled": {
+                backgroundColor: "#bdbdbd",
+                color: "#000000",
+              },
+            }}
+            >
+              Cadastrar
+            </Button>
+
+          </div>
+
         </form>
       </S.Card>
     </S.Container>

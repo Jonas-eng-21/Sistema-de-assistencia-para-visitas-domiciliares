@@ -57,147 +57,170 @@ const CadastroProfissional = () => {
   };
 
   return (
-      <S.Container>
-        <Header />
-        <S.Title>Cadastro de Profissional</S.Title>
-        <S.Card className="divcadastro" style={{ width: "100%", minWidth: "400px", alignItems: "stretch", padding: "20px" }}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="padd">
-              <S.TituloForm>Nome:</S.TituloForm>
-              <TextField
-                fullWidth
-                label="Nome"
-                variant="filled"
-                {...register("nome")}
-                error={!!errors.nome}
-                helperText={errors.nome?.message}
-              />
-            </div>
-            <div className="padd">
-              <S.TituloForm>CPF:</S.TituloForm>
-              <TextField
-                fullWidth
-                label="CPF"
-                variant="filled"
-                {...register("cpf")}
-                error={!!errors.cpf}
-                helperText={errors.cpf?.message}
-              />
-            </div>
-            <div className="padd">
-              <S.TituloForm>Conselho Regional:</S.TituloForm>
-              <TextField
-                fullWidth
-                label="Conselho Regional"
-                variant="filled"
-                {...register("consenhoRegional")}
-                error={!!errors.consenhoRegional}
-                helperText={errors.consenhoRegional?.message}
-              />
-            </div>
-            <div className="padd">
-              <S.TituloForm>Email:</S.TituloForm>
-              <TextField
-                fullWidth
-                label="Email"
-                variant="filled"
-                {...register("email")}
-                error={!!errors.email}
-                helperText={errors.email?.message}
-              />
-            </div>
-            <div className="padd">
-              <S.TituloForm>Senha:</S.TituloForm>
-              <FormControl variant="filled" fullWidth>
-                <InputLabel htmlFor="filled-password">Senha</InputLabel>
-                <FilledInput
-                  id="filled-password"
-                  type={showPassword ? "text" : "password"}
-                  {...register("senha")}
-                  error={!!errors.senha}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-                {errors.senha && (
-                  <p style={{ color: "#d32f2f", marginTop: "4px" }}>
-                    {errors.senha.message}
-                  </p>
-                )}
-              </FormControl>
-            </div>
-            <div className="padd">
-              <S.TituloForm>Profissão:</S.TituloForm>
-              <FormControl fullWidth variant="filled">
-                <InputLabel id="profissao-label">Profissão</InputLabel>
-                <Select
-                  labelId="profissao-label"
-                  defaultValue=""
-                  {...register("profissao")}
-                  error={!!errors.profissao}
-                >
-                  <MenuItem value="MEDICO">Médico</MenuItem>
-                  <MenuItem value="ENFERMEIRO">Enfermeiro</MenuItem>
-                  <MenuItem value="ENFERMEIRO_CHEFE">Enfermeiro Chefe</MenuItem>
-                  <MenuItem value="ASSISTENTE_SOCIAL">
-                    Assistente Social
-                  </MenuItem>
-                  <MenuItem value="PACIENTE">Paciente</MenuItem>
-                  <MenuItem value="AGENTE_DE_SAÚDE_ACS">
-                    Agente de Saúde (ACS)
-                  </MenuItem>
-                  <MenuItem value="CLINICO_GERAL">Clínico Geral</MenuItem>
-                  <MenuItem value="NUTRICIONISTA">Nutricionista</MenuItem>
-                  <MenuItem value="FISIOTERAPEUTA">Fisioterapeuta</MenuItem>
-                  <MenuItem value="DENTISTA">Dentista</MenuItem>
-                  <MenuItem value="PSICOLOGO">Psicólogo</MenuItem>
-                  <MenuItem value="PSIQUIATRA">Psiquiatra</MenuItem>
-                  <MenuItem value="PEDIATRA">Pediatra</MenuItem>
-                </Select>
-                {errors.profissao && (
-                  <p style={{ color: "#d32f2f", marginTop: "4px" }}>
-                    {errors.profissao.message}
-                  </p>
-                )}
-              </FormControl>
-            </div>
-            <Button
-              type="submit"
-              variant="contained"
-              className="button"
+    <S.Container>
+      <Header />
+      <S.Title>Cadastro de Profissional</S.Title>
+      <S.Card className="divcadastro" style={{ width: "100%", minWidth: "400px", alignItems: "stretch", padding: "20px" }}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="padd">
+            <S.TituloForm>Nome:</S.TituloForm>
+            <TextField
               fullWidth
-              disabled={!isValid}
-              sx={{
-                backgroundColor: "#98B8F3",
-                color: "#000000",
-                padding: "10px 0",
-                borderRadius: "8px",
-                fontSize: "1rem",
-                boxShadow: "0 2px 8px rgba(25, 118, 210, 0.15)",
-                textTransform: "none",
-                transition: "background 0.2s",
-                "&:hover": {
+              label="Nome"
+              variant="filled"
+              {...register("nome")}
+              error={!!errors.nome}
+              helperText={errors.nome?.message}
+            />
+          </div>
+          <div className="padd">
+            <S.TituloForm>CPF:</S.TituloForm>
+            <TextField
+              fullWidth
+              label="CPF"
+              variant="filled"
+              {...register("cpf")}
+              error={!!errors.cpf}
+              helperText={errors.cpf?.message}
+            />
+          </div>
+          <div className="padd">
+            <S.TituloForm>Conselho Regional:</S.TituloForm>
+            <TextField
+              fullWidth
+              label="Conselho Regional"
+              variant="filled"
+              {...register("consenhoRegional")}
+              error={!!errors.consenhoRegional}
+              helperText={errors.consenhoRegional?.message}
+            />
+          </div>
+          <div className="padd">
+            <S.TituloForm>Email:</S.TituloForm>
+            <TextField
+              fullWidth
+              label="Email"
+              variant="filled"
+              {...register("email")}
+              error={!!errors.email}
+              helperText={errors.email?.message}
+            />
+          </div>
+          <div className="padd">
+            <S.TituloForm>Senha:</S.TituloForm>
+            <FormControl variant="filled" fullWidth>
+              <InputLabel htmlFor="filled-password">Senha</InputLabel>
+              <FilledInput
+                id="filled-password"
+                type={showPassword ? "text" : "password"}
+                {...register("senha")}
+                error={!!errors.senha}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+              {errors.senha && (
+                <p style={{ color: "#d32f2f", marginTop: "4px" }}>
+                  {errors.senha.message}
+                </p>
+              )}
+            </FormControl>
+          </div>
+          <div className="padd">
+            <S.TituloForm>Profissão:</S.TituloForm>
+            <FormControl fullWidth variant="filled">
+              <InputLabel id="profissao-label">Profissão</InputLabel>
+              <Select
+                labelId="profissao-label"
+                defaultValue=""
+                {...register("profissao")}
+                error={!!errors.profissao}
+              >
+                <MenuItem value="MEDICO">Médico</MenuItem>
+                <MenuItem value="ENFERMEIRO">Enfermeiro</MenuItem>
+                <MenuItem value="ENFERMEIRO_CHEFE">Enfermeiro Chefe</MenuItem>
+                <MenuItem value="ASSISTENTE_SOCIAL">
+                  Assistente Social
+                </MenuItem>
+                <MenuItem value="PACIENTE">Paciente</MenuItem>
+                <MenuItem value="AGENTE_DE_SAÚDE_ACS">
+                  Agente de Saúde (ACS)
+                </MenuItem>
+                <MenuItem value="CLINICO_GERAL">Clínico Geral</MenuItem>
+                <MenuItem value="NUTRICIONISTA">Nutricionista</MenuItem>
+                <MenuItem value="FISIOTERAPEUTA">Fisioterapeuta</MenuItem>
+                <MenuItem value="DENTISTA">Dentista</MenuItem>
+                <MenuItem value="PSICOLOGO">Psicólogo</MenuItem>
+                <MenuItem value="PSIQUIATRA">Psiquiatra</MenuItem>
+                <MenuItem value="PEDIATRA">Pediatra</MenuItem>
+              </Select>
+              {errors.profissao && (
+                <p style={{ color: "#d32f2f", marginTop: "4px" }}>
+                  {errors.profissao.message}
+                </p>
+              )}
+            </FormControl>
+          </div>
+          <div style={{ display: "flex", gap: "16px" }}>
+            <Button
+            variant="contained"
+            fullWidth
+            onClick={() => window.history.back()}
+            sx={{
+              backgroundColor: "#bdbdbd",
+              color: "#000000",
+              padding: "10px 0",
+              borderRadius: "8px",
+              fontSize: "1rem",
+              boxShadow: "0 2px 8px rgba(189, 189, 189, 0.15)",
+              textTransform: "none",
+              transition: "background 0.2s",
+              "&:hover": {
+                backgroundColor: "#9e9e9e",
+              },
+            }}
+          >
+            Voltar
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            className="button"
+            fullWidth
+            disabled={!isValid}
+            sx={{
+              backgroundColor: "#98B8F3",
+              color: "#000000",
+              padding: "10px 0",
+              borderRadius: "8px",
+              fontSize: "1rem",
+              boxShadow: "0 2px 8px rgba(25, 118, 210, 0.15)",
+              textTransform: "none",
+              transition: "background 0.2s",
+              "&:hover": {
                 backgroundColor: "#6f87b3",
-                },
-                "&.Mui-disabled": {
+              },
+              "&.Mui-disabled": {
                 backgroundColor: "#bdbdbd",
                 color: "#000000",
-                },
-              }}
-            >
-              Cadastrar
-            </Button>
-          </form>
-        </S.Card>
-      </S.Container>
+              },
+            }}
+          >
+            Cadastrar
+          </Button>
+          </div>
+          
+        </form>
+      </S.Card>
+    </S.Container>
   );
 };
 
