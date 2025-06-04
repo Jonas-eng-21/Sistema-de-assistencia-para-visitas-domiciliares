@@ -64,10 +64,11 @@ const CadastroPaciente = () => {
     <S.Container>
       <Header />
       <S.Title>Cadastro de Paciente</S.Title>
-      <S.Card>
+      <S.Card className="divcadastro" style={{ width: "100%", minWidth: "400px", alignItems: "stretch", padding: "20px" }}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Nome:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Nome"
@@ -80,6 +81,7 @@ const CadastroPaciente = () => {
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>CPF:</S.TituloForm>
               <TextField
                 fullWidth
                 label="CPF"
@@ -92,6 +94,7 @@ const CadastroPaciente = () => {
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Email:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Email"
@@ -102,7 +105,9 @@ const CadastroPaciente = () => {
               />
             </S.Entrada>
           </S.ContainerInputs>
-          <S.ContainerInputs><S.Entrada>
+          <S.ContainerInputs>
+            <S.Entrada>
+              <S.TituloForm>Prioridade:</S.TituloForm>
             <TextField
               fullWidth
               select
@@ -119,6 +124,7 @@ const CadastroPaciente = () => {
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Doença(s):</S.TituloForm>
               <TextField
                 fullWidth
                 label="Doença"
@@ -131,6 +137,7 @@ const CadastroPaciente = () => {
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Rua:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Rua"
@@ -143,6 +150,7 @@ const CadastroPaciente = () => {
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Número:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Número"
@@ -153,6 +161,7 @@ const CadastroPaciente = () => {
               />
             </S.Entrada>
             <S.Entrada>
+              <S.TituloForm>Complemento:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Complemento"
@@ -165,6 +174,7 @@ const CadastroPaciente = () => {
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Bairro:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Bairro"
@@ -175,6 +185,7 @@ const CadastroPaciente = () => {
               />
             </S.Entrada>
             <S.Entrada>
+              <S.TituloForm>CEP:</S.TituloForm>
               <TextField
                 fullWidth
                 label="CEP"
@@ -187,6 +198,7 @@ const CadastroPaciente = () => {
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Cidade:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Cidade"
@@ -197,6 +209,7 @@ const CadastroPaciente = () => {
               />
             </S.Entrada>
             <S.Entrada>
+              <S.TituloForm>Estado:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Estado"
@@ -208,6 +221,7 @@ const CadastroPaciente = () => {
             </S.Entrada>
           </S.ContainerInputs>
           <S.Entrada>
+            <S.TituloForm>Observação:</S.TituloForm>
             <TextField
               fullWidth
               label="Observação"
