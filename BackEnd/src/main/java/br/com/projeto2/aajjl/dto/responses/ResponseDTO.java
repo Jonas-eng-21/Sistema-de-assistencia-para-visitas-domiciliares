@@ -1,4 +1,4 @@
-package br.com.projeto2.aajjl.dto;
+package br.com.projeto2.aajjl.dto.responses;
 
 import br.com.projeto2.aajjl.model.Profession;
 
