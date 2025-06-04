@@ -1,5 +1,7 @@
 package br.com.projeto2.aajjl.controller;
 
+import br.com.projeto2.aajjl.dto.requests.NotificationRequestDTO;
+import br.com.projeto2.aajjl.dto.responses.NotificationResponseDTO;
 import br.com.projeto2.aajjl.model.Notification;
 import br.com.projeto2.aajjl.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,9 @@ public class NotificationController {
     private NotificationService notificationService;
 
     @PostMapping
-    public ResponseEntity<Notification> create(@RequestBody Notification newNotification) {
-        return ResponseEntity.ok(notificationService.create(newNotification));
+    public ResponseEntity<NotificationResponseDTO> create(@RequestBody NotificationRequestDTO newNotification) {
+        NotificationResponseDTO notificationResponseDTO = notificationService.create(newNotification);
+        return ResponseEntity.ok(notificationResponseDTO);
     }
 
     @GetMapping

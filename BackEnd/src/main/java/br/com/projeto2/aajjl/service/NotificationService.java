@@ -1,5 +1,7 @@
 package br.com.projeto2.aajjl.service;
 
+import br.com.projeto2.aajjl.dto.requests.NotificationRequestDTO;
+import br.com.projeto2.aajjl.dto.responses.NotificationResponseDTO;
 import br.com.projeto2.aajjl.model.Notification;
 import br.com.projeto2.aajjl.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ public class NotificationService {
     @Autowired
     private NotificationRepository notificationRepository;
 
-    public Notification create(Notification newNotification) {
+    public NotificationResponseDTO create(NotificationRequestDTO newNotification) {
 
         newNotification.setVisto(false);
 
