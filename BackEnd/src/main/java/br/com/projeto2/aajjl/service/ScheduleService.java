@@ -23,17 +23,15 @@ public class ScheduleService {
                         "- Criado por: %s\n" +
                         "- Paciente: %s\n" +
                         "- Médico (User): %s\n" +
-                        "- Data: %02d/%s/%d\n" +
+                        "- Data: %s\n" +
                         "- Turno: %s\n" +
                         "- Motivo: %s\n" +
                         "- Prioridade: %s\n\n" +
                         "Por favor, fique atento às orientações.",
                 schedule.getUser().getNome(),
-                schedule.getPacinete().getNome(),
+                schedule.getPaciente().getNome(),
                 schedule.getUser().getNome(),
-                schedule.getDia(),
-                schedule.getMes(),
-                schedule.getAno(),
+                schedule.getDataAgendamento(),
                 schedule.getTurno(),
                 schedule.getMotivoDoAtendimento(),
                 schedule.getPrioridade()
@@ -50,7 +48,7 @@ public class ScheduleService {
         String emailUser = savedSchedule.getUser().getEmail();
         emailService.enviarEmailSimples(emailUser, assunto, mensagem);
 
-        String emailPaciente = savedSchedule.getPacinete().getEmail();
+        String emailPaciente = savedSchedule.getPaciente().getEmail();
         emailService.enviarEmailSimples(emailPaciente, assunto, mensagem);
 
         return savedSchedule;
@@ -77,35 +75,17 @@ public class ScheduleService {
                 //atualização da entidade
                 schedule.setUser(newData.getUser());
             }
-            if (newData.getPacinete() != null && !newData.getPacinete().equals(schedule.getPacinete())) {
-                modificacoes.append("- Paciente alterado: de ").append(schedule.getPacinete().getNome())
-                        .append(" para ").append(newData.getPacinete().getNome()).append("\n");
+            if (newData.getPaciente() != null && !newData.getPaciente().equals(schedule.getPaciente())) {
+                modificacoes.append("- Paciente alterado: de ").append(schedule.getPaciente().getNome())
+                        .append(" para ").append(newData.getPaciente().getNome()).append("\n");
 
-                schedule.setPacinete(newData.getPacinete());
+                schedule.setPaciente(newData.getPaciente());
             }
             if (newData.getTurno() != null && !newData.getTurno().equals(schedule.getTurno())) {
                 modificacoes.append("- Turno alterado: de ").append(schedule.getTurno())
                         .append(" para ").append(newData.getTurno()).append("\n");
 
                 schedule.setTurno(newData.getTurno());
-            }
-            if (newData.getDia() != null && !newData.getDia().equals(schedule.getDia())) {
-                modificacoes.append("- Dia alterado: de ").append(schedule.getDia())
-                        .append(" para ").append(newData.getDia()).append("\n");
-
-                schedule.setDia(newData.getDia());
-            }
-            if (newData.getMes() != null && !newData.getMes().trim().isEmpty() && !newData.getMes().equals(schedule.getMes())) {
-                modificacoes.append("- Mês alterado: de ").append(schedule.getMes())
-                        .append(" para ").append(newData.getMes()).append("\n");
-
-                schedule.setMes(newData.getMes().trim());
-            }
-            if (newData.getAno() != null && !newData.getAno().equals(schedule.getAno())) {
-                modificacoes.append("- Ano alterado: de ").append(schedule.getAno())
-                        .append(" para ").append(newData.getAno()).append("\n");
-
-                schedule.setAno(newData.getAno());
             }
             if (newData.getObservacao() != null && !newData.getObservacao().trim().isEmpty() && !newData.getObservacao().equals(schedule.getObservacao())) {
                 modificacoes.append("- Observação alterada.\n");
@@ -139,7 +119,7 @@ public class ScheduleService {
             String emailUser = updatedSchedule.getUser().getEmail();
             emailService.enviarEmailSimples(emailUser, assunto, mensagem);
 
-            String emailPaciente = updatedSchedule.getPacinete().getEmail();
+            String emailPaciente = updatedSchedule.getPaciente().getEmail();
             emailService.enviarEmailSimples(emailPaciente, assunto, mensagem);
 
             return updatedSchedule;
