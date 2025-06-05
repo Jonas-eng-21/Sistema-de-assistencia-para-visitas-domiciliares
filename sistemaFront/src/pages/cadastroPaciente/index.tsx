@@ -116,9 +116,9 @@ const CadastroPaciente = () => {
                 {...register("prioridade")}
                 error={!!errors.prioridade}
                 helperText={errors.prioridade?.message}>
-                <MenuItem value={0}>Vermelho</MenuItem>
-                <MenuItem value={1}>Amarelo</MenuItem>
-                <MenuItem value={2}>Verde</MenuItem>
+                <MenuItem value={0}> <img src="/PrioridadeAlta.svg" style={{paddingRight: "5px", height: "10px"}}/> Vermelho</MenuItem>
+                <MenuItem value={1}> <img src="/PrioridadeMedia.svg" style={{paddingRight: "5px", height: "10px"}}/> Amarelo</MenuItem>
+                <MenuItem value={2}> <img src="/PrioridadeBaixa.svg" style={{paddingRight: "5px", height: "10px"}}/> Verde</MenuItem>
               </TextField>
             </S.Entrada>
             <S.Entrada>
