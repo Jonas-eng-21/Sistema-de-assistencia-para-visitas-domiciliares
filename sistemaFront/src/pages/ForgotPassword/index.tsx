@@ -1,53 +1,116 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { forgotPasswordAPI } from "../../services/AuthService";
+import { toast } from "react-toastify";
+import * as S from "../Login/style";
+import { Button, TextField } from "@mui/material";
 
 const ForgotPassword: React.FC = () => {
-  const [email, setEmail] = useState<string>('');
-  const [message, setMessage] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/api/forgot-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
+      const response = await forgotPasswordAPI(email);
 
-      if (response.ok) {
-        setMessage('Se este e-mail estiver cadastrado, enviamos instruções para redefinição.');
+      if (response?.status === 200) {
+        toast.success(
+          "Se este e-mail estiver cadastrado, enviamos instruções para redefinição."
+        );
+        setMessage(
+          "Se este e-mail estiver cadastrado, enviamos instruções para redefinição."
+        );
       } else {
-        setMessage('Erro ao enviar e-mail. Tente novamente.');
+        toast.info("Erro ao enviar e-mail. Tente novamente.");
       }
     } catch (error) {
-      console.error('Erro:', error);
-      setMessage('Erro de rede. Tente novamente.');
+      console.error("Erro ao enviar e-mail de redefinição:", error);
+      toast.error("Erro de rede. Tente novamente.");
     }
   };
 
   return (
-    <div className="max-w-md mx-auto p-4">
-      <h2 className="text-xl font-bold mb-4">Esqueci minha senha</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium">E-mail</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="mt-1 block w-full border rounded p-2"
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
-        >
-          Enviar instruções
-        </button>
-      </form>
-      {message && <p className="mt-4 text-sm">{message}</p>}
-    </div>
+    <>
+      <S.Background>
+        <S.Container style={{ width: "auto", minWidth: "400px" }}>
+          <S.Title>Recuperação de Senha</S.Title>
+          <S.Card
+            className="divcadastro"
+            style={{ width: "100%", alignItems: "stretch" }}
+          >
+            <form onSubmit={handleSubmit}>
+              <div className="padd">
+                <S.TituloForm>Email:</S.TituloForm>
+                <TextField
+                  fullWidth
+                  label="Digite seu e-mail"
+                  variant="filled"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              {message && (
+                <p
+                  style={{
+                    color: "#388e3c",
+                    marginTop: "8px",
+                    fontSize: "0.9rem",
+                  }}
+                >
+                  {message}
+                </p>
+              )}
+              <div style={{ display: "flex", gap: "16px", marginTop: "16px" }}>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  onClick={() => window.history.back()}
+                  sx={{
+                    backgroundColor: "#bdbdbd",
+                    color: "#000000",
+                    padding: "10px 0",
+                    borderRadius: "8px",
+                    fontSize: "1rem",
+                    boxShadow: "0 2px 8px rgba(189, 189, 189, 0.15)",
+                    textTransform: "none",
+                    transition: "background 0.2s",
+                    "&:hover": {
+                      backgroundColor: "#9e9e9e",
+                    },
+                  }}
+                >
+                  Voltar
+                </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  className="button"
+                  fullWidth
+                  sx={{
+                    backgroundColor: "#98B8F3",
+                    color: "#000000",
+                    padding: "10px 0",
+                    borderRadius: "8px",
+                    fontSize: "1rem",
+                    boxShadow: "0 2px 8px rgba(25, 118, 210, 0.15)",
+                    textTransform: "none",
+                    transition: "background 0.2s",
+                    "&:hover": {
+                      backgroundColor: "#6f87b3",
+                    },
+                  }}
+                >
+                  Enviar instruções
+                </Button>
+              </div>
+            </form>
+          </S.Card>
+        </S.Container>
+      </S.Background>
+    </>
   );
 };
 

@@ -34,6 +34,15 @@ export const registerAPI = async (dados: RegisterData) => {
   }
 };
 
+export const forgotPasswordAPI = async (email: string) => {
+  try {
+    const response = await axios.post(api + "/api/forgot-password", { email });
+    return response;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
 export const getAllUsersAPI = async () => {
   try {
     const response = await axios.get<User[]>(api + "/api/usuarios");
