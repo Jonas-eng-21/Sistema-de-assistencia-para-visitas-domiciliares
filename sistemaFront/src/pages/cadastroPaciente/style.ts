@@ -12,15 +12,16 @@ export const Title = styled.h1`
 `;
 
 export const Entrada = styled.div`
-  margin-bottom: 5%;
-  margin-top: 5%;
+  margin-bottom: 1%;
+  margin-top: 1%;
+  width: 100%;
 `;
 
 export const ContainerInputs = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  gap: 1rem;
+  gap: 1em;
   align-items: center;
 `;
 
@@ -72,4 +73,12 @@ export const Background = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const TituloForm = styled.label`
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: start;
+  margin-bottom: 4px;
+  display: block;
 `;

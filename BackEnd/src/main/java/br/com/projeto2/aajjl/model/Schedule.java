@@ -1,5 +1,6 @@
 package br.com.projeto2.aajjl.model;
 
+import br.com.projeto2.aajjl.dto.requests.ScheduleRequestDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -43,8 +44,8 @@ public class Schedule {
     private Shift turno;
     //Data
     @Column(name = "data_agendamento")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime dataAgendamento;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyy-MM-dd")
+    private LocalDate dataAgendamento;
     @CreationTimestamp
     @Column(name = "data_criacao", nullable = false, updatable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -55,19 +56,17 @@ public class Schedule {
     private Priority prioridade;
 
     //Construtor
-    public Schedule(Boolean concluido, User user, Patient paciente,
-                    Shift turno, LocalDateTime dataAgendamento,
-                    String observacao, String motivoDoAtendimento,
-                    Priority prioridade) {
+    public Schedule(ScheduleRequestDTO scheduleRequestDTO) {
 
-        this.concluido = concluido;
-        this.user = user;
-        this.paciente = paciente;
-        this.turno = turno;
-        this.dataAgendamento = dataAgendamento;
-        this.observacao = observacao;
-        this.motivoDoAtendimento = motivoDoAtendimento;
-        this.prioridade = prioridade;
+        this.concluido = false;
+        this.user = scheduleRequestDTO.userId();
+        this.paciente = scheduleRequestDTO.pacienteId();
+        this.turno = scheduleRequestDTO.turno();
+        this.dataAgendamento = scheduleRequestDTO.dataAgendamento();
+        this.observacao = scheduleRequestDTO.observacao();
+        this.motivoDoAtendimento = scheduleRequestDTO.motivoDoAtendimento();
+        this.prioridade = scheduleRequestDTO.prioridade();
+        this.dataCriacao = LocalDateTime.now();
     }
 
     @Override

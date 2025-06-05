@@ -1,5 +1,6 @@
 package br.com.projeto2.aajjl.model;
 
+import br.com.projeto2.aajjl.dto.requests.NotificationRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,10 +35,10 @@ public class Notification {
     private String texto;
 
     // Construtor completo
-    public Notification(User userNotified, Schedule schedule_id, String texto) {
-        this.userNotified = userNotified;
-        this.schedule_id = schedule_id;
-        this.texto = texto;
+    public Notification(NotificationRequestDTO notificationRequestDTO) {
+        this.userNotified = notificationRequestDTO.userNotifiedId();
+        this.schedule_id = notificationRequestDTO.scheduleId();
+        this.texto = notificationRequestDTO.texto();
         this.visto = false;
     }
 

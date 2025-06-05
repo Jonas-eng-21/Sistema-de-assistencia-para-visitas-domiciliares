@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Header = () => {
     const navigate = useNavigate();
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
     const [showOptions, setShowOptions] = React.useState(false);
 
     return (
@@ -136,8 +136,7 @@ const Header = () => {
                                     padding: '10px'
                                 }}
                             >
-                                <p style={{ margin: 0, cursor: 'pointer' }}>Opção 1</p>
-                                <p style={{ margin: 0, cursor: 'pointer' }}>Opção 2</p>
+                                <p style={{ margin: 0, cursor: 'pointer' }} onClick={logout}>Sair</p>
                             </div>
                         )}
                     </div>

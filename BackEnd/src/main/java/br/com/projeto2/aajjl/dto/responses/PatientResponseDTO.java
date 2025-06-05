@@ -25,6 +25,6 @@ public record PatientResponseDTO(
 
         Priority prioridade,
         Boolean ativo,
-        ResponseDTO cadastradoPor
+        br.com.projeto2.aajjl.model.User cadastradoPor
 ) {
 }
