@@ -1,5 +1,25 @@
 package br.com.projeto2.aajjl.controller;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@Configuration
+public class AuthController {
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
+
+
+
+
+/*
+package br.com.projeto2.aajjl.controller;
+
 import br.com.projeto2.aajjl.dto.requests.LoginRequestDTO;
 import br.com.projeto2.aajjl.dto.responses.ResponseDTO;
 import br.com.projeto2.aajjl.model.User;
@@ -62,3 +82,4 @@ public class AuthController {
 
 
 }
+*/
