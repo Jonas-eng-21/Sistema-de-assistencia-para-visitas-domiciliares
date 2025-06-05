@@ -62,6 +62,7 @@ const Login = () => {
         <S.Title>Agendamento de visitas</S.Title>
         <S.Card>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <S.TituloForm>Email:</S.TituloForm>
             <div className="padd">
               <TextField
                 fullWidth
@@ -73,10 +74,8 @@ const Login = () => {
               />
             </div>
             <div className="padd">
-              <FormControl
-                sx={{ marginTop: 1, width: "100%" }}
-                variant="filled"
-              >
+              <S.TituloForm>Senha:</S.TituloForm>
+              <FormControl sx={{width: "100%" }} variant="filled"  >
                 <InputLabel
                   id="filled-basic"
                   htmlFor="filled-adornment-password"
@@ -119,14 +118,43 @@ const Login = () => {
               className="button"
               fullWidth
               disabled={!isValid}
+              sx={{
+                backgroundColor: "#98B8F3",
+                color: "#000000",
+                padding: "10px 0",
+                borderRadius: "8px",
+                fontSize: "1rem",
+                boxShadow: "0 2px 8px rgba(25, 118, 210, 0.15)",
+                textTransform: "none",
+                transition: "background 0.2s",
+                "&:hover": {
+                  backgroundColor: "#6f87b3",
+                },
+                "&.Mui-disabled": {
+                  backgroundColor: "#bdbdbd",
+                  color: "#000000",
+                },
+              }}
             >
               Entrar
             </Button>
-            <div className="Txt">
+
+            {/* TODO: Tirar o cadastro antes do dia da aprensentação, o usuario só pode ser cadastrado pelo admin */}
+            <div className="Txt" style={{ marginTop: "1.5rem" }}>
+
               <span>Não tem uma conta ainda? </span>
               <Link to="/cadastro" className="txt2">
                 <span>Cadastre-se</span>
               </Link>
+
+            </div>
+
+            <div className="Txt" style={{ marginTop: "8px" }}>
+              <span>Esqueceu sua senha? </span>
+              <Link to="/forgot-password" className="txt2">
+                <span>clique aqui</span>
+              </Link>
+
             </div>
           </form>
         </S.Card>

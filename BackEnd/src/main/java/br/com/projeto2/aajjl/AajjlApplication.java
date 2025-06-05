@@ -12,7 +12,3 @@ public class AajjlApplication {
 
 }
 
-//Marco 1 - CRUD funcional para Users com Rotas testadas no Postman e MySQLWorkBench
-//Marco 2 - CRUD funcional para Paciente com Rotas testadas no Postman e MySQLWorkBench
-//Marco 3 - CRUD funcional para Agendamento com Rotas testadas no Postman e MySQLWorkBench
-//Marco 4 - CRUD funcional para Users, Paciente e Agendamento com Rotas e relacionamentos entre as entidades desenvolvidas.

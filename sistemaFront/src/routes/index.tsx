@@ -9,6 +9,8 @@ import CadastroProfissional from "../pages/cadastroProfissional";
 import CadastroPaciente from "../pages/cadastroPaciente";
 import Agendamento from "../pages/agendamento";
 import EditarPaciente from "../pages/editarPaciente";
+import ForgotPassword from '../pages/ForgotPassword';
+import ResetPassword from '../pages/ResetPassword';
 
 export const AppRoutes = () => {
   const { isLoggedIn, isReady } = useAuth();
@@ -40,6 +42,11 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+
+        
+      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+
       <Route
         path="/cadastro-de-Profissional"
         element={

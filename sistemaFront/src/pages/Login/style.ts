@@ -61,3 +61,13 @@ export const Background = styled.div`
   justify-content: center;
   align-items: center;
 `
+
+export const TituloForm = styled.label`
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: start;
+  margin-bottom: 4px;
+  display: block;
+`;
+
+

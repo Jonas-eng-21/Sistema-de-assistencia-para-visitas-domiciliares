@@ -1,11 +1,14 @@
 package br.com.projeto2.aajjl.model;
 
+import br.com.projeto2.aajjl.dto.requests.PatientRequestDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -23,7 +26,7 @@ public class Patient {
     private Long id;
 
     //Atributos de relacionamento das tabelas no BD
-    @OneToMany(mappedBy = "pacinete")
+    @OneToMany(mappedBy = "paciente")
     private List<Schedule> agendamentos; //aqui temos a lista de agendamentos relacionados ao cliente
 
     @ManyToOne
@@ -40,6 +43,9 @@ public class Patient {
     private String email;
     private String doenca;
     private String observacao;
+    @Column(name = "data_nascimento")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dataNascimento;
 
     //atributos endereço
     private String cep;
@@ -55,25 +61,22 @@ public class Patient {
     private Priority prioridade;
 
     //construtor
-    public Patient(Long id, String nome, String cpf,
-                   String email, String doenca, String cep,
-                   String rua, String numero, String bairro,
-                   String complemento, String cidade,
-                   String estado, Priority prioridade) {
+    public Patient(PatientRequestDTO patientRequestDTO) {
 
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.doenca = doenca;
-        this.cep = cep;
-        this.rua = rua;
-        this.numero = numero;
-        this.bairro = bairro;
-        this.complemento = complemento;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.prioridade = prioridade;
+        this.cadastradoPor = patientRequestDTO.cadastradoPorId();
+        this.nome = patientRequestDTO.nome();
+        this.cpf = patientRequestDTO.cpf();
+        this.email = patientRequestDTO.email();
+        this.doenca = patientRequestDTO.doenca();
+        this.cep = patientRequestDTO.cep();
+        this.rua = patientRequestDTO.rua();
+        this.numero = patientRequestDTO.numero();
+        this.bairro = patientRequestDTO.bairro();
+        this.complemento = patientRequestDTO.complemento();
+        this.cidade = patientRequestDTO.cidade();
+        this.estado = patientRequestDTO.estado();
+        this.prioridade = patientRequestDTO.prioridade();
+        this.dataNascimento = patientRequestDTO.dataNascimento();
 
     }
 

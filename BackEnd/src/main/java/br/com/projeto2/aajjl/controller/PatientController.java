@@ -1,5 +1,7 @@
 package br.com.projeto2.aajjl.controller;
 
+import br.com.projeto2.aajjl.dto.requests.PatientRequestDTO;
+import br.com.projeto2.aajjl.dto.responses.PatientResponseDTO;
 import br.com.projeto2.aajjl.model.Patient;
 import br.com.projeto2.aajjl.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,9 @@ public class PatientController {
     private PatientService patientService;
 
     @PostMapping
-    public ResponseEntity<Patient> create(@RequestBody Patient newPatient) {
-        return ResponseEntity.ok(patientService.create(newPatient));
+    public ResponseEntity<PatientResponseDTO> create(@RequestBody PatientRequestDTO newPatient) {
+        PatientResponseDTO patientResponseDTO = patientService.create(new Patient(newPatient));
+        return ResponseEntity.ok(patientResponseDTO);
     }
 
     @GetMapping

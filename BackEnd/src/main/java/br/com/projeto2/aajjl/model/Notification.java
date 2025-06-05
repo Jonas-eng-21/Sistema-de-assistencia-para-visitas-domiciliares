@@ -1,5 +1,6 @@
 package br.com.projeto2.aajjl.model;
 
+import br.com.projeto2.aajjl.dto.requests.NotificationRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,7 +21,7 @@ public class Notification {
     // Atributos de relacionamento de tabelas no BD
     @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)
-    private User schedule_id; // id de schedule origem da notificação
+    private Schedule schedule_id; // id de schedule origem da notificação
 
     // Relacionamento correto com User
     @ManyToOne
@@ -34,10 +35,10 @@ public class Notification {
     private String texto;
 
     // Construtor completo
-    public Notification(User userNotified, User schedule_id, String texto) {
-        this.userNotified = userNotified;
-        this.schedule_id = schedule_id;
-        this.texto = texto;
+    public Notification(NotificationRequestDTO notificationRequestDTO) {
+        this.userNotified = notificationRequestDTO.userNotifiedId();
+        this.schedule_id = notificationRequestDTO.scheduleId();
+        this.texto = notificationRequestDTO.texto();
         this.visto = false;
     }
 
