@@ -1,3 +1,4 @@
 package-lock.json
 /.idea
 .vscode/launch.json
+BackEnd/src/main/resources/application.properties
