@@ -41,18 +41,18 @@ const Header = () => {
             Novo
             <br /> Profissional
           </p>
-          <p>
+          <p
+            style={{ cursor: "pointer", color: "blue" }}
+            onClick={() => navigate("/agendar-visita")}
+          >
             Nova
             <br /> Visita
           </p>
         </S.HeaderAtalhos>
         <S.HeaderLadoDireito>
-          <p
-            style={{ cursor: "pointer", color: "red" }}
-            onClick={logout}
-          >
+          <p style={{ cursor: "pointer", color: "red" }} onClick={logout}>
             Logout
-            <br /> 
+            <br />
           </p>
           <div style={{ display: "flex" }}>
             <p>

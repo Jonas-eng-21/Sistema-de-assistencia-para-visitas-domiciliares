@@ -15,7 +15,7 @@ export const Entrada = styled.div`
   margin-bottom: 5%;
   margin-top: 5%;
   .prioridade {
-    width: 498%;
+    width: 210%;
   }
 `;
 

@@ -34,6 +34,15 @@ export const registerAPI = async (dados: RegisterData) => {
   }
 };
 
+export const getAllUsersAPI = async () => {
+  try {
+    const response = await axios.get<User[]>(api + "/api/usuarios");
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
 
 export const getUserByIdAPI = async (id: number) => {
   try {
@@ -90,7 +99,7 @@ export const findUsersByProfessionAPI = async (profession: Profession) => {
 
 export const getAllAtivosAPI = async () => {
   try {
-    const response = await axios.get<User[]>(`${api}/ativos`);
+    const response = await axios.get<User[]>(`${api}api/usuarios/ativos`);
     return response.data;
   } catch (error) {
     handleError(error);
@@ -100,7 +109,7 @@ export const getAllAtivosAPI = async () => {
 
 export const getAllInativosAPI = async () => {
   try {
-    const response = await axios.get<User[]>(`${api}/inativos`);
+    const response = await axios.get<User[]>(`${api}api/usuarios/inativos`);
     return response.data;
   } catch (error) {
     handleError(error);

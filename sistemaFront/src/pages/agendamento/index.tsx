@@ -1,11 +1,35 @@
+import { useEffect, useState } from "react";
 import * as S from "./style";
 import Header from "../../components/Header";
-import React from "react";
+import { getAllPatientsAPI } from "../../services/PacienteService";
+import { getAllUsersAPI } from "../../services/AuthService";
+import type { User } from "../../models/User";
+import type { Patient } from "../../models/Patient";
+import { Button } from "@mui/material";
+import ControlPointTwoToneIcon from "@mui/icons-material/ControlPointTwoTone";
+import { useNavigate } from "react-router-dom";
 
 const Principal = () => {
-  // Set the page title
-  React.useEffect(() => {
+  const [pacientes, setPacientes] = useState<Patient[]>([]);
+  const [profissionais, setProfissionais] = useState<User[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
     document.title = "Página Inicial - Agendamento de visitas";
+
+    const fetchDados = async () => {
+      try {
+        const pacientesResponse = await getAllPatientsAPI();
+        setPacientes(pacientesResponse || []);
+
+        const profissionaisResponse = await getAllUsersAPI();
+        setProfissionais(profissionaisResponse || []);
+      } catch (error) {
+        console.error("Erro ao buscar pacientes ou profissionais:", error);
+      }
+    };
+
+    fetchDados();
   }, []);
 
   return (
@@ -27,9 +51,11 @@ const Principal = () => {
               <S.FormGroup style={{ minWidth: "40%", width: "100%" }}>
                 <S.FormFonte htmlFor="paciente">Paciente:</S.FormFonte>
                 <S.SelectForm id="paciente" name="paciente">
-                  <option value="paciente1">Paciente 1</option>
-                  <option value="paciente2">Paciente 2</option>
-                  <option value="paciente3">Paciente 3</option>
+                  {pacientes.map((paciente) => (
+                    <option key={paciente.id} value={paciente.id}>
+                      {paciente.nome}
+                    </option>
+                  ))}
                 </S.SelectForm>
               </S.FormGroup>
               <S.FormGroup
@@ -44,17 +70,13 @@ const Principal = () => {
                 </S.TextoAjuda>
               </S.FormGroup>
               <S.FormGroup style={{ display: "flex", alignItems: "start" }}>
-                <S.ButtonCadastro>
-                  <S.TextoButton2>
-                    Adicionar <br />
-                    Paciente
-                  </S.TextoButton2>
-                  <img
-                    src="/plus.svg"
-                    alt="Adicionar novo paciente"
-                    style={{ width: 24, height: 24 }}
-                  />
-                </S.ButtonCadastro>
+                <Button
+                  className="button"
+                  onClick={() => navigate("/cadastro-de-Paciente")}
+                >
+                  <p className="text">Novo Paciente</p>
+                  <ControlPointTwoToneIcon />
+                </Button>
               </S.FormGroup>
             </S.FormRow>
           </S.FormGroup>
@@ -65,9 +87,11 @@ const Principal = () => {
               name="profissional"
               style={{ width: "43%" }}
             >
-              <option value="profissional1">Profissional 1</option>
-              <option value="profissional2">Profissional 2</option>
-              <option value="profissional3">Profissional 3</option>
+              {profissionais.map((prof) => (
+                <option key={prof.id} value={prof.id}>
+                  {prof.nome} - {prof.profissao}
+                </option>
+              ))}
             </S.SelectForm>
           </S.FormGroup>
           <S.FormRow>
