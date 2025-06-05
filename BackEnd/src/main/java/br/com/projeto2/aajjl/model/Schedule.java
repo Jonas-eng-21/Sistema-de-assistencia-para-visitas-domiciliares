@@ -43,8 +43,8 @@ public class Schedule {
     private Shift turno;
     //Data
     @Column(name = "data_agendamento")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime dataAgendamento;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyy-MM-dd")
+    private LocalDate dataAgendamento;
     @CreationTimestamp
     @Column(name = "data_criacao", nullable = false, updatable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -56,7 +56,7 @@ public class Schedule {
 
     //Construtor
     public Schedule(Boolean concluido, User user, Patient paciente,
-                    Shift turno, LocalDateTime dataAgendamento,
+                    Shift turno, LocalDate dataAgendamento,
                     String observacao, String motivoDoAtendimento,
                     Priority prioridade) {
 
@@ -68,6 +68,7 @@ public class Schedule {
         this.observacao = observacao;
         this.motivoDoAtendimento = motivoDoAtendimento;
         this.prioridade = prioridade;
+        this.dataCriacao = LocalDateTime.now();
     }
 
     @Override

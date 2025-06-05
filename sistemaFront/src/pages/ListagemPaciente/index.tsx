@@ -25,13 +25,17 @@ import { useNavigate } from "react-router-dom";
 const Row = ({ patient }: { patient: Patient }) => {
   const [open, setOpen] = React.useState(false);
 
-  const getPrioridadeColor = (prioridade: string) => {
-    switch (prioridade.toUpperCase()) {
+  const getPrioridadeColor = (prioridade: string | number) => {
+    const prioridadeStr = String(prioridade).toUpperCase();
+    switch (prioridadeStr) {
       case "VERMELHO":
+      case "0":
         return "red";
       case "AMARELO":
+      case "1":
         return "yellow";
       case "VERDE":
+      case "2":
         return "green";
       default:
         return "black";
@@ -57,8 +61,8 @@ const Row = ({ patient }: { patient: Patient }) => {
               fontWeight: "bold",
             }}
           >
-            {patient.prioridade.charAt(0).toUpperCase() +
-              patient.prioridade.slice(1).toLowerCase()}
+            {String(patient.prioridade).charAt(0).toUpperCase() +
+              String(patient.prioridade).slice(1).toLowerCase()}
           </span>
         </TableCell>
       </TableRow>
