@@ -41,7 +41,7 @@ public class ScheduleService {
         );
     }
 
-    public ScheduleResponseDTO create(ScheduleRequestDTO newSchedule) {
+    public ScheduleResponseDTO create(Schedule newSchedule) {
         newSchedule.setConcluido(false); // Agendamentos começam como não concluídos
         Schedule savedSchedule = scheduleRepository.save(newSchedule);
 
@@ -54,7 +54,18 @@ public class ScheduleService {
         String emailPaciente = savedSchedule.getPaciente().getEmail();
         emailService.enviarEmailSimples(emailPaciente, assunto, mensagem);
 
-        return savedSchedule;
+        return new ScheduleResponseDTO(
+                savedSchedule.getId(),
+                savedSchedule.getConcluido(),
+                savedSchedule.getUser(),
+                savedSchedule.getPaciente(),
+                savedSchedule.getTurno(),
+                savedSchedule.getDataAgendamento(),
+                savedSchedule.getDataCriacao(),
+                savedSchedule.getObservacao(),
+                savedSchedule.getMotivoDoAtendimento(),
+                savedSchedule.getPrioridade()
+        );
     }
 
     public List<Schedule> getAll() {

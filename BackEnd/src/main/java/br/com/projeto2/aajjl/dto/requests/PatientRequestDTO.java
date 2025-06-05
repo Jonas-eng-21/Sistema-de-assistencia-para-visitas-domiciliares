@@ -1,6 +1,7 @@
 package br.com.projeto2.aajjl.dto.requests;
 
 import br.com.projeto2.aajjl.model.Priority;
+import br.com.projeto2.aajjl.model.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 
@@ -21,7 +22,7 @@ public record PatientRequestDTO(
         String cidade,
         String estado,
         Priority prioridade,
-        Long cadastradoPorId,
+        User cadastradoPorId,
         Boolean ativo
 ) {
 }

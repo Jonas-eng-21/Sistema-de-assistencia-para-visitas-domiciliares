@@ -20,7 +20,7 @@ public class NotificationController {
 
     @PostMapping
     public ResponseEntity<NotificationResponseDTO> create(@RequestBody NotificationRequestDTO newNotification) {
-        NotificationResponseDTO notificationResponseDTO = notificationService.create(newNotification);
+        NotificationResponseDTO notificationResponseDTO = notificationService.create(new Notification(newNotification));
         return ResponseEntity.ok(notificationResponseDTO);
     }
 

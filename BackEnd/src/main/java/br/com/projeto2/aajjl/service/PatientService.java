@@ -2,6 +2,7 @@ package br.com.projeto2.aajjl.service;
 
 import br.com.projeto2.aajjl.dto.requests.PatientRequestDTO;
 import br.com.projeto2.aajjl.dto.responses.PatientResponseDTO;
+import br.com.projeto2.aajjl.dto.responses.ResponseDTO;
 import br.com.projeto2.aajjl.model.Patient;
 import br.com.projeto2.aajjl.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class PatientService {
     @Autowired
     private EmailSenderService emailService;
 
-    public PatientResponseDTO create(PatientRequestDTO newPatient) {
+    public PatientResponseDTO create(Patient newPatient) {
         newPatient.setAtivo(true);
         Patient savedPatient = patientRepository.save(newPatient);
 
@@ -31,7 +32,25 @@ public class PatientService {
                 "Olá " + savedPatient.getNome() + ", seu cadastro como paciente foi realizado com sucesso!"
         );
 
-        return savedPatient;
+        return new PatientResponseDTO(
+                newPatient.getId(),
+                newPatient.getNome(),
+                newPatient.getCpf(),
+                newPatient.getEmail(),
+                newPatient.getDoenca(),
+                newPatient.getObservacao(),
+                newPatient.getDataNascimento(),
+                newPatient.getCep(),
+                newPatient.getRua(),
+                newPatient.getNumero(),
+                newPatient.getBairro(),
+                newPatient.getComplemento(),
+                newPatient.getCidade(),
+                newPatient.getEstado(),
+                newPatient.getPrioridade(),
+                newPatient.getAtivo(),
+                newPatient.getCadastradoPor()
+        );
     }
 
     public List<Patient> getAll() {
