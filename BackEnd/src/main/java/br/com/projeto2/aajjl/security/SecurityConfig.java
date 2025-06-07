@@ -68,9 +68,14 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/pacientes").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/password/forgot-password").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/password/reset-password").permitAll()
                         .anyRequest().authenticated()
-                )
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+                );
+                //.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+                //tentei de toda forma, o fotgot e reset password so funciona sem filtro JWT
+                //tentei autorizar em todo canto, mas so sem essa linha que as coisas funcionam
+        
         return http.build();
     }
 

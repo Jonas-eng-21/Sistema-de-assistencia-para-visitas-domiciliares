@@ -20,6 +20,7 @@ public class PasswordForgotResetControler {
 
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestParam String email) {
+        System.out.println(" @PostMapping(\"/forgot-password\")");
         passwordForgotResetService.sendPasswordResetToken(email);
         return ResponseEntity.ok("E-mail de recuperação enviado");
     }
