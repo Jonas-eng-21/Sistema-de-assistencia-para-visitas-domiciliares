@@ -17,16 +17,12 @@ import org.springframework.web.cors.*;
 
 import java.util.List;
 
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     @Autowired
-    private CustomUserDetailsService userDetailsService;
-
-    @Autowired
-    SecurityFilter securityFilter;
+    private SecurityFilter securityFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -39,9 +35,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/pacientes").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/password/forgot-password").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/password/reset-password").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
