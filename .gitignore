@@ -4,3 +4,4 @@ package-lock.json
 BackEnd/src/main/resources/application.properties
 BackEnd/src/main/resources/application.properties
 /BackEnd/src/main/resources
+*.properties
