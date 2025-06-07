@@ -1,3 +1,7 @@
+/*
+Retirar segurança para testes:
+
+
 package br.com.projeto2.aajjl.controller;
 
 import org.springframework.context.annotation.Bean;
@@ -13,11 +17,11 @@ public class AuthController {
         return new BCryptPasswordEncoder();
     }
 }
+ */
 
 
 
 
-/*
 package br.com.projeto2.aajjl.controller;
 
 import br.com.projeto2.aajjl.dto.requests.LoginRequestDTO;
@@ -82,4 +86,3 @@ public class AuthController {
 
 
 }
-*/

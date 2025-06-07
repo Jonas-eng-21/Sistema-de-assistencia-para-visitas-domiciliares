@@ -20,7 +20,7 @@ export const AppRoutes = () => {
       <Route
         path="/"
         element={
-          isLoggedIn() ? <Navigate to="/principal" replace /> : <Login />
+          isLoggedIn() ? <Navigate to="/principal" replace /> : <Login   />
         }
       />
       <Route path="/cadastro" element={<Cadastro />} />

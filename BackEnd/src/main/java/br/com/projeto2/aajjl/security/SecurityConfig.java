@@ -1,3 +1,6 @@
+/*
+Retirar segurança para testes
+
 package br.com.projeto2.aajjl.security;
 
 import org.springframework.context.annotation.Bean;
@@ -18,11 +21,11 @@ public class SecurityConfig {
         return http.build();
     }
 }
+*/
 
 
 
 
-/*
 package br.com.projeto2.aajjl.security;
 
 
@@ -94,4 +97,3 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 }
-*/
