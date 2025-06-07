@@ -26,12 +26,12 @@ public class PasswordForgotResetService {
     private PasswordEncoder passwordEncoder;
 
     public void sendPasswordResetToken(String email) {
-        System.out.println("cheguei  sendPasswordResetToken(String email)" );
+        //System.out.println("cheguei  sendPasswordResetToken(String email)" );
 
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        System.out.println("cheguei  User user = userRepository.findByEmail" );
+        //System.out.println("cheguei  User user = userRepository.findByEmail" );
 
         //Gera o token
         String token = UUID.randomUUID().toString();
@@ -42,8 +42,9 @@ public class PasswordForgotResetService {
 
         tokenRepository.save(resetToken);
 
-        //Conferir link se é esse mesmo, e lembrar de trocar no host
-        String link = "https://localhost:5173/reset-password?token=" + token;
+        //Conferir link se é esse mesmo, e lembrar de trocar no host!!!!
+        String link = "http://localhost:5173/reset-password?token=" + token;
+        //Com https o link nao funciona, precisa ser http
 
         String assunto = "Recuperação de Senha";
         String mensagem = "Olá, " + user.getNome() + ".\n\n" +
@@ -55,8 +56,12 @@ public class PasswordForgotResetService {
     }
 
     public void resetPassword(String token, String newPassword) {
+        System.out.println("cheguei  resetPassword(String token, String newPassword)" );
+
         PasswordResetToken resetToken = tokenRepository.findByToken(token)
                 .orElseThrow(() -> new RuntimeException("Token inválido"));
+
+        System.out.println("cheguei  findByToken(token)" );
 
         User user = resetToken.getUser();
         user.setSenha(passwordEncoder.encode(newPassword));

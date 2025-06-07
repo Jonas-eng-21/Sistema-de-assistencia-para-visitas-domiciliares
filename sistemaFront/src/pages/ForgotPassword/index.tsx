@@ -13,6 +13,7 @@ const ForgotPassword: React.FC = () => {
       const response = await fetch(`http://localhost:8080/password/forgot-password?email=${encodeURIComponent(email)}`, {
         method: 'POST',
       });
+      //no back ele espera o email na url e nao no json, por isso o erro antigo.
 
 
       if (response.ok) {
