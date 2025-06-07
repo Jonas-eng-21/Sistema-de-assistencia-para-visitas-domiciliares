@@ -1,33 +1,4 @@
-/*
-Retirar segurança para testes
-
 package br.com.projeto2.aajjl.security;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.SecurityFilterChain;
-
-@Configuration
-public class SecurityConfig {
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()  // Desativa proteção CSRF
-                .authorizeHttpRequests()
-                .anyRequest().permitAll();  // Libera acesso a todas as rotas
-
-        return http.build();
-    }
-}
-*/
-
-
-
-
-package br.com.projeto2.aajjl.security;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -46,16 +17,12 @@ import org.springframework.web.cors.*;
 
 import java.util.List;
 
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     @Autowired
-    private CustomUserDetailsService userDetailsService;
-
-    @Autowired
-    SecurityFilter securityFilter;
+    private SecurityFilter securityFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -71,11 +38,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/password/forgot-password").permitAll()
                         .requestMatchers(HttpMethod.POST, "/password/reset-password").permitAll()
                         .anyRequest().authenticated()
-                );
-                //.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
-                //tentei de toda forma, o fotgot e reset password so funciona sem filtro JWT
-                //tentei autorizar em todo canto, mas so sem essa linha que as coisas funcionam
-        
+                )
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
