@@ -1,5 +1,6 @@
 import * as S from './style'
 import Header from '../../components/Header'
+import AgendamentosPreview from '../../components/AgendamentosPreview';
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
 
@@ -23,6 +24,7 @@ const Principal = () => {
           <S.Subtitle>Agendamento de Visitas</S.Subtitle>
           <S.ProximasVisitas>
             <p> Listagem das proximas visitas </p>
+            <AgendamentosPreview />
           </S.ProximasVisitas>
         </S.LadoEsquerdo>
         <S.LadoDireito>
