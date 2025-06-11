@@ -3,7 +3,7 @@ import { handleError } from "../helpers/ErrorHandler.";
 import type { UserProfileToken } from "../models/User";
 import type { RegisterData } from "../context/AuthContext";
 
-const api = "http://localhost:8080";
+const api = "https://back-sus-visitas-domiciliares.onrender.com";
 
 export const loginAPI = async (email: string, senha: string) => {
   try {

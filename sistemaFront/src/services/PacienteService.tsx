@@ -2,7 +2,7 @@ import axios from "axios";
 import type { Patient } from "../models/Patient";
 import { handleError } from "../helpers/ErrorHandler.";
 
-const api = "http://localhost:8080/api/pacientes";
+const api = "https://back-sus-visitas-domiciliares.onrender.com/api/pacientes";
 export const getAllPatientsAPI = async (): Promise<Patient[] | undefined> => {
   try {
     const response = await axios.get<Patient[]>(api);
