@@ -30,15 +30,49 @@ const Row = ({ patient }: { patient: Patient }) => {
     switch (prioridadeStr) {
       case "VERMELHO":
       case "0":
-        return "red";
+        return "black";
       case "AMARELO":
       case "1":
-        return "yellow";
+        return "black";
       case "VERDE":
       case "2":
-        return "green";
+        return "black";
       default:
         return "black";
+    }
+  };
+
+  const getPrioridadeIcon = (prioridade: string | number) => {
+    const prioridadeStr = String(prioridade).toUpperCase();
+    switch (prioridadeStr) {
+      case "VERMELHO":
+      case "0":
+        return "/PrioridadeAlta.svg";
+      case "AMARELO":
+      case "1":
+        return "/PrioridadeMedia.svg";
+      case "VERDE":
+      case "2":
+        return "/PrioridadeBaixa.svg";
+      default:
+        return "";
+    }
+  };
+
+  const formatPrioridadeLabel = (prioridade: string | number) => {
+    const prioridadeStr = String(prioridade).toUpperCase();
+    switch (prioridadeStr) {
+      case "VERMELHO":
+      case "0":
+        return "Vermelho";
+      case "AMARELO":
+      case "1":
+        return "Amarelo";
+      case "VERDE":
+      case "2":
+        return "Verde";
+      default:
+        return prioridadeStr;
     }
   };
 
@@ -55,15 +89,23 @@ const Row = ({ patient }: { patient: Patient }) => {
         <TableCell>{patient.email}</TableCell>
         <TableCell>{patient.doenca}</TableCell>
         <TableCell>
-          <span
-            style={{
-              color: getPrioridadeColor(patient.prioridade),
-              fontWeight: "bold",
-            }}
-          >
-            {String(patient.prioridade).charAt(0).toUpperCase() +
-              String(patient.prioridade).slice(1).toLowerCase()}
-          </span>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <img
+              src={getPrioridadeIcon(patient.prioridade)}
+              style={{ paddingRight: "5px", height: "10px" }}
+              alt="Ícone de prioridade"
+            />
+            <Typography
+              component="span"
+              sx={{
+                color: getPrioridadeColor(patient.prioridade),
+                fontWeight: "bold",
+                fontSize: "0.875rem",
+              }}
+            >
+              {formatPrioridadeLabel(patient.prioridade)}
+            </Typography>
+          </Box>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -106,7 +148,7 @@ const ListagemPaciente = () => {
           className="button"
           onClick={() => navigate("/cadastro-de-Paciente")}
         >
-          <p className="text">Novo Paciente</p>
+          <p className="text" style={{ textTransform: "none" }}>Novo Paciente</p>
           <ControlPointTwoToneIcon />
         </Button>
         <TableContainer component={Paper} className="table">

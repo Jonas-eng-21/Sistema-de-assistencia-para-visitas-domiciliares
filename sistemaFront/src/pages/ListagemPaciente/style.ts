@@ -50,20 +50,20 @@ export const ContainerTable = styled.div`
   width: 70%;
 
   .table {
-    background-color: #d9d9d9;
+    background-color: #f5f5f5;
     margintop: 3;
   }
   .button {
     margin-bottom: 1rem;
     margin-left: auto;
-    background-color: #b9d3ee;
+    background-color: #98B8F3;
     border-radius: 20px;
     box-shadow: 0px 9px 12px 0px rgba(127, 127, 127, 0.75);
     -webkit-box-shadow: 0px 9px 12px 0px rgba(127, 127, 127, 0.75);
     -moz-box-shadow: 0px 9px 12px 0px rgba(127, 127, 127, 0.75);
   }
   .text {
-    color: #fff;
+    color: #000000;
     margin-right: 0.3rem;
   }
 `;
