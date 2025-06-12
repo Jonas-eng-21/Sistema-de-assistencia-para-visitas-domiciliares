@@ -15,6 +15,10 @@ const Principal = () => {
     navigate('/agendar-visita')
   }
 
+  const handleListarPacientes = () => {
+    navigate('/listagem')
+  }
+
   return (
     <S.Container>
       <Header />
@@ -34,7 +38,7 @@ const Principal = () => {
             <img src="/calendar.svg" alt="Calendário de visitas" style={{ width: 75, height: 85 }} />
             <S.TextoButton2>Calendário <br /> de visitas</S.TextoButton2>
           </S.Button2>
-          <S.Button2>
+          <S.Button2 onClick={handleListarPacientes}>
             <img src="/list.svg" alt="Listar Pacientes" style={{ width: 75, height: 85 }} />
             <S.TextoButton2>Listar <br /> Pacientes</S.TextoButton2>
           </S.Button2>
