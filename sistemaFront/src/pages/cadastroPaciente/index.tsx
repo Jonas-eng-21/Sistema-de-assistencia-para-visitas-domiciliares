@@ -64,10 +64,11 @@ const CadastroPaciente = () => {
     <S.Container>
       <Header />
       <S.Title>Cadastro de Paciente</S.Title>
-      <S.Card>
+      <S.Card className="divcadastro" style={{ width: "100%", minWidth: "400px", alignItems: "stretch", padding: "20px" }}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Nome:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Nome"
@@ -77,7 +78,10 @@ const CadastroPaciente = () => {
                 helperText={errors.nome?.message}
               />
             </S.Entrada>
+          </S.ContainerInputs>
+          <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>CPF:</S.TituloForm>
               <TextField
                 fullWidth
                 label="CPF"
@@ -87,7 +91,10 @@ const CadastroPaciente = () => {
                 helperText={errors.cpf?.message}
               />
             </S.Entrada>
+          </S.ContainerInputs>
+          <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Email:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Email"
@@ -100,6 +107,22 @@ const CadastroPaciente = () => {
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Prioridade:</S.TituloForm>
+              <TextField
+                fullWidth
+                select
+                label="Prioridade"
+                variant="filled"
+                {...register("prioridade")}
+                error={!!errors.prioridade}
+                helperText={errors.prioridade?.message}>
+                <MenuItem value={0}> <img src="/PrioridadeAlta.svg" style={{paddingRight: "5px", height: "10px"}}/> Vermelho</MenuItem>
+                <MenuItem value={1}> <img src="/PrioridadeMedia.svg" style={{paddingRight: "5px", height: "10px"}}/> Amarelo</MenuItem>
+                <MenuItem value={2}> <img src="/PrioridadeBaixa.svg" style={{paddingRight: "5px", height: "10px"}}/> Verde</MenuItem>
+              </TextField>
+            </S.Entrada>
+            <S.Entrada>
+              <S.TituloForm>Doença(s):</S.TituloForm>
               <TextField
                 fullWidth
                 label="Doença"
@@ -109,17 +132,10 @@ const CadastroPaciente = () => {
                 helperText={errors.doenca?.message}
               />
             </S.Entrada>
+          </S.ContainerInputs>
+          <S.ContainerInputs>
             <S.Entrada>
-              <TextField
-                fullWidth
-                label="CEP"
-                variant="filled"
-                {...register("cep")}
-                error={!!errors.cep}
-                helperText={errors.cep?.message}
-              />
-            </S.Entrada>
-            <S.Entrada>
+              <S.TituloForm>Rua:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Rua"
@@ -129,10 +145,10 @@ const CadastroPaciente = () => {
                 helperText={errors.rua?.message}
               />
             </S.Entrada>
-            <S.Entrada></S.Entrada>
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Número:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Número"
@@ -142,18 +158,8 @@ const CadastroPaciente = () => {
                 helperText={errors.numero?.message}
               />
             </S.Entrada>
-
             <S.Entrada>
-              <TextField
-                fullWidth
-                label="Bairro"
-                variant="filled"
-                {...register("bairro")}
-                error={!!errors.bairro}
-                helperText={errors.bairro?.message}
-              />
-            </S.Entrada>
-            <S.Entrada>
+              <S.TituloForm>Complemento:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Complemento"
@@ -166,6 +172,31 @@ const CadastroPaciente = () => {
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Bairro:</S.TituloForm>
+              <TextField
+                fullWidth
+                label="Bairro"
+                variant="filled"
+                {...register("bairro")}
+                error={!!errors.bairro}
+                helperText={errors.bairro?.message}
+              />
+            </S.Entrada>
+            <S.Entrada>
+              <S.TituloForm>CEP:</S.TituloForm>
+              <TextField
+                fullWidth
+                label="CEP"
+                variant="filled"
+                {...register("cep")}
+                error={!!errors.cep}
+                helperText={errors.cep?.message}
+              />
+            </S.Entrada>
+          </S.ContainerInputs>
+          <S.ContainerInputs>
+            <S.Entrada>
+              <S.TituloForm>Cidade:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Cidade"
@@ -176,6 +207,7 @@ const CadastroPaciente = () => {
               />
             </S.Entrada>
             <S.Entrada>
+              <S.TituloForm>Estado:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Estado"
@@ -185,24 +217,9 @@ const CadastroPaciente = () => {
                 helperText={errors.estado?.message}
               />
             </S.Entrada>
-            <S.Entrada>
-              <TextField
-                className="prioridade"
-                fullWidth
-                select
-                label="Prioridade"
-                variant="filled"
-                {...register("prioridade")}
-                error={!!errors.prioridade}
-                helperText={errors.prioridade?.message}
-              >
-                <MenuItem value={0}>Vermelho</MenuItem>
-                <MenuItem value={1}>Amarelo</MenuItem>
-                <MenuItem value={2}>Verde</MenuItem>
-              </TextField>
-            </S.Entrada>
           </S.ContainerInputs>
           <S.Entrada>
+            <S.TituloForm>Observação:</S.TituloForm>
             <TextField
               fullWidth
               label="Observação"
@@ -212,15 +229,57 @@ const CadastroPaciente = () => {
               helperText={errors.observacao?.message}
             />
           </S.Entrada>
-          <Button
-            type="submit"
-            variant="contained"
-            className="button"
-            fullWidth
-            disabled={!isValid}
-          >
-            Cadastrar
-          </Button>
+          <div style={{ display: "flex", gap: "16px" }}>
+            <Button
+              variant="contained"
+              fullWidth
+              onClick={() => window.history.back()}
+              sx={{
+                backgroundColor: "#bdbdbd",
+                color: "#000000",
+                padding: "10px 0",
+                borderRadius: "8px",
+                fontSize: "1rem",
+                boxShadow: "0 2px 8px rgba(189, 189, 189, 0.15)",
+                textTransform: "none",
+                transition: "background 0.2s",
+                "&:hover": {
+                  backgroundColor: "#9e9e9e",
+                },
+              }}
+            >
+              Voltar
+            </Button>
+
+            <Button
+              type="submit"
+              variant="contained"
+              className="button"
+              fullWidth
+              disabled={!isValid}
+              sx={{
+                backgroundColor: "#98B8F3",
+                color: "#000000",
+                padding: "10px 0",
+                borderRadius: "8px",
+                fontSize: "1rem",
+                boxShadow: "0 2px 8px rgba(25, 118, 210, 0.15)",
+                textTransform: "none",
+                transition: "background 0.2s",
+                "&:hover": {
+                  backgroundColor: "#6f87b3",
+                },
+                "&.Mui-disabled": {
+                  backgroundColor: "#bdbdbd",
+                  color: "#000000",
+                },
+              }}
+            >
+              Cadastrar
+            </Button>
+
+          </div>
+
         </form>
       </S.Card>
     </S.Container>

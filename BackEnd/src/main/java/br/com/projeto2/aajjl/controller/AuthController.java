@@ -20,6 +20,7 @@ public class AuthController {
     @Autowired
     private final UserRepository repository;
 
+    @Autowired
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -46,19 +47,5 @@ public class AuthController {
         }
         return ResponseEntity.badRequest().build();
     }
-
-    @PostMapping("/forgot-password")
-    public ResponseEntity<String> forgotPassword(@RequestParam String email) {
-        userService.sendPasswordResetToken(email);
-        return ResponseEntity.ok("E-mail de recuperação enviado");
-    }
-
-    @PostMapping("/reset-password")
-    public ResponseEntity<String> resetPassword(@RequestParam String token,
-                                                @RequestParam String newPassword) {
-        userService.resetPassword(token, newPassword);
-        return ResponseEntity.ok("Senha alterada com sucesso");
-    }
-
 
 }
