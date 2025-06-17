@@ -1,231 +1,265 @@
 import { useEffect, useState } from "react";
-import * as S from "./style";
-import Header from "../../components/Header";
-import { getAllPatientsAPI } from "../../services/PacienteService";
-import { getAllUsersAPI } from "../../services/AuthService";
-import type { User } from "../../models/User";
-import type { Patient } from "../../models/Patient";
-import { Button } from "@mui/material";
-import ControlPointTwoToneIcon from "@mui/icons-material/ControlPointTwoTone";
+import { useForm, Controller, type SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { createScheduleAPI } from "../../services/AgendamentoService";
 import { toast } from "react-toastify";
 
-const Principal = () => {
+import {
+  TextField,
+  Button,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
+import Header from "../../components/Header";
+import * as S from "./style";
+
+import { getAllUsersAPI } from "../../services/AuthService";
+import { getAllPatientsAPI } from "../../services/PacienteService";
+import { createScheduleAPI } from "../../services/AgendamentoService";
+import { type User } from "../../models/User";
+import { type Patient } from "../../models/Patient";
+import {
+  Shift,
+  Priority,
+  type ScheduleRequestDTO,
+} from "../../models/Schedule";
+
+const schema = yup.object({
+  pacienteId: yup.number().required("Selecione um paciente."),
+  userId: yup.number().required("Selecione um profissional."),
+  dataAgendamento: yup.string().required("A data da visita é obrigatória."),
+  turno: yup
+    .string()
+    .oneOf(Object.values(Shift))
+    .required("Selecione um turno."),
+  motivoDoAtendimento: yup.string().required("O motivo é obrigatório."),
+  prioridade: yup
+    .string()
+    .oneOf(Object.values(Priority))
+    .required("Selecione uma prioridade."),
+  observacao: yup.string().required().default(""), // <-- Make required with default
+});
+
+type FormData = yup.InferType<typeof schema>;
+
+const AgendarVisita = () => {
   const [pacientes, setPacientes] = useState<Patient[]>([]);
   const [profissionais, setProfissionais] = useState<User[]>([]);
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    pacienteId: "",
-    profissionalId: "",
-    data: "",
-    turno: "MANHA",
-    motivo: "",
-    prioridade: "ALTA",
-    observacoes: "",
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
+    mode: "onChange",
+    defaultValues: {
+      dataAgendamento: "",
+      turno: Shift.MATUTINO,
+      prioridade: Priority.VERDE,
+      motivoDoAtendimento: "",
+      observacao: "",
+    },
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [pacientesData, profissionaisData] = await Promise.all([
+          getAllPatientsAPI(),
+          getAllUsersAPI(),
+        ]);
+        setPacientes(pacientesData || []);
+        setProfissionais(profissionaisData || []);
+      } catch (error) {
+        console.error("Erro ao buscar dados para o formulário:", error);
+        toast.error(
+          "Não foi possível carregar os dados de pacientes e profissionais."
+        );
+      }
+    };
+    fetchData();
+  }, []);
 
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
-      const agendamento = {
-        pacienteId: parseInt(formData.pacienteId),
-        profissionalId: parseInt(formData.profissionalId),
-        dataVisita: formData.data,
-        turno: formData.turno.toUpperCase(),
-        motivoDoAtendimento: formData.motivo,
-        prioridade:
-          formData.prioridade === "0"
-            ? "ALTA"
-            : formData.prioridade === "1"
-            ? "MEDIA"
-            : "BAIXA",
-        observacao: formData.observacoes || undefined,
+      const agendamentoParaAPI: ScheduleRequestDTO = {
+        userId: data.userId,
+        pacienteId: data.pacienteId,
+        dataAgendamento: data.dataAgendamento,
+        turno: data.turno as Shift,
+        prioridade: data.prioridade as Priority,
+        motivoDoAtendimento: data.motivoDoAtendimento,
+        observacao: data.observacao || "",
       };
-
-      await createScheduleAPI(agendamento);
+      
+      await createScheduleAPI(agendamentoParaAPI);
       toast.success("Agendamento criado com sucesso!");
+      navigate('/principal');
     } catch (error) {
       console.error("Erro ao criar agendamento:", error);
       toast.error("Erro ao criar agendamento.");
     }
   };
 
-  useEffect(() => {
-    document.title = "Página Inicial - Agendamento de visitas";
-
-    const fetchDados = async () => {
-      try {
-        const pacientesResponse = await getAllPatientsAPI();
-        setPacientes(pacientesResponse || []);
-
-        const profissionaisResponse = await getAllUsersAPI();
-        setProfissionais(profissionaisResponse || []);
-      } catch (error) {
-        console.error("Erro ao buscar pacientes ou profissionais:", error);
-      }
-    };
-
-    fetchDados();
-  }, []);
-
   return (
     <S.Container>
       <Header />
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          height: "100px",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <S.AgendamentoTitle>Agendamento de Visitas</S.AgendamentoTitle>
-        <form style={{ width: "70%", height: "100%" }} onSubmit={handleSubmit}>
-          <S.FormGroup>
-            <S.FormRow style={{ alignItems: "end", width: "100%" }}>
-              <S.FormGroup style={{ minWidth: "40%", width: "100%" }}>
-                <S.FormFonte htmlFor="paciente">Paciente:</S.FormFonte>
-                <S.SelectForm
-                  onChange={(e) =>
-                    setFormData({ ...formData, pacienteId: e.target.value })
-                  }
-                  id="paciente"
-                  name="paciente"
-                  value={formData.pacienteId}
-                >
-                  {pacientes.map((paciente) => (
-                    <option key={paciente.id} value={paciente.id}>
-                      {paciente.nome}
-                    </option>
-                  ))}
-                </S.SelectForm>
-              </S.FormGroup>
-              <S.FormGroup
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "end",
-                }}
-              >
-                <S.TextoAjuda style={{ textAlign: "center", marginBottom: 5 }}>
-                  Caso não encontre, <br /> cadastre um novo paciente:
-                </S.TextoAjuda>
-              </S.FormGroup>
-              <S.FormGroup style={{ display: "flex", alignItems: "start" }}>
-                <Button
-                  className="button"
-                  onClick={() => navigate("/cadastro-de-Paciente")}
-                >
-                  <p className="text">Novo Paciente</p>
-                  <ControlPointTwoToneIcon />
-                </Button>
-              </S.FormGroup>
-            </S.FormRow>
-          </S.FormGroup>
-          <S.FormGroup>
-            <S.FormFonte htmlFor="paciente">Profissional:</S.FormFonte>
-            <S.SelectForm
-              id="profissional"
-              name="profissional"
-              style={{ width: "43%" }}
-              value={formData.profissionalId}
-              onChange={(e) =>
-                setFormData({ ...formData, profissionalId: e.target.value })
-              }
-            >
-              {profissionais.map((prof) => (
-                <option key={prof.id} value={prof.id}>
-                  {prof.nome} - {prof.profissao}
-                </option>
-              ))}
-            </S.SelectForm>
-          </S.FormGroup>
+      <S.Title>Agendamento de Visitas</S.Title>
+      <S.Card>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <S.FormRow>
-            <S.FormGroup>
-              <S.FormFonte htmlFor="data">Data da Visita:</S.FormFonte>
-              <S.DataForm
-                type="date"
-                id="data"
-                name="data"
-                value={formData.data}
-                onChange={(e) =>
-                  setFormData({ ...formData, data: e.target.value })
-                }
-              />
-            </S.FormGroup>
-            <S.FormGroup>
-              <S.FormFonte htmlFor="Turno">Turno:</S.FormFonte>
-              <S.SelectForm
-                id="turno"
-                name="turno"
-                value={formData.turno}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    turno: e.target.value.toUpperCase(),
-                  })
-                }
-              >
-                <option value="MANHA">Manhã</option>
-                <option value="TARDE">Tarde</option>
-              </S.SelectForm>
-            </S.FormGroup>
-          </S.FormRow>
-          <S.FormRow>
-            <S.FormGroup style={{ width: "100%" }}>
-              <S.FormFonte htmlFor="motivoAtendimento">
-                Motivo do Atendimento:
-              </S.FormFonte>
-              <S.ObservacoesForm
-                id="motivoAtendimento"
-                name="motivoAtendimento"
-                placeholder="Descreva brevemente o motivo do atendimento"
-                value={formData.motivo}
-                onChange={(e) =>
-                  setFormData({ ...formData, motivo: e.target.value })
-                }
-              />
-            </S.FormGroup>
-
-            <S.FormGroup style={{ width: "100%" }}>
-              <S.FormFonte htmlFor="prioridade">Prioridade:</S.FormFonte>
-              <S.SelectForm
-                id="prioridade"
-                name="prioridade"
-                value={formData.prioridade}
-                onChange={(e) =>
-                  setFormData({ ...formData, prioridade: e.target.value })
-                }
-              >
-                <option value="0">Vermelho</option>
-                <option value="1">Amarelo</option>
-                <option value="2">Verde</option>
-              </S.SelectForm>
-            </S.FormGroup>
-          </S.FormRow>
-          <S.FormGroup>
-            <S.FormFonte htmlFor="observacoes">Observações:</S.FormFonte>
-            <S.ObservacoesForm
-              id="observacoes"
-              name="observacoes"
-              value={formData.observacoes}
-              onChange={(e) =>
-                setFormData({ ...formData, observacoes: e.target.value })
-              }
+            <Controller
+              name="pacienteId"
+              control={control}
+              render={({ field }) => (
+                <FormControl fullWidth variant="filled">
+                  <InputLabel>Paciente</InputLabel>
+                  <Select {...field} error={!!errors.pacienteId}>
+                    {pacientes.map((paciente) => (
+                      <MenuItem key={paciente.id} value={paciente.id}>
+                        {paciente.nome}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
             />
-          </S.FormGroup>
-          <S.FormRow style={{ justifyContent: "center", marginTop: "30px" }}>
-            <S.ButtonVoltar type="button">Voltar</S.ButtonVoltar>
-            <S.ButtonAgendamento type="submit">Salvar</S.ButtonAgendamento>
+            <Controller
+              name="userId"
+              control={control}
+              render={({ field }) => (
+                <FormControl fullWidth variant="filled">
+                  <InputLabel>Profissional</InputLabel>
+                  <Select {...field} error={!!errors.userId}>
+                    {profissionais.map((prof) => (
+                      <MenuItem key={prof.id} value={prof.id}>
+                        {prof.nome} - {prof.profissao}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
+            />
           </S.FormRow>
+
+          {/* Linha 2: Data e Turno */}
+          <S.FormRow>
+            <Controller
+              name="dataAgendamento"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  type="date"
+                  label="Data da Visita"
+                  variant="filled"
+                  fullWidth
+                  error={!!errors.dataAgendamento}
+                  helperText={errors.dataAgendamento?.message}
+                  InputLabelProps={{ shrink: true }}
+                />
+              )}
+            />
+            <Controller
+              name="turno"
+              control={control}
+              render={({ field }) => (
+                <FormControl fullWidth variant="filled">
+                  <InputLabel>Turno</InputLabel>
+                  <Select {...field} error={!!errors.turno}>
+                    <MenuItem value={Shift.MATUTINO}>Manhã</MenuItem>
+                    <MenuItem value={Shift.VESPERTINO}>Tarde</MenuItem>
+                    <MenuItem value={Shift.NOTURNO}>Noite</MenuItem>
+                  </Select>
+                </FormControl>
+              )}
+            />
+          </S.FormRow>
+
+          {/* Linha 3: Motivo e Prioridade */}
+          <S.FormRow>
+            <Controller
+              name="motivoDoAtendimento"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Motivo do Atendimento"
+                  variant="filled"
+                  fullWidth
+                  multiline
+                  rows={3}
+                  error={!!errors.motivoDoAtendimento}
+                  helperText={errors.motivoDoAtendimento?.message}
+                />
+              )}
+            />
+            <Controller
+              name="prioridade"
+              control={control}
+              render={({ field }) => (
+                <FormControl fullWidth variant="filled">
+                  <InputLabel>Prioridade</InputLabel>
+                  <Select {...field} error={!!errors.prioridade}>
+                    <MenuItem value={Priority.VERDE}>Baixa (Verde)</MenuItem>
+                    <MenuItem value={Priority.AMARELO}>
+                      Média (Amarelo)
+                    </MenuItem>
+                    <MenuItem value={Priority.VERMELHO}>
+                      Alta (Vermelho)
+                    </MenuItem>
+                  </Select>
+                </FormControl>
+              )}
+            />
+          </S.FormRow>
+
+          {/* Linha 4: Observações */}
+          <Controller
+            name="observacao"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Observações (opcional)"
+                variant="filled"
+                fullWidth
+                multiline
+                rows={3}
+                margin="normal"
+              />
+            )}
+          />
+
+          {/* Linha 5: Botões */}
+          <S.ButtonContainer>
+            <Button
+              variant="outlined"
+              color="secondary"
+              fullWidth
+              onClick={() => navigate(-1)}
+            >
+              Voltar
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              disabled={!isValid}
+            >
+              Salvar Agendamento
+            </Button>
+          </S.ButtonContainer>
         </form>
-      </div>
+      </S.Card>
     </S.Container>
   );
 };
 
-export default Principal;
+export default AgendarVisita;
