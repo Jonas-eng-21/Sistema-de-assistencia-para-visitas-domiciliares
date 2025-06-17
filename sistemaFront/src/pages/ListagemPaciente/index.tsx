@@ -22,22 +22,32 @@ import EditIcon from "@mui/icons-material/Edit";
 import Paper from "@mui/material/Paper";
 import ControlPointTwoToneIcon from "@mui/icons-material/ControlPointTwoTone";
 import { useNavigate } from "react-router-dom";
+import { Priority } from "../../models/Schedule";
 
 const Row = ({ patient }: { patient: Patient }) => {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
 
-  const getPrioridadeColor = (prioridade: string | number) => {
-    const prioridadeStr = String(prioridade).toUpperCase();
-    switch (prioridadeStr) {
-      case "VERMELHO":
-      case "0":
+  const formatarPrioridade = (prioridade: Priority): string => {
+    switch (prioridade) {
+      case Priority.VERMELHO:
+        return "Alta";
+      case Priority.AMARELO:
+        return "Média";
+      case Priority.VERDE:
+        return "Baixa";
+      default:
+        return prioridade;
+    }
+  };
+
+  const getPrioridadeColor = (prioridade: Priority): string => {
+    switch (prioridade) {
+      case Priority.VERMELHO:
         return "red";
-      case "AMARELO":
-      case "1":
+      case Priority.AMARELO:
         return "yellow";
-      case "VERDE":
-      case "2":
+      case Priority.VERDE:
         return "green";
       default:
         return "black";
@@ -63,12 +73,15 @@ const Row = ({ patient }: { patient: Patient }) => {
               fontWeight: "bold",
             }}
           >
-            {String(patient.prioridade).charAt(0).toUpperCase() +
-              String(patient.prioridade).slice(1).toLowerCase()}
+            {formatarPrioridade(patient.prioridade)}
           </span>
         </TableCell>
         <TableCell>
-          <Button onClick={() => navigate("/editar-paciente", { state: { id: patient.id } })}>
+          <Button
+            onClick={() =>
+              navigate("/editar-paciente", { state: { id: patient.id } })
+            }
+          >
             <EditIcon />
           </Button>
         </TableCell>
@@ -98,8 +111,7 @@ const ListagemPaciente = () => {
   React.useEffect(() => {
     const fetchPatients = async () => {
       const data = await getAllPatientsAPI();
-      if (data) setPatients(data);
-      console.log("Pacientes carregados:", data);
+      if (data) setPatients(data);      
     };
 
     fetchPatients();

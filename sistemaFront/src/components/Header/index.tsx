@@ -2,11 +2,17 @@ import * as S from "./style";
 import React from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import NotificationBell from "../NotificationBell";
+import LogoutButton from "../LogoutButton";
 
 const Header = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [showOptions, setShowOptions] = React.useState(false);
+
+  const handleNotificationsClick = () => {
+    console.log("Sino de notificações clicado!");
+  };
 
   return (
     <>
@@ -39,6 +45,7 @@ const Header = () => {
               borderRadius: "6px",
               padding: "4px 8px",
             }}
+            onClick={() => navigate("/calendario")}
             onMouseOver={(e) => {
               (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
               (e.currentTarget as HTMLElement).style.color = "#061a2e";
@@ -70,7 +77,7 @@ const Header = () => {
             Listar
             <br /> Pacientes
           </p>
-                    <p
+          <p
             style={{
               cursor: "pointer",
               transition: "background 0.2s, color 0.2s",
@@ -151,7 +158,7 @@ const Header = () => {
             <br /> Visita
           </p>
         </S.HeaderAtalhos>
-        <S.HeaderLadoDireito>
+        <S.HeaderLadoDireito>          
           <div style={{ display: "flex" }}>
             {user && user.nome ? (
               <p>
@@ -216,27 +223,13 @@ const Header = () => {
                   padding: "10px",
                 }}
               >
-                <p style={{ margin: 0, cursor: "pointer" }} onClick={logout}>
-                  Sair
-                </p>
+                
               </div>
             )}
           </div>
 
-          <button
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: "5px",
-            }}
-          >
-            <img
-              src="/notificacao.svg"
-              alt="Notificações"
-              style={{ width: 35, height: 35 }}
-            />
-          </button>
+          <NotificationBell onClick={handleNotificationsClick} />
+          <LogoutButton onClick={logout} />
         </S.HeaderLadoDireito>
       </S.HeaderContainer>
     </>

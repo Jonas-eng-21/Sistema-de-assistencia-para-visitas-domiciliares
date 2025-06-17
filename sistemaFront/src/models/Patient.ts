@@ -1,3 +1,5 @@
+import type { Priority } from "./Schedule";
+
 export interface Patient {
   id: number;
   nome: string;
@@ -12,6 +14,6 @@ export interface Patient {
   complemento: string;
   cidade: string;
   estado: string;
-  prioridade: number;
+  prioridade: Priority;
   ativo: boolean;
 }
