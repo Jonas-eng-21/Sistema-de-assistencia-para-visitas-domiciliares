@@ -33,7 +33,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         if (token != null) {
             System.out.println("--- [SecurityFilter] Token encontrado no header: " + token.substring(0, 15) + "...");
 
-            var login = tokenService.validateToken(token); // Valida o token e retorna o email
+            var login = tokenService.validateToken(token);
 
             if (login != null) {
                 System.out.println("--- [SecurityFilter] Token VÁLIDO. Subject (email): " + login);

@@ -22,24 +22,18 @@ public class PatientController {
 
     @PostMapping
     public ResponseEntity<PatientResponseDTO> create(@RequestBody PatientRequestDTO requestDTO) {
-        // 1. O Controller passa o DTO de requisição DIRETAMENTE para o serviço.
         Patient savedPatient = patientService.create(requestDTO);
-
-        // 2. O Controller converte a ENTIDADE retornada pelo serviço para o DTO de RESPOSTA.
         PatientResponseDTO responseDTO = PatientResponseDTO.fromEntity(savedPatient);
 
-        // 3. Retorna o DTO de resposta com o status HTTP 201 Created.
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
     @GetMapping
     public ResponseEntity<List<PatientResponseDTO>> getAll() {
-        // 1. Pega a lista de entidades do serviço.
-        List<Patient> patients = patientService.getAllAtivos(); // Usando seu método para pegar apenas ativos
+        List<Patient> patients = patientService.getAllAtivos();
 
-        // 2. Converte a lista de entidades para uma lista de DTOs de resposta.
         List<PatientResponseDTO> responseDTOs = patients.stream()
-                .map(PatientResponseDTO::fromEntity) // Usa o método de fábrica para cada item
+                .map(PatientResponseDTO::fromEntity)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(responseDTOs);

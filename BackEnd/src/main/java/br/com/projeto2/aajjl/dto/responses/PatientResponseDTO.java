@@ -23,12 +23,10 @@ public record PatientResponseDTO(
         String estado,
         Priority prioridade,
         Boolean ativo,
-        UserInfoDTO cadastradoPor // <-- ALTERADO PARA USAR O DTO INTERNO
+        UserInfoDTO cadastradoPor
 ) {
-        // DTO interno apenas com dados seguros do User
         public record UserInfoDTO(Long id, String nome) {}
 
-        // Método de fábrica para converter a entidade Patient para este DTO
         public static PatientResponseDTO fromEntity(Patient patient) {
                 return new PatientResponseDTO(
                         patient.getId(),
@@ -47,7 +45,6 @@ public record PatientResponseDTO(
                         patient.getEstado(),
                         patient.getPrioridade(),
                         patient.getAtivo(),
-                        // Cria o UserInfoDTO apenas com o ID e o Nome do profissional
                         new UserInfoDTO(patient.getCadastradoPor().getId(), patient.getCadastradoPor().getNome())
                 );
         }
