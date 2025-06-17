@@ -1,12 +1,11 @@
 package br.com.projeto2.aajjl.dto.requests;
 
 import br.com.projeto2.aajjl.model.Priority;
-import br.com.projeto2.aajjl.model.User;
+// Removido o import do User, pois não é mais necessário aqui
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 
 public record PatientRequestDTO(
-
         String nome,
         String cpf,
         String email,
@@ -22,7 +21,7 @@ public record PatientRequestDTO(
         String cidade,
         String estado,
         Priority prioridade,
-        User cadastradoPorId,
+        // Long cadastradoPorId, // <-- TIPO CORRIGIDO PARA Long
         Boolean ativo
 ) {
 }

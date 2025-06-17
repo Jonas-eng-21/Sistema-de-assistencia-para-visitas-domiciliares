@@ -7,6 +7,8 @@ import br.com.projeto2.aajjl.model.Patient;
 import br.com.projeto2.aajjl.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import br.com.projeto2.aajjl.model.User;
+import br.com.projeto2.aajjl.repository.UserRepository;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -21,36 +23,53 @@ public class PatientService {
     @Autowired
     private EmailSenderService emailService;
 
-    public PatientResponseDTO create(Patient newPatient) {
+    @Autowired
+    private UserRepository userRepository;
+
+    public Patient create(PatientRequestDTO requestDTO) {
+
+        System.out.println("  cheguei no inicio do metodo Paciente agr " );
+
+//        User professional = userRepository.findById(requestDTO.cadastradoPorId())
+//                .orElseThrow(() -> new RuntimeException("Usuário profissional não encontrado com ID: " + requestDTO.cadastradoPorId()));
+
+        System.out.println("  cheguei na parte do NEW Paciente agr " );
+
+        Patient newPatient = new Patient();
+
+        newPatient.setNome(requestDTO.nome());
+        newPatient.setCpf(requestDTO.cpf());
+        newPatient.setEmail(requestDTO.email());
+        newPatient.setDataNascimento(requestDTO.dataNascimento());
+        newPatient.setDoenca(requestDTO.doenca());
+        newPatient.setObservacao(requestDTO.observacao());
+        newPatient.setPrioridade(requestDTO.prioridade());
+        newPatient.setCep(requestDTO.cep());
+        newPatient.setRua(requestDTO.rua());
+        newPatient.setNumero(requestDTO.numero());
+        newPatient.setBairro(requestDTO.bairro());
+        newPatient.setComplemento(requestDTO.complemento());
+        newPatient.setCidade(requestDTO.cidade());
+        newPatient.setEstado(requestDTO.estado());
         newPatient.setAtivo(true);
+        //newPatient.setCadastradoPor(professional);
+
+        System.out.println(" NEW Paciente salvo com ID: " + newPatient.getId() +"  " + newPatient.getNome() + " e " + newPatient.getEmail());
+        System.out.println("  vou salvar o NEW Paciente agr " );
+
         Patient savedPatient = patientRepository.save(newPatient);
 
-        // Envia o e-mail de boas-vindas
+        System.out.println("  sSalvei o NEW Paciente agr " );
+        System.out.println(" NEW Paciente salvo com ID: " + savedPatient.getId() +"  " + savedPatient.getNome() + " e " + savedPatient.getEmail());
+
+
         emailService.enviarEmailSimples(
                 savedPatient.getEmail(),
                 "Bem-vindo ao Sistema de assistencia para visitas domiciliares",
                 "Olá " + savedPatient.getNome() + ", seu cadastro como paciente foi realizado com sucesso!"
         );
 
-        return new PatientResponseDTO(
-                newPatient.getId(),
-                newPatient.getNome(),
-                newPatient.getCpf(),
-                newPatient.getEmail(),
-                newPatient.getDoenca(),
-                newPatient.getObservacao(),
-                newPatient.getDataNascimento(),
-                newPatient.getCep(),
-                newPatient.getRua(),
-                newPatient.getNumero(),
-                newPatient.getBairro(),
-                newPatient.getComplemento(),
-                newPatient.getCidade(),
-                newPatient.getEstado(),
-                newPatient.getPrioridade(),
-                newPatient.getAtivo(),
-                newPatient.getCadastradoPor()
-        );
+        return savedPatient;
     }
 
     public List<Patient> getAll() {
@@ -101,7 +120,7 @@ public class PatientService {
     }
 
 
-public boolean delete(Long id) {
+    public boolean delete(Long id) {
         return patientRepository.findById(id).map(patient -> {
             patient.setAtivo(false); //Aqui eu nao deleto do BD, eu atualizo o atributo para false
             patientRepository.save(patient);

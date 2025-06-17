@@ -1,21 +1,40 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 const ResetPassword: React.FC = () => {
-  const { token } = useParams<{ token: string }>();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [newPassword, setNewPassword] = useState<string>('');
-  const [message, setMessage] = useState<string>('');
+
+  const token = searchParams.get('token');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState('');
+
+  const isFormValid = newPassword.length >= 6 && newPassword === confirmPassword;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!token) {
+      setMessage('Token inválido ou ausente.');
+      return;
+    }
+
     try {
+<<<<<<< HEAD
       const response = await fetch('https://back-sus-visitas-domiciliares.onrender.com/api/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token, newPassword }),
       });
+=======
+      const response = await fetch(
+        `http://localhost:8080/password/reset-password?token=${encodeURIComponent(token)}&newPassword=${encodeURIComponent(newPassword)}`,
+        {
+          method: 'POST'
+        }
+      );
+>>>>>>> main
 
       if (response.ok) {
         setMessage('Senha redefinida com sucesso!');
@@ -43,9 +62,22 @@ const ResetPassword: React.FC = () => {
             className="mt-1 block w-full border rounded p-2"
           />
         </div>
+        <div>
+          <label className="block text-sm font-medium">Confirmar Nova Senha</label>
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            className="mt-1 block w-full border rounded p-2"
+          />
+        </div>
         <button
           type="submit"
-          className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600"
+          disabled={!isFormValid}
+          className={`w-full py-2 rounded text-white ${
+            isFormValid ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-400 cursor-not-allowed'
+          }`}
         >
           Redefinir Senha
         </button>
