@@ -21,20 +21,12 @@ const ResetPassword: React.FC = () => {
     }
 
     try {
-<<<<<<< HEAD
-      const response = await fetch('https://back-sus-visitas-domiciliares.onrender.com/api/reset-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, newPassword }),
-      });
-=======
       const response = await fetch(
-        `http://localhost:8080/password/reset-password?token=${encodeURIComponent(token)}&newPassword=${encodeURIComponent(newPassword)}`,
+        `https://back-sus-visitas-domiciliares.onrender.com/password/reset-password?token=${encodeURIComponent(token)}&newPassword=${encodeURIComponent(newPassword)}`,
         {
           method: 'POST'
         }
       );
->>>>>>> main
 
       if (response.ok) {
         setMessage('Senha redefinida com sucesso!');

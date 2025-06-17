@@ -11,11 +11,7 @@ const ForgotPassword: React.FC = () => {
     e.preventDefault();
 
     try {
-<<<<<<< HEAD
-      const response = await fetch('https://back-sus-visitas-domiciliares.onrender.com/api/forgot-password', {
-=======
-      const response = await fetch(`http://localhost:8080/password/forgot-password?email=${encodeURIComponent(email)}`, {
->>>>>>> main
+      const response = await fetch(`https://back-sus-visitas-domiciliares.onrender.com/password/forgot-password?email=${encodeURIComponent(email)}`, {
         method: 'POST',
       });
       //no back ele espera o email na url e nao no json, por isso o erro antigo.
