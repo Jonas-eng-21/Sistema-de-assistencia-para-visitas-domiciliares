@@ -27,10 +27,16 @@ public class PatientService {
     private UserRepository userRepository;
 
     public Patient create(PatientRequestDTO requestDTO) {
-        User professional = userRepository.findById(requestDTO.cadastradoPorId())
-                .orElseThrow(() -> new RuntimeException("Usuário profissional não encontrado com ID: " + requestDTO.cadastradoPorId()));
+
+        System.out.println("  cheguei no inicio do metodo Paciente agr " );
+
+//        User professional = userRepository.findById(requestDTO.cadastradoPorId())
+//                .orElseThrow(() -> new RuntimeException("Usuário profissional não encontrado com ID: " + requestDTO.cadastradoPorId()));
+
+        System.out.println("  cheguei na parte do NEW Paciente agr " );
 
         Patient newPatient = new Patient();
+
         newPatient.setNome(requestDTO.nome());
         newPatient.setCpf(requestDTO.cpf());
         newPatient.setEmail(requestDTO.email());
@@ -46,16 +52,22 @@ public class PatientService {
         newPatient.setCidade(requestDTO.cidade());
         newPatient.setEstado(requestDTO.estado());
         newPatient.setAtivo(true);
-        newPatient.setCadastradoPor(professional);
+        //newPatient.setCadastradoPor(professional);
 
+        System.out.println(" NEW Paciente salvo com ID: " + newPatient.getId() +"  " + newPatient.getNome() + " e " + newPatient.getEmail());
+        System.out.println("  vou salvar o NEW Paciente agr " );
 
         Patient savedPatient = patientRepository.save(newPatient);
 
-//        emailService.enviarEmailSimples(
-//                savedPatient.getEmail(),
-//                "Bem-vindo ao Sistema de assistencia para visitas domiciliares",
-//                "Olá " + savedPatient.getNome() + ", seu cadastro como paciente foi realizado com sucesso!"
-//        );
+        System.out.println("  sSalvei o NEW Paciente agr " );
+        System.out.println(" NEW Paciente salvo com ID: " + savedPatient.getId() +"  " + savedPatient.getNome() + " e " + savedPatient.getEmail());
+
+
+        emailService.enviarEmailSimples(
+                savedPatient.getEmail(),
+                "Bem-vindo ao Sistema de assistencia para visitas domiciliares",
+                "Olá " + savedPatient.getNome() + ", seu cadastro como paciente foi realizado com sucesso!"
+        );
 
         return savedPatient;
     }

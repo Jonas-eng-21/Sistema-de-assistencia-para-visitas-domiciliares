@@ -31,7 +31,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         var token = recoverToken(request);
 
         if (token != null) {
-            System.out.println("--- [SecurityFilter] Token encontrado no header: " + token.substring(0, 15) + "...");
+            System.out.println("--- [SecurityFilter] Token encontrado no header: " + token + "   ...  ");
 
             var login = tokenService.validateToken(token);
 

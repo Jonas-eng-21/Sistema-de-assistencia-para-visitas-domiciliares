@@ -22,8 +22,8 @@ public record PatientResponseDTO(
         String cidade,
         String estado,
         Priority prioridade,
-        Boolean ativo,
-        UserInfoDTO cadastradoPor
+        Boolean ativo
+       // UserInfoDTO cadastradoPor
 ) {
         public record UserInfoDTO(Long id, String nome) {}
 
@@ -44,8 +44,8 @@ public record PatientResponseDTO(
                         patient.getCidade(),
                         patient.getEstado(),
                         patient.getPrioridade(),
-                        patient.getAtivo(),
-                        new UserInfoDTO(patient.getCadastradoPor().getId(), patient.getCadastradoPor().getNome())
+                        patient.getAtivo()
+                       // new UserInfoDTO(patient.getCadastradoPor().getId(), patient.getCadastradoPor().getNome())
                 );
         }
 }

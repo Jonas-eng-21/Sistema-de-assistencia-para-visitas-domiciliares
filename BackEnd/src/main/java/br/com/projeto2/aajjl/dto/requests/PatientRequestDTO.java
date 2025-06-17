@@ -21,7 +21,7 @@ public record PatientRequestDTO(
         String cidade,
         String estado,
         Priority prioridade,
-        Long cadastradoPorId, // <-- TIPO CORRIGIDO PARA Long
+        // Long cadastradoPorId, // <-- TIPO CORRIGIDO PARA Long
         Boolean ativo
 ) {
 }
