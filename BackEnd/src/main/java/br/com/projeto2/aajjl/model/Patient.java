@@ -60,26 +60,6 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private Priority prioridade;
 
-    //construtor
-    public Patient(PatientRequestDTO patientRequestDTO) {
-
-        this.cadastradoPor = patientRequestDTO.cadastradoPorId();
-        this.nome = patientRequestDTO.nome();
-        this.cpf = patientRequestDTO.cpf();
-        this.email = patientRequestDTO.email();
-        this.doenca = patientRequestDTO.doenca();
-        this.cep = patientRequestDTO.cep();
-        this.rua = patientRequestDTO.rua();
-        this.numero = patientRequestDTO.numero();
-        this.bairro = patientRequestDTO.bairro();
-        this.complemento = patientRequestDTO.complemento();
-        this.cidade = patientRequestDTO.cidade();
-        this.estado = patientRequestDTO.estado();
-        this.prioridade = patientRequestDTO.prioridade();
-        this.dataNascimento = patientRequestDTO.dataNascimento();
-
-    }
-
     @Override
     public String toString() {
         return "Paciente{" +
