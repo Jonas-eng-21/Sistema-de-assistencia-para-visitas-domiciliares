@@ -22,7 +22,7 @@ const Principal = () => {
     data: "",
     turno: "MANHA",
     motivo: "",
-    prioridade: "ALTA",
+    prioridade: "VERDE",
     observacoes: "",
   });
 
@@ -38,10 +38,10 @@ const Principal = () => {
         motivoDoAtendimento: formData.motivo,
         prioridade:
           formData.prioridade === "0"
-            ? "ALTA"
+            ? "VERMELHO"
             : formData.prioridade === "1"
-            ? "MEDIA"
-            : "BAIXA",
+            ? "AMARELO"
+            : "VERDE",
         observacao: formData.observacoes || undefined,
       };
 
