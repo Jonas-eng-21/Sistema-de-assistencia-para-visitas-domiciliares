@@ -7,12 +7,12 @@ import Cadastro from "../pages/cadastroUser";
 import { useAuth } from "../context/AuthContext";
 import CadastroProfissional from "../pages/cadastroProfissional";
 import CadastroPaciente from "../pages/cadastroPaciente";
-import Agendamento from "../pages/agendamento";
 import EditarPaciente from "../pages/editarPaciente";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import ListagemProffissionais from "../pages/ListagemProffissionais";
 import EditarProfissional from "../pages/editarProfissional";
+import AgendarVisita from "../pages/agendamento";
 
 export const AppRoutes = () => {
   const { isLoggedIn, isReady } = useAuth();
@@ -78,7 +78,7 @@ export const AppRoutes = () => {
         path="/agendar-visita"
         element={
           <ProtectedRoute>
-            <Agendamento />
+            <AgendarVisita />
           </ProtectedRoute>
         }
       />

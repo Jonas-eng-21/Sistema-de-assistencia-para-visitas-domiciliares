@@ -1,8 +1,8 @@
 import * as S from './style'
 import Header from '../../components/Header'
-import AgendamentosPreview from '../../components/AgendamentosPreview';
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
+import CardAgendamentos from '../../components/CardAgendamentos';
 
 const Principal = () => {
   // Set the page title
@@ -21,11 +21,7 @@ const Principal = () => {
       <Header />
       <div style={{ display: "flex", width: "100%" }}>
         <S.LadoEsquerdo>
-          <S.Subtitle>Agendamento de Visitas</S.Subtitle>
-          <S.ProximasVisitas>
-            <p> Listagem das proximas visitas </p>
-            <AgendamentosPreview />
-          </S.ProximasVisitas>
+          <CardAgendamentos />
         </S.LadoEsquerdo>
         <S.LadoDireito>
           <S.Button2 onClick={handleAgendarVisita}>
