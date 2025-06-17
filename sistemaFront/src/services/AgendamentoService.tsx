@@ -3,7 +3,7 @@ import { handleError } from "../helpers/ErrorHandler.";
 import type { ScheduleRequestDTO, ScheduleResponseDTO, ScheduleUpdateDTO } from "../models/Schedule";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api", 
+  baseURL: "https://back-sus-visitas-domiciliares.onrender.com/api", 
 });
 
 api.interceptors.request.use(
