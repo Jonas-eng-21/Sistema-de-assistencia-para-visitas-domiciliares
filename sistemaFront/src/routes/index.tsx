@@ -8,6 +8,7 @@ import { useAuth } from "../context/AuthContext";
 import CadastroProfissional from "../pages/cadastroProfissional";
 import CadastroPaciente from "../pages/cadastroPaciente";
 import Agendamento from "../pages/agendamento";
+import EditarPaciente from "../pages/editarPaciente";
 import ForgotPassword from '../pages/ForgotPassword';
 import ResetPassword from '../pages/ResetPassword';
 
@@ -70,7 +71,14 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-
+      <Route
+        path="/editar-paciente"
+        element={
+          <ProtectedRoute>
+            <EditarPaciente />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 };
