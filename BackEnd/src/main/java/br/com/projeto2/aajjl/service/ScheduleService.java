@@ -28,6 +28,32 @@ public class ScheduleService {
         Patient patient = patientRepository.findById(requestDTO.pacienteId())
                 .orElseThrow(() -> new RuntimeException("Paciente não encontrado com ID: " + requestDTO.pacienteId()));
 
+        //Adicionar a lógica do envio do email posteriormente
+//        newSchedule.setConcluido(false);
+//        Schedule savedSchedule = scheduleRepository.save(newSchedule);
+//
+//        String assunto = "Novo agendamento criado";
+//        String mensagem = criarResumoDoAgendamento(savedSchedule);
+//
+//        String emailUser = savedSchedule.getUser().getEmail();
+//        emailService.enviarEmailSimples(emailUser, assunto, mensagem);
+//
+//        String emailPaciente = savedSchedule.getPaciente().getEmail();
+//        emailService.enviarEmailSimples(emailPaciente, assunto, mensagem);
+//
+//        return new ScheduleResponseDTO(
+//                savedSchedule.getId(),
+//                savedSchedule.getConcluido(),
+//                savedSchedule.getUser(),
+//                savedSchedule.getPaciente(),
+//                savedSchedule.getTurno(),
+//                savedSchedule.getDataAgendamento(),
+//                savedSchedule.getDataCriacao(),
+//                savedSchedule.getObservacao(),
+//                savedSchedule.getMotivoDoAtendimento(),
+//                savedSchedule.getPrioridade()
+//        );
+
         Schedule newSchedule = new Schedule();
         newSchedule.setUser(user);
         newSchedule.setPaciente(patient);
