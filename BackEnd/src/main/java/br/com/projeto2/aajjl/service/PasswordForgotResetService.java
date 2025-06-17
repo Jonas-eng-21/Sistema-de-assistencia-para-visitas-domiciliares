@@ -43,7 +43,7 @@ public class PasswordForgotResetService {
         tokenRepository.save(resetToken);
 
         //Conferir link se é esse mesmo, e lembrar de trocar no host!!!!
-        String link = "http://localhost:5173/reset-password?token=" + token;
+        String link = "https://sistema-de-assistencia-para-visitas.onrender.com/reset-password?token=" + token;
         //Com https o link nao funciona, precisa ser http
 
         String assunto = "Recuperação de Senha";
