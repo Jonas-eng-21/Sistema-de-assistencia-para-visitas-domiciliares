@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import * as S from "./style";
-import { Button, MenuItem } from "@mui/material";
+import { toast } from 'react-toastify';
+
 
 const ForgotPassword: React.FC = () => {
-  const [email, setEmail] = useState<string>('');
-  const [message, setMessage] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,14 +17,19 @@ const ForgotPassword: React.FC = () => {
       //no back ele espera o email na url e nao no json, por isso o erro antigo.
 
 
-      if (response.ok) {
-        setMessage('Se este e-mail estiver cadastrado, enviamos instruções para redefinição.');
+      if (response?.status === 200) {
+        toast.success(
+          "Se este e-mail estiver cadastrado, enviamos instruções para redefinição."
+        );
+        setMessage(
+          "Se este e-mail estiver cadastrado, enviamos instruções para redefinição."
+        );
       } else {
-        setMessage('Erro ao enviar e-mail. Tente novamente.');
+        toast.info("Erro ao enviar e-mail. Tente novamente.");
       }
     } catch (error) {
-      console.error('Erro:', error);
-      setMessage('Erro de rede. Tente novamente.');
+      console.error("Erro ao enviar e-mail de redefinição:", error);
+      toast.error("Erro de rede. Tente novamente.");
     }
   };
 

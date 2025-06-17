@@ -20,7 +20,7 @@ const RegisterForm = () => {
       cpf,
       profissao,
       consenhoRegional: conselho,
-      ativo: true,
+       ativo: true,
     };
     try {
       const response = await registerAPI(dados);
