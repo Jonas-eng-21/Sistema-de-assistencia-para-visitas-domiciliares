@@ -27,9 +27,9 @@ public class Patient {
     @OneToMany(mappedBy = "paciente")
     private List<Schedule> agendamentos;
 
-    @ManyToOne
-    @JoinColumn(name = "cadastrado_por_id")
-    private User cadastradoPor;
+//    @ManyToOne
+//    @JoinColumn(name = "cadastrado_por_id")
+//    private User cadastradoPor;
 
     private Boolean ativo;
     private String nome;
