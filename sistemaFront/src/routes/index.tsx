@@ -9,8 +9,10 @@ import CadastroProfissional from "../pages/cadastroProfissional";
 import CadastroPaciente from "../pages/cadastroPaciente";
 import Agendamento from "../pages/agendamento";
 import EditarPaciente from "../pages/editarPaciente";
-import ForgotPassword from '../pages/ForgotPassword';
-import ResetPassword from '../pages/ResetPassword';
+import ForgotPassword from "../pages/ForgotPassword";
+import ResetPassword from "../pages/ResetPassword";
+import ListagemProffissionais from "../pages/ListagemProffissionais";
+import EditarProfissional from "../pages/editarProfissional";
 
 export const AppRoutes = () => {
   const { isLoggedIn, isReady } = useAuth();
@@ -21,7 +23,7 @@ export const AppRoutes = () => {
       <Route
         path="/"
         element={
-          isLoggedIn() ? <Navigate to="/principal" replace /> : <Login   />
+          isLoggedIn() ? <Navigate to="/principal" replace /> : <Login />
         }
       />
       <Route path="/cadastro" element={<Cadastro />} />
@@ -34,6 +36,7 @@ export const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+
       <Route
         path="/listagem"
         element={
@@ -43,7 +46,15 @@ export const AppRoutes = () => {
         }
       />
 
-        
+      <Route
+        path="/listagemProfissionais"
+        element={
+          <ProtectedRoute>
+            <ListagemProffissionais />
+          </ProtectedRoute>
+        }
+      />
+
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
 
@@ -76,6 +87,14 @@ export const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <EditarPaciente />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/editar-profissional"
+        element={
+          <ProtectedRoute>
+            <EditarProfissional />
           </ProtectedRoute>
         }
       />

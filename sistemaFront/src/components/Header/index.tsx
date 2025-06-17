@@ -70,6 +70,26 @@ const Header = () => {
             Listar
             <br /> Pacientes
           </p>
+                    <p
+            style={{
+              cursor: "pointer",
+              transition: "background 0.2s, color 0.2s",
+              borderRadius: "6px",
+              padding: "4px 8px",
+            }}
+            onMouseOver={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
+              (e.currentTarget as HTMLElement).style.color = "#061a2e";
+            }}
+            onMouseOut={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+              (e.currentTarget as HTMLElement).style.color = "inherit";
+            }}
+            onClick={() => navigate("/listagemProfissionais")}
+          >
+            Listar
+            <br /> Profissionais
+          </p>
           <p
             style={{
               cursor: "pointer",

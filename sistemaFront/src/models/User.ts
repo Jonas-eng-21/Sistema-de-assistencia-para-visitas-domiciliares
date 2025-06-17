@@ -1,4 +1,17 @@
-export type Profession = "MEDICO" | "ENFERMEIRO" | "ASSISTENTE_SOCIAL" | "PSICOLOGO";
+export type Profession =
+  | "MEDICO"
+  | "ENFERMEIRO"
+  | "ENFERMEIRO_CHEFE"
+  | "ASSISTENTE_SOCIAL"
+  | "PACIENTE"
+  | "AGENTE_DE_SAÚDE_ACS"
+  | "CLINICO_GERAL"
+  | "NUTRICIONISTA"
+  | "FISIOTERAPEUTA"
+  | "DENTISTA"
+  | "PSICOLOGO"
+  | "PSIQUIATRA"
+  | "PEDIATRA";
 
 
 export type User = {
