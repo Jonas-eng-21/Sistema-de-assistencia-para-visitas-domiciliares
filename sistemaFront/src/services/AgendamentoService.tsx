@@ -1,75 +1,80 @@
 import axios from "axios";
 import { handleError } from "../helpers/ErrorHandler.";
+import type { ScheduleRequestDTO, ScheduleResponseDTO, ScheduleUpdateDTO } from "../models/Schedule";
 
-const api = "http://localhost:8080/api/agendamentos";
+const api = axios.create({
+  baseURL: "http://localhost:8080/api", 
+});
 
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
-export type ScheduleRequestDTO = {
-  pacienteId: number;
-  profissionalId: number;
-  dataVisita: string; // formato ISO: "2025-06-04"
-  turno: "MANHA" | "TARDE";
-  observacoes?: string;
-};
-
-export type ScheduleResponseDTO = {
-  id: number;
-  pacienteId: number;
-  profissionalId: number;
-  dataVisita: string;
-  turno: "MANHA" | "TARDE";
-  observacoes?: string;
-};
-
+const endpoint = "/agendamentos";
 
 export const createScheduleAPI = async (
   scheduleData: ScheduleRequestDTO
 ): Promise<ScheduleResponseDTO | undefined> => {
   try {
-    const response = await axios.post<ScheduleResponseDTO>(api, scheduleData);
+    const response = await api.post<ScheduleResponseDTO>(
+      endpoint,
+      scheduleData
+    );
     return response.data;
   } catch (error) {
     handleError(error);
   }
 };
 
-
-export const getAllSchedulesAPI = async (): Promise<ScheduleResponseDTO[] | undefined> => {
+export const getAllSchedulesAPI = async (): Promise<
+  ScheduleResponseDTO[] | undefined
+> => {
   try {
-    const response = await axios.get<ScheduleResponseDTO[]>(api);
+    const response = await api.get<ScheduleResponseDTO[]>(endpoint);
     return response.data;
   } catch (error) {
     handleError(error);
   }
 };
 
-
-export const getScheduleByIdAPI = async (id: number): Promise<ScheduleResponseDTO | undefined> => {
+export const getScheduleByIdAPI = async (
+  id: number
+): Promise<ScheduleResponseDTO | undefined> => {
   try {
-    const response = await axios.get<ScheduleResponseDTO>(`${api}/${id}`);
+    const response = await api.get<ScheduleResponseDTO>(`${endpoint}/${id}`);
     return response.data;
   } catch (error) {
     handleError(error);
   }
 };
-
 
 export const updateScheduleAPI = async (
   id: number,
-  updatedData: Partial<ScheduleRequestDTO>
+  updatedData: ScheduleUpdateDTO
 ): Promise<ScheduleResponseDTO | undefined> => {
   try {
-    const response = await axios.put<ScheduleResponseDTO>(`${api}/${id}`, updatedData);
+    const response = await api.put<ScheduleResponseDTO>(
+      `${endpoint}/${id}`,
+      updatedData
+    );
     return response.data;
   } catch (error) {
     handleError(error);
   }
 };
-
-
-export const deleteScheduleAPI = async (id: number): Promise<boolean> => {
+export const completeScheduleAPI = async (id: number): Promise<boolean> => {
   try {
-    await axios.delete(`${api}/${id}`);
+    await api.delete(`${endpoint}/${id}`);
     return true;
   } catch (error) {
     handleError(error);
