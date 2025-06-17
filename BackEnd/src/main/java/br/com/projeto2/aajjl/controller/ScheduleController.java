@@ -1,15 +1,17 @@
 package br.com.projeto2.aajjl.controller;
 
 import br.com.projeto2.aajjl.dto.requests.ScheduleRequestDTO;
+import br.com.projeto2.aajjl.dto.requests.ScheduleUpdateDTO;
 import br.com.projeto2.aajjl.dto.responses.ScheduleResponseDTO;
 import br.com.projeto2.aajjl.model.Schedule;
 import br.com.projeto2.aajjl.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/agendamentos")
@@ -19,26 +21,31 @@ public class ScheduleController {
     private ScheduleService scheduleService;
 
     @PostMapping
-    public ResponseEntity<ScheduleResponseDTO> create(@RequestBody ScheduleRequestDTO newSchedule) {
-        ScheduleResponseDTO scheduleResponseDTO = scheduleService.create(new Schedule(newSchedule));
-        return ResponseEntity.ok(scheduleResponseDTO);
+    public ResponseEntity<ScheduleResponseDTO> create(@RequestBody ScheduleRequestDTO requestDTO) {
+        Schedule savedSchedule = scheduleService.create(requestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ScheduleResponseDTO.fromEntity(savedSchedule));
     }
 
     @GetMapping
-    public ResponseEntity<List<Schedule>> getAll() {
-        return ResponseEntity.ok(scheduleService.getAll());
+    public ResponseEntity<List<ScheduleResponseDTO>> getAll() {
+        List<ScheduleResponseDTO> schedules = scheduleService.getAll().stream()
+                .map(ScheduleResponseDTO::fromEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(schedules);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Schedule> getById(@PathVariable Long id) {
-        Optional<Schedule> foundSchedule = scheduleService.getById(id);
-        return foundSchedule.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ScheduleResponseDTO> getById(@PathVariable Long id) {
+        return scheduleService.getById(id)
+                .map(schedule -> ResponseEntity.ok(ScheduleResponseDTO.fromEntity(schedule)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Schedule> update(@PathVariable Long id, @RequestBody Schedule oldSchedule) {
-        Optional<Schedule> updated = scheduleService.update(id, oldSchedule);
-        return updated.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ScheduleResponseDTO> update(@PathVariable Long id, @RequestBody ScheduleUpdateDTO updateDTO) {
+        return scheduleService.update(id, updateDTO)
+                .map(schedule -> ResponseEntity.ok(ScheduleResponseDTO.fromEntity(schedule)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
