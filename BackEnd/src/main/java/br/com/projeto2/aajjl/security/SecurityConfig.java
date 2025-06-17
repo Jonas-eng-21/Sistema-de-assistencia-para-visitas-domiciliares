@@ -46,7 +46,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/password/reset-password").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+                // .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
