@@ -55,7 +55,7 @@ export const getAllUsersAPI = async () => {
 
 export const getUserByIdAPI = async (id: number) => {
   try {
-    const response = await axios.get<User>(`${api}/${id}`);
+    const response = await axios.get<User>(`${api}/api/usuarios/${id}`);
     return response.data;
   } catch (error) {
     handleError(error);
@@ -65,7 +65,7 @@ export const getUserByIdAPI = async (id: number) => {
 
 export const updateUserAPI = async (id: number, user: Partial<User>) => {
   try {
-    const response = await axios.put<User>(`${api}/${id}`, user);
+    const response = await axios.put<User>(`${api}/api/usuarios/${id}`, user);
     return response.data;
   } catch (error) {
     handleError(error);
@@ -75,7 +75,7 @@ export const updateUserAPI = async (id: number, user: Partial<User>) => {
 
 export const deleteUserAPI = async (id: number) => {
   try {
-    await axios.delete(`${api}/${id}`);
+    await axios.delete(`${api}/api/usuarios/${id}`);
   } catch (error) {
     handleError(error);
   }
