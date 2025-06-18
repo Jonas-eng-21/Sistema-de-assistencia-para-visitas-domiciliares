@@ -79,16 +79,11 @@ const Row = ({ patient }: { patient: Patient }) => {
   return (
     <>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell>
-          <IconButton size="small" onClick={() => setOpen(!open)}>
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
-        <TableCell>{patient.nome}</TableCell>
-        <TableCell>{patient.cpf}</TableCell>
-        <TableCell>{patient.email}</TableCell>
-        <TableCell>{patient.doenca}</TableCell>
-        <TableCell>
+        <TableCell sx={{ borderRight: "1px solid #e0e0e0" }}>{patient.nome}</TableCell>
+        <TableCell sx={{ borderRight: "1px solid #e0e0e0" }}>{patient.cpf}</TableCell>
+        <TableCell sx={{ borderRight: "1px solid #e0e0e0" }}>{patient.email}</TableCell>
+        <TableCell sx={{ borderRight: "1px solid #e0e0e0" }}>{patient.doenca}</TableCell>
+        <TableCell sx={{ borderRight: "1px solid #e0e0e0" }} align="center">
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <img
               src={getPrioridadeIcon(patient.prioridade)}
@@ -107,9 +102,15 @@ const Row = ({ patient }: { patient: Patient }) => {
             </Typography>
           </Box>
         </TableCell>
+        <TableCell align="center">
+          <IconButton size="small" onClick={() => setOpen(!open)}>
+            <img src="/observacao.svg" alt="Observações" style={{ height: 18, marginRight: 1 }} />
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell colSpan={6} style={{ paddingBottom: 0, paddingTop: 0 }}>
+        <TableCell colSpan={6} style={{ paddingBottom: 0, paddingTop: 0 }}>            
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 2 }}>
               <Typography variant="subtitle1" gutterBottom>
@@ -155,12 +156,12 @@ const ListagemPaciente = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell />
-                <TableCell>Nome</TableCell>
-                <TableCell>CPF</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Doença</TableCell>
-                <TableCell>Prioridade</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0" }}>Nome</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0" }}>CPF</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0" }}>Email</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0" }}>Doença</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0" }}>Prioridade</TableCell>
+                <TableCell align="center">Observações</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
