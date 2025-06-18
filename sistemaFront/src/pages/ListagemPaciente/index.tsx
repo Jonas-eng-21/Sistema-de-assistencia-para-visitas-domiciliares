@@ -114,13 +114,13 @@ const Row = ({ patient }: { patient: Patient }) => {
             </Typography>
           </Box>
         </TableCell>
-        <TableCell align="center">
+        <TableCell sx={{ borderRight: "1px solid #e0e0e0" }} align="center">
           <IconButton size="small" onClick={() => setOpen(!open)}>
             <img src="/observacao.svg" alt="Observações" style={{ height: 18, marginRight: 1 }} />
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell>{patient.nome}</TableCell>
+        {/* <TableCell>{patient.nome}</TableCell>
         <TableCell>{patient.cpf}</TableCell>
         <TableCell>{patient.email}</TableCell>
         <TableCell>{patient.doenca}</TableCell>
@@ -133,15 +133,17 @@ const Row = ({ patient }: { patient: Patient }) => {
           >
             {formatarPrioridade(patient.prioridade)}
           </span>
-        </TableCell>
+        </TableCell> */}
         <TableCell>
-          <Button
-            onClick={() =>
-              navigate("/editar-paciente", { state: { id: patient.id } })
-            }
-          >
-            <EditIcon />
-          </Button>
+              <Box display="flex" justifyContent="center">
+              <Button
+                onClick={() =>
+                navigate("/editar-paciente", { state: { id: patient.id } })
+                }
+              >
+                <EditIcon style={{ color: "black" }} />
+              </Button>
+              </Box>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -190,13 +192,13 @@ const ListagemPaciente = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell />
-                <TableCell>Nome</TableCell>
-                <TableCell>CPF</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Doença</TableCell>
-                <TableCell>Prioridade</TableCell>
-                <TableCell>Editar paciente</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0", fontWeight: "bold" }}>Nome</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0", fontWeight: "bold" }}>CPF</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0", fontWeight: "bold" }}>Email</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0", fontWeight: "bold" }}>Doença</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0", fontWeight: "bold" }}>Prioridade</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0", fontWeight: "bold" }}>Observações</TableCell>
+                <TableCell align="center" sx={{ fontWeight: "bold" }}>Editar paciente</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
