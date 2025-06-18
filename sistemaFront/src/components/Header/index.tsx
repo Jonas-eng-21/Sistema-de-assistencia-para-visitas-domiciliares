@@ -4,20 +4,40 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import NotificationBell from "../NotificationBell";
 import LogoutButton from "../LogoutButton";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import MenuIcon from '@mui/icons-material/Menu';
 
 const Header = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [showOptions, setShowOptions] = React.useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const isSmallScreen = useMediaQuery("(max-width: 768px)");
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen((prev) => !prev);
+  };
 
   const handleNotificationsClick = () => {
     console.log("Sino de notificações clicado!");
   };
 
+  const renderAtalhos = () => (
+    <>
+      <p onClick={() => navigate("/calendario")}>Calendário de<br />visitas</p>
+      <p onClick={() => navigate("/listagem")}>Listar<br />Pacientes</p>
+      <p onClick={() => navigate("/listagemProfissionais")}>Listar<br />Profissionais</p>
+      <p onClick={() => navigate("/cadastro-de-Paciente")}>Novo<br />Paciente</p>
+      <p onClick={() => navigate("/cadastro-de-Profissional")}>Novo<br />Profissional</p>
+      <p onClick={() => navigate("/agendar-visita")}>Nova<br />Visita</p>
+    </>
+  );
+
   return (
     <>
       <S.HeaderContainer>
         <S.HeaderAtalhos>
+          {/* Sempre visível */}
           <p
             style={{
               cursor: "pointer",
@@ -35,138 +55,52 @@ const Header = () => {
               (e.currentTarget as HTMLElement).style.color = "inherit";
             }}
           >
-            Página
-            <br /> Inicial
+            Página<br />Inicial
           </p>
-          <p
-            style={{
-              cursor: "pointer",
-              transition: "background 0.2s, color 0.2s",
-              borderRadius: "6px",
-              padding: "4px 8px",
-            }}
-            onClick={() => navigate("/calendario")}
-            onMouseOver={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
-              (e.currentTarget as HTMLElement).style.color = "#061a2e";
-            }}
-            onMouseOut={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "transparent";
-              (e.currentTarget as HTMLElement).style.color = "inherit";
-            }}
-          >
-            Calendário de <br /> de visitas
-          </p>
-          <p
-            style={{
-              cursor: "pointer",
-              transition: "background 0.2s, color 0.2s",
-              borderRadius: "6px",
-              padding: "4px 8px",
-            }}
-            onMouseOver={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
-              (e.currentTarget as HTMLElement).style.color = "#061a2e";
-            }}
-            onMouseOut={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "transparent";
-              (e.currentTarget as HTMLElement).style.color = "inherit";
-            }}
-            onClick={() => navigate("/listagem")}
-          >
-            Listar
-            <br /> Pacientes
-          </p>
-          <p
-            style={{
-              cursor: "pointer",
-              transition: "background 0.2s, color 0.2s",
-              borderRadius: "6px",
-              padding: "4px 8px",
-            }}
-            onMouseOver={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
-              (e.currentTarget as HTMLElement).style.color = "#061a2e";
-            }}
-            onMouseOut={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "transparent";
-              (e.currentTarget as HTMLElement).style.color = "inherit";
-            }}
-            onClick={() => navigate("/listagemProfissionais")}
-          >
-            Listar
-            <br /> Profissionais
-          </p>
-          <p
-            style={{
-              cursor: "pointer",
-              transition: "background 0.2s, color 0.2s",
-              borderRadius: "6px",
-              padding: "4px 8px",
-            }}
-            onMouseOver={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
-              (e.currentTarget as HTMLElement).style.color = "#061a2e";
-            }}
-            onMouseOut={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "transparent";
-              (e.currentTarget as HTMLElement).style.color = "inherit";
-            }}
-            onClick={() => navigate("/cadastro-de-Paciente")}
-          >
-            Novo
-            <br /> Paciente
-          </p>
-          <p
-            style={{
-              cursor: "pointer",
-              transition: "background 0.2s, color 0.2s",
-              borderRadius: "6px",
-              padding: "4px 8px",
-            }}
-            onMouseOver={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
-              (e.currentTarget as HTMLElement).style.color = "#061a2e";
-            }}
-            onMouseOut={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "transparent";
-              (e.currentTarget as HTMLElement).style.color = "inherit";
-            }}
-            onClick={() => navigate("/cadastro-de-Profissional")}
-          >
-            Novo
-            <br /> Profissional
-          </p>
-          <p
-            style={{
-              cursor: "pointer",
-              transition: "background 0.2s, color 0.2s",
-              borderRadius: "6px",
-              padding: "4px 8px",
-            }}
-            onMouseOver={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
-              (e.currentTarget as HTMLElement).style.color = "#061a2e";
-            }}
-            onMouseOut={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "transparent";
-              (e.currentTarget as HTMLElement).style.color = "inherit";
-            }}
-            onClick={() => navigate("/agendar-visita")}
-          >
-            Nova
-            <br /> Visita
-          </p>
+
+          {isSmallScreen && (
+            <button
+              onClick={toggleMobileMenu}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                marginLeft: "10px",
+              }}
+            >
+              <MenuIcon style={{ fontSize: 30, color: "#061a2e" }} />              
+            </button>
+          )}
+
+          {!isSmallScreen ? (
+            renderAtalhos()
+          ) : (
+            isMobileMenuOpen && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "60px",
+                  left: "10px",
+                  background: "#fff",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                  borderRadius: "8px",
+                  padding: "10px",
+                  zIndex: 999,
+                }}
+              >
+                {renderAtalhos()}
+              </div>
+            )
+          )}
         </S.HeaderAtalhos>
-        <S.HeaderLadoDireito>          
+
+        <S.HeaderLadoDireito>
           <div style={{ display: "flex" }}>
             {user && user.nome ? (
               <p>
                 Bem-vindo(a)
                 <br />
-                {user.nome.length > 30
-                  ? user.nome.split(" ").slice(0, -1).join(" ")
-                  : ` ${user.nome}`}
+                {user.nome.split(" ").slice(0, 2).join(" ")}
               </p>
             ) : (
               <p>
@@ -222,9 +156,7 @@ const Header = () => {
                   minWidth: "120px",
                   padding: "10px",
                 }}
-              >
-                
-              </div>
+              ></div>
             )}
           </div>
 
