@@ -22,25 +22,21 @@ const Row = ({ user }: { user: User }) => {
 
   return (
     <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-      <TableCell>{user.nome}</TableCell>
-      <TableCell>{user.email}</TableCell>
-      <TableCell>{user.cpf}</TableCell>
-      <TableCell>{user.profissao}</TableCell>
-      <TableCell>{user.consenhoRegional}</TableCell>
-      <TableCell>
-        <span
-          style={{ color: user.ativo ? "green" : "red", fontWeight: "bold" }}
-        >
+      <TableCell sx={{ borderRight: "1px solid #e0e0e0" }} align="center">{user.nome}</TableCell>
+      <TableCell sx={{ borderRight: "1px solid #e0e0e0" }} align="center">{user.email}</TableCell>
+      <TableCell sx={{ borderRight: "1px solid #e0e0e0" }} align="center">{user.cpf}</TableCell>
+      <TableCell sx={{ borderRight: "1px solid #e0e0e0" }} align="center">{user.profissao}</TableCell>
+      <TableCell sx={{ borderRight: "1px solid #e0e0e0" }} align="center">{user.consenhoRegional}</TableCell>
+      <TableCell sx={{ borderRight: "1px solid #e0e0e0" }} align="center">
+        <span style={{ color: user.ativo ? "green" : "red", fontWeight: "bold" }}>
           {user.ativo ? "Sim" : "Não"}
         </span>
       </TableCell>
-      <TableCell>
+      <TableCell align="center">
         <Button
-          onClick={() =>
-            navigate("/editar-profissional", { state: { id: user.id } })
-          }
+          onClick={() => navigate("/editar-profissional", { state: { id: user.id } })}
         >
-          <EditIcon />
+          <EditIcon style={{ color: "black" }} />
         </Button>
       </TableCell>
     </TableRow>
@@ -71,20 +67,20 @@ const ListagemProfissionais = () => {
           className="button"
           onClick={() => navigate("/cadastro-de-profissional")}
         >
-          <p className="text">Novo Profissional</p>
+          <p className="text" style={{ textTransform: "none" }}>Novo Profissional</p>
           <ControlPointTwoToneIcon />
         </Button>
         <TableContainer component={Paper} className="table">
           <Table aria-label="collapsible table">
             <TableHead>
               <TableRow>
-                <TableCell>Nome</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>CPF</TableCell>
-                <TableCell>Profissão</TableCell>
-                <TableCell>Conselho Regional</TableCell>
-                <TableCell>Ativo</TableCell>
-                <TableCell>Editar</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0", fontWeight: "bold" }}>Nome</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0", fontWeight: "bold" }}>Email</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0", fontWeight: "bold" }}>CPF</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0", fontWeight: "bold" }}>Profissão</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0", fontWeight: "bold" }}>Conselho Regional</TableCell>
+                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0", fontWeight: "bold" }}>Ativo</TableCell>
+                <TableCell align="center" sx={{ fontWeight: "bold" }}>Editar</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
