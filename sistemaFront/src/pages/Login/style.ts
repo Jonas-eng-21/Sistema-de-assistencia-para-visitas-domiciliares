@@ -12,8 +12,7 @@ export const Title = styled.h1`
 `
 
 export const Card = styled.div`
-  width: 100%;
-  max-width: 400px;
+  max-width: 50%;
   padding: 2em;
   background-color: #ffffff;
   border-radius: 30px;

@@ -60,9 +60,9 @@ const CadastroProfissional = () => {
     <S.Container>
       <Header />
       <S.Title>Cadastro de Profissional</S.Title>
-      <S.Card className="divcadastro" style={{ width: "100%", minWidth: "400px", alignItems: "stretch", padding: "20px" }}>
+      <S.Card style={{ width: "100%", alignItems: "stretch", padding: "20px" }}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="padd">
+            <div style={{paddingBottom: "20px"}}>
             <S.TituloForm>Nome:</S.TituloForm>
             <TextField
               fullWidth
@@ -72,8 +72,8 @@ const CadastroProfissional = () => {
               error={!!errors.nome}
               helperText={errors.nome?.message}
             />
-          </div>
-          <div className="padd">
+            </div>
+          <div style={{paddingBottom: "20px"}}>
             <S.TituloForm>CPF:</S.TituloForm>
             <TextField
               fullWidth
@@ -84,7 +84,7 @@ const CadastroProfissional = () => {
               helperText={errors.cpf?.message}
             />
           </div>
-          <div className="padd">
+          <div style={{paddingBottom: "20px"}}>
             <S.TituloForm>Conselho Regional:</S.TituloForm>
             <TextField
               fullWidth
@@ -95,7 +95,7 @@ const CadastroProfissional = () => {
               helperText={errors.consenhoRegional?.message}
             />
           </div>
-          <div className="padd">
+          <div style={{paddingBottom: "20px"}}>
             <S.TituloForm>Email:</S.TituloForm>
             <TextField
               fullWidth
@@ -106,7 +106,7 @@ const CadastroProfissional = () => {
               helperText={errors.email?.message}
             />
           </div>
-          <div className="padd">
+          <div style={{paddingBottom: "20px"}}>
             <S.TituloForm>Senha:</S.TituloForm>
             <FormControl variant="filled" fullWidth>
               <InputLabel htmlFor="filled-password">Senha</InputLabel>
@@ -134,7 +134,7 @@ const CadastroProfissional = () => {
               )}
             </FormControl>
           </div>
-          <div className="padd">
+          <div style={{paddingBottom: "20px"}}>
             <S.TituloForm>Profissão:</S.TituloForm>
             <FormControl fullWidth variant="filled">
               <InputLabel id="profissao-label">Profissão</InputLabel>
