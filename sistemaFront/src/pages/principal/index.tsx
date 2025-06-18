@@ -2,46 +2,44 @@ import * as S from './style'
 import Header from '../../components/Header'
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
+import CardAgendamentos from '../../components/CardAgendamentos';
+import ActionButton from '../../components/ActionButton';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 
 const Principal = () => {
-  // Set the page title
   React.useEffect(() => {
     document.title = "Página Inicial - Agendamento de visitas";
   }, []);
   const navigate = useNavigate()
-
-  const handleAgendarVisita = () => {
-    // Implementar a lógica para agendar visita
-    navigate('/agendar-visita')
-  }
-
-  const handleListarPacientes = () => {
-    navigate('/listagem')
-  }
 
   return (
     <S.Container>
       <Header />
       <div style={{ display: "flex", width: "100%" }}>
         <S.LadoEsquerdo>
-          <S.Subtitle>Agendamento de Visitas</S.Subtitle>
-          <S.ProximasVisitas>
-            <p> Listagem das proximas visitas </p>
-          </S.ProximasVisitas>
+          <CardAgendamentos />
         </S.LadoEsquerdo>
         <S.LadoDireito>
-          <S.Button2 onClick={handleAgendarVisita}>
-            <img src="/calendar-plus.svg" alt="Agendar visita" style={{ width: 75, height: 85 }} />
-            <S.TextoButton2>Agendar <br /> Visita</S.TextoButton2>
-          </S.Button2>
-          <S.Button2>
-            <img src="/calendar.svg" alt="Calendário de visitas" style={{ width: 75, height: 85 }} />
-            <S.TextoButton2>Calendário <br /> de visitas</S.TextoButton2>
-          </S.Button2>
-          <S.Button2 onClick={handleListarPacientes}>
-            <img src="/list.svg" alt="Listar Pacientes" style={{ width: 75, height: 85 }} />
-            <S.TextoButton2>Listar <br /> Pacientes</S.TextoButton2>
-          </S.Button2>
+          <ActionButton
+            label="Agendar<br />Visita"
+            icon={<EventAvailableIcon />}
+            onClick={() => navigate('/agendar-visita')}
+            color="#6484c2"
+          />
+          <ActionButton
+            label="Calendário<br />de Visitas"
+            icon={<CalendarMonthIcon />}
+            onClick={() => navigate('/calendario')}
+            color="#6484c2"
+          />
+          <ActionButton
+            label="Listar<br />Pacientes"
+            icon={<ListAltIcon />}
+            onClick={() => navigate('/listagem')}
+            color="#6484c2"
+          />
         </S.LadoDireito>
       </div>
     </S.Container>

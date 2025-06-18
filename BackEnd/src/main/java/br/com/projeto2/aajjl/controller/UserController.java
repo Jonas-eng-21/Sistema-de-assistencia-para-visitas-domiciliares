@@ -1,16 +1,17 @@
 package br.com.projeto2.aajjl.controller;
 
-import br.com.projeto2.aajjl.dto.responses.ResponseDTO;
+import br.com.projeto2.aajjl.dto.requests.UserUpdateDTO;
+import br.com.projeto2.aajjl.dto.responses.UserResponseDTO;
 import br.com.projeto2.aajjl.model.Profession;
 import br.com.projeto2.aajjl.model.User;
 import br.com.projeto2.aajjl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -19,62 +20,75 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //CReate
     @PostMapping
-    public ResponseEntity<ResponseDTO> createUser(@RequestBody User newUser) {
-        ResponseDTO response = userService.create(newUser);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody User newUser) {
+        User savedUser = userService.createAndSave(newUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserResponseDTO.fromEntity(savedUser));
     }
 
-    //ListAll - GetAll
+    // ListAll - GetAll (Já estava correto)
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAll());
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
+        List<User> users = userService.getAll();
+        List<UserResponseDTO> responseDTOs = users.stream()
+                .map(UserResponseDTO::fromEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responseDTOs);
     }
 
-    //Get by ID
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        Optional<User> foundUser = userService.getById(id);
-        return foundUser.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
+        return userService.getById(id)
+                .map(user -> ResponseEntity.ok(UserResponseDTO.fromEntity(user)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    //Put
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User oldUser) {
-        Optional<User> updated = userService.update(id, oldUser);
-        return updated.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable Long id, @RequestBody UserUpdateDTO updateUserDTO) {
+        return userService.update(id, updateUserDTO)
+                .map(user -> ResponseEntity.ok(UserResponseDTO.fromEntity(user)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    //Soft Delete
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         boolean deleted = userService.delete(id);
         return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 
-    //Find by nome
     @GetMapping("/search/nome")
-    public ResponseEntity<List<User>> findByNome(@RequestParam String name) {
-        return ResponseEntity.ok(userService.findByNome(name));
+    public ResponseEntity<List<UserResponseDTO>> findByNome(@RequestParam String name) {
+        List<User> users = userService.findByNome(name);
+        List<UserResponseDTO> responseDTOs = users.stream()
+                .map(UserResponseDTO::fromEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responseDTOs);
     }
 
-    //Find by Profissao
     @GetMapping("/search/profissao")
-    public ResponseEntity<List<User>> findByProfissao(@RequestParam Profession profession) {
-        return ResponseEntity.ok(userService.findByProfissao(profession));
+    public ResponseEntity<List<UserResponseDTO>> findByProfissao(@RequestParam Profession profession) {
+        List<User> users = userService.findByProfissao(profession);
+        List<UserResponseDTO> responseDTOs = users.stream()
+                .map(UserResponseDTO::fromEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responseDTOs);
     }
 
-    //Find by Ativo(True)
     @GetMapping("/ativos")
-    public ResponseEntity<List<User>> getAllAtivos() {
-        return ResponseEntity.ok(userService.getAllAtivos());
+    public ResponseEntity<List<UserResponseDTO>> getAllAtivos() {
+        List<User> users = userService.getAllAtivos();
+        List<UserResponseDTO> responseDTOs = users.stream()
+                .map(UserResponseDTO::fromEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responseDTOs);
     }
 
-    //Find by Ativo(False)
     @GetMapping("/inativos")
-    public ResponseEntity<List<User>> getAllInativos() {
-        return ResponseEntity.ok(userService.getAllInativos());
+    public ResponseEntity<List<UserResponseDTO>> getAllInativos() {
+        List<User> users = userService.getAllInativos();
+        List<UserResponseDTO> responseDTOs = users.stream()
+                .map(UserResponseDTO::fromEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responseDTOs);
     }
 }
-

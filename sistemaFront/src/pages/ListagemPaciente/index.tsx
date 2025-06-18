@@ -18,24 +18,36 @@ import {
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import EditIcon from "@mui/icons-material/Edit";
 import Paper from "@mui/material/Paper";
 import ControlPointTwoToneIcon from "@mui/icons-material/ControlPointTwoTone";
 import { useNavigate } from "react-router-dom";
+import { Priority } from "../../models/Schedule";
 
 const Row = ({ patient }: { patient: Patient }) => {
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
-  const getPrioridadeColor = (prioridade: string | number) => {
-    const prioridadeStr = String(prioridade).toUpperCase();
-    switch (prioridadeStr) {
-      case "VERMELHO":
-      case "0":
+  const formatarPrioridade = (prioridade: Priority): string => {
+    switch (prioridade) {
+      case Priority.VERMELHO:
+        return "Alta";
+      case Priority.AMARELO:
+        return "Média";
+      case Priority.VERDE:
+        return "Baixa";
+      default:
+        return prioridade;
+    }
+  };
+
+  const getPrioridadeColor = (prioridade: Priority): string => {
+    switch (prioridade) {
+      case Priority.VERMELHO:
         return "black";
-      case "AMARELO":
-      case "1":
+      case Priority.AMARELO:
         return "black";
-      case "VERDE":
-      case "2":
+      case Priority.VERDE:
         return "black";
       default:
         return "black";
@@ -108,6 +120,29 @@ const Row = ({ patient }: { patient: Patient }) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
+        <TableCell>{patient.nome}</TableCell>
+        <TableCell>{patient.cpf}</TableCell>
+        <TableCell>{patient.email}</TableCell>
+        <TableCell>{patient.doenca}</TableCell>
+        <TableCell>
+          <span
+            style={{
+              color: getPrioridadeColor(patient.prioridade),
+              fontWeight: "bold",
+            }}
+          >
+            {formatarPrioridade(patient.prioridade)}
+          </span>
+        </TableCell>
+        <TableCell>
+          <Button
+            onClick={() =>
+              navigate("/editar-paciente", { state: { id: patient.id } })
+            }
+          >
+            <EditIcon />
+          </Button>
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell colSpan={6} style={{ paddingBottom: 0, paddingTop: 0 }}>            
@@ -134,8 +169,7 @@ const ListagemPaciente = () => {
   React.useEffect(() => {
     const fetchPatients = async () => {
       const data = await getAllPatientsAPI();
-      if (data) setPatients(data);
-      console.log("Pacientes carregados:", data);
+      if (data) setPatients(data);      
     };
 
     fetchPatients();
@@ -156,12 +190,13 @@ const ListagemPaciente = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0" }}>Nome</TableCell>
-                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0" }}>CPF</TableCell>
-                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0" }}>Email</TableCell>
-                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0" }}>Doença</TableCell>
-                <TableCell align="center" sx={{ borderRight: "1px solid #e0e0e0" }}>Prioridade</TableCell>
-                <TableCell align="center">Observações</TableCell>
+                <TableCell />
+                <TableCell>Nome</TableCell>
+                <TableCell>CPF</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Doença</TableCell>
+                <TableCell>Prioridade</TableCell>
+                <TableCell>Editar paciente</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
