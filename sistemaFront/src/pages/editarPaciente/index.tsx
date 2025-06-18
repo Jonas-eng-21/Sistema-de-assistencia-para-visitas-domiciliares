@@ -120,10 +120,11 @@ const EditarPaciente = () => {
     <S.Container>
       <Header />
       <S.Title>Editar dados do Paciente</S.Title>
-      <S.Card>
+      <S.Card style={{ width: "100%", minWidth: "400px", alignItems: "stretch", padding: "20px" }}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Nome:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Nome"
@@ -131,14 +132,12 @@ const EditarPaciente = () => {
                 {...register("nome")}
                 error={!!errors.nome}
                 helperText={errors.nome?.message}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                  },
-                }}
               />
             </S.Entrada>
+          </S.ContainerInputs>
+          <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>CPF:</S.TituloForm>
               <TextField
                 fullWidth
                 label="CPF"
@@ -146,14 +145,12 @@ const EditarPaciente = () => {
                 {...register("cpf")}
                 error={!!errors.cpf}
                 helperText={errors.cpf?.message}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                  },
-                }}
               />
             </S.Entrada>
+          </S.ContainerInputs>
+          <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Email:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Email"
@@ -161,16 +158,12 @@ const EditarPaciente = () => {
                 {...register("email")}
                 error={!!errors.email}
                 helperText={errors.email?.message}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                  },
-                }}
               />
             </S.Entrada>
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Doença:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Doença"
@@ -178,14 +171,10 @@ const EditarPaciente = () => {
                 {...register("doenca")}
                 error={!!errors.doenca}
                 helperText={errors.doenca?.message}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                  },
-                }}
               />
             </S.Entrada>
             <S.Entrada>
+              <S.TituloForm>CEP:</S.TituloForm>
               <TextField
                 fullWidth
                 label="CEP"
@@ -193,14 +182,12 @@ const EditarPaciente = () => {
                 {...register("cep")}
                 error={!!errors.cep}
                 helperText={errors.cep?.message}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                  },
-                }}
               />
             </S.Entrada>
+          </S.ContainerInputs>
+          <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Rua:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Rua"
@@ -208,17 +195,12 @@ const EditarPaciente = () => {
                 {...register("rua")}
                 error={!!errors.rua}
                 helperText={errors.rua?.message}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                  },
-                }}
               />
             </S.Entrada>
-            <S.Entrada></S.Entrada>
           </S.ContainerInputs>
           <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Número:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Número"
@@ -226,15 +208,10 @@ const EditarPaciente = () => {
                 {...register("numero")}
                 error={!!errors.numero}
                 helperText={errors.numero?.message}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                  },
-                }}
               />
             </S.Entrada>
-
             <S.Entrada>
+              <S.TituloForm>Bairro:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Bairro"
@@ -242,14 +219,12 @@ const EditarPaciente = () => {
                 {...register("bairro")}
                 error={!!errors.bairro}
                 helperText={errors.bairro?.message}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                  },
-                }}
               />
             </S.Entrada>
+          </S.ContainerInputs>
+          <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Complemento:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Complemento"
@@ -257,16 +232,10 @@ const EditarPaciente = () => {
                 {...register("complemento")}
                 error={!!errors.complemento}
                 helperText={errors.complemento?.message}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                  },
-                }}
               />
             </S.Entrada>
-          </S.ContainerInputs>
-          <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Cidade:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Cidade"
@@ -274,14 +243,12 @@ const EditarPaciente = () => {
                 {...register("cidade")}
                 error={!!errors.cidade}
                 helperText={errors.cidade?.message}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                  },
-                }}
               />
             </S.Entrada>
+          </S.ContainerInputs>
+          <S.ContainerInputs>
             <S.Entrada>
+              <S.TituloForm>Estado:</S.TituloForm>
               <TextField
                 fullWidth
                 label="Estado"
@@ -289,16 +256,11 @@ const EditarPaciente = () => {
                 {...register("estado")}
                 error={!!errors.estado}
                 helperText={errors.estado?.message}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                  },
-                }}
               />
             </S.Entrada>
             <S.Entrada>
+              <S.TituloForm>Prioridade:</S.TituloForm>
               <TextField
-                className="prioridade"
                 fullWidth
                 select
                 label="Prioridade"
@@ -306,19 +268,15 @@ const EditarPaciente = () => {
                 {...register("prioridade")}
                 error={!!errors.prioridade}
                 helperText={errors.prioridade?.message}
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                  },
-                }}
               >
-                <MenuItem value={0}>Vermelho</MenuItem>
-                <MenuItem value={1}>Amarelo</MenuItem>
-                <MenuItem value={2}>Verde</MenuItem>
+                <MenuItem value={0}> <img src="/PrioridadeAlta.svg" style={{paddingRight: "5px", height: "10px"}}/> Vermelho</MenuItem>
+                <MenuItem value={1}> <img src="/PrioridadeMedia.svg" style={{paddingRight: "5px", height: "10px"}}/> Amarelo</MenuItem>
+                <MenuItem value={2}> <img src="/PrioridadeBaixa.svg" style={{paddingRight: "5px", height: "10px"}}/> Verde</MenuItem>
               </TextField>
             </S.Entrada>
           </S.ContainerInputs>
           <S.Entrada>
+            <S.TituloForm>Observação:</S.TituloForm>
             <TextField
               fullWidth
               label="Observação"
@@ -326,22 +284,55 @@ const EditarPaciente = () => {
               {...register("observacao")}
               error={!!errors.observacao}
               helperText={errors.observacao?.message}
-              slotProps={{
-                inputLabel: {
-                  shrink: true,
-                },
-              }}
             />
           </S.Entrada>
-          <Button
-            type="submit"
-            variant="contained"
-            className="button"
-            fullWidth
-            disabled={!isValid}
-          >
-            Atualizar
-          </Button>
+          <div style={{ display: "flex", gap: "16px" }}>
+            <Button
+              variant="contained"
+              fullWidth
+              onClick={() => navigate("/listagem")}
+              sx={{
+                backgroundColor: "#bdbdbd",
+                color: "#000000",
+                padding: "10px 0",
+                borderRadius: "8px",
+                fontSize: "1rem",
+                boxShadow: "0 2px 8px rgba(189, 189, 189, 0.15)",
+                textTransform: "none",
+                transition: "background 0.2s",
+                "&:hover": {
+                  backgroundColor: "#9e9e9e",
+                },
+              }}
+            >
+              Voltar
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              disabled={!isValid}
+              sx={{
+                backgroundColor: "#98B8F3",
+                color: "#000000",
+                padding: "10px 0",
+                borderRadius: "8px",
+                fontSize: "1rem",
+                boxShadow: "0 2px 8px rgba(25, 118, 210, 0.15)",
+                textTransform: "none",
+                transition: "background 0.2s",
+                "&:hover": {
+                  backgroundColor: "#6f87b3",
+                },
+                "&.Mui-disabled": {
+                  backgroundColor: "#bdbdbd",
+                  color: "#000000",
+                },
+              }}
+            >
+              Atualizar
+            </Button>
+          </div>
         </form>
       </S.Card>
     </S.Container>
