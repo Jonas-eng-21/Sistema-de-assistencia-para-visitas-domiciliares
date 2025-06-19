@@ -24,12 +24,72 @@ const Header = () => {
 
   const renderAtalhos = () => (
     <>
-      <p onClick={() => navigate("/calendario")}>Calendário de<br />visitas</p>
-      <p onClick={() => navigate("/listagem")}>Listar<br />Pacientes</p>
-      <p onClick={() => navigate("/listagemProfissionais")}>Listar<br />Profissionais</p>
-      <p onClick={() => navigate("/cadastro-de-Paciente")}>Novo<br />Paciente</p>
-      <p onClick={() => navigate("/cadastro-de-Profissional")}>Novo<br />Profissional</p>
-      <p onClick={() => navigate("/agendar-visita")}>Nova<br />Visita</p>
+      <p style={{ cursor: "pointer", transition: "background 0.2s, color 0.2s", borderRadius: "6px", padding: "4px 8px"}}
+            onClick={() => navigate("/calendario")}
+            onMouseOver={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
+              (e.currentTarget as HTMLElement).style.color = "#061a2e";
+            }}
+            onMouseOut={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+              (e.currentTarget as HTMLElement).style.color = "inherit";
+            }}
+          > Calendário de<br />visitas</p>
+      <p style={{ cursor: "pointer", transition: "background 0.2s, color 0.2s", borderRadius: "6px", padding: "4px 8px"}}
+            onClick={() => navigate("/listagem")}
+            onMouseOver={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
+              (e.currentTarget as HTMLElement).style.color = "#061a2e";
+            }}
+            onMouseOut={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+              (e.currentTarget as HTMLElement).style.color = "inherit";
+            }}
+          > Listar<br />Pacientes</p>
+      <p style={{ cursor: "pointer", transition: "background 0.2s, color 0.2s", borderRadius: "6px", padding: "4px 8px"}}
+            onClick={() => navigate("/listagemProfissionais")}
+            onMouseOver={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
+              (e.currentTarget as HTMLElement).style.color = "#061a2e";
+            }}
+            onMouseOut={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+              (e.currentTarget as HTMLElement).style.color = "inherit";
+            }}
+          > Listar<br />Profissionais</p>
+      <p style={{ cursor: "pointer", transition: "background 0.2s, color 0.2s", borderRadius: "6px", padding: "4px 8px"}}
+            onClick={() => navigate("/cadastro-de-Paciente")}
+            onMouseOver={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
+              (e.currentTarget as HTMLElement).style.color = "#061a2e";
+            }}
+            onMouseOut={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+              (e.currentTarget as HTMLElement).style.color = "inherit";
+            }}
+          > Novo<br />Paciente</p>
+      <p style={{ cursor: "pointer", transition: "background 0.2s, color 0.2s", borderRadius: "6px", padding: "4px 8px"}}
+            onClick={() => navigate("/cadastro-de-Profissional")}
+            onMouseOver={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
+              (e.currentTarget as HTMLElement).style.color = "#061a2e";
+            }}
+            onMouseOut={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+              (e.currentTarget as HTMLElement).style.color = "inherit";
+            }}
+          > Novo<br />Profissional</p>
+      <p style={{ cursor: "pointer", transition: "background 0.2s, color 0.2s", borderRadius: "6px", padding: "4px 8px"}}
+            onClick={() => navigate("/agendar-visita")}
+            onMouseOver={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
+              (e.currentTarget as HTMLElement).style.color = "#061a2e";
+            }}
+            onMouseOut={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+              (e.currentTarget as HTMLElement).style.color = "inherit";
+            }}
+          > Nova<br />Visita</p>
     </>
   );
 
@@ -38,13 +98,7 @@ const Header = () => {
       <S.HeaderContainer>
         <S.HeaderAtalhos>
           {/* Sempre visível */}
-          <p
-            style={{
-              cursor: "pointer",
-              transition: "background 0.2s, color 0.2s",
-              borderRadius: "6px",
-              padding: "4px 8px",
-            }}
+          <p style={{ cursor: "pointer", transition: "background 0.2s, color 0.2s", borderRadius: "6px", padding: "4px 8px"}}
             onClick={() => navigate("/principal")}
             onMouseOver={(e) => {
               (e.currentTarget as HTMLElement).style.background = "#f0f0f0";
