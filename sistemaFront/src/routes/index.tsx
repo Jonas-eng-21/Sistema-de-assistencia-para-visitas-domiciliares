@@ -13,6 +13,7 @@ import ResetPassword from "../pages/ResetPassword";
 import ListagemProffissionais from "../pages/ListagemProffissionais";
 import EditarProfissional from "../pages/editarProfissional";
 import AgendarVisita from "../pages/agendamento";
+import Calendario from "../pages/calendario";
 
 export const AppRoutes = () => {
   const { isLoggedIn, isReady } = useAuth();
@@ -95,6 +96,14 @@ export const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <EditarProfissional />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/calendario"
+        element={
+          <ProtectedRoute>
+            <Calendario />
           </ProtectedRoute>
         }
       />

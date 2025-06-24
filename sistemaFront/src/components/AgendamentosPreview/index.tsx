@@ -27,7 +27,6 @@ const AgendamentosPreview: React.FC = () => {
       try {
         const data = await getAllSchedulesAPI();
         if (data) {
-          // Ordena os agendamentos por data, do mais recente para o mais antigo
           const sortedData = data.sort(
             (a, b) =>
               new Date(b.dataAgendamento).getTime() -
@@ -43,8 +42,12 @@ const AgendamentosPreview: React.FC = () => {
     fetchSchedules();
   }, []);
 
-  const handleClick = (id: number) => {
-    navigate(`/agendamento/${id}`);
+  const handleClick = (dataDoAgendamento: string) => {
+    navigate('/calendario', {
+      state: {
+        targetDate: dataDoAgendamento
+      }
+    });
   };
 
   return (
@@ -54,7 +57,7 @@ const AgendamentosPreview: React.FC = () => {
           <S.Card
             key={agendamento.id}
             prioridade={agendamento.prioridade}
-            onClick={() => handleClick(agendamento.id)}
+            onClick={() => handleClick(agendamento.dataAgendamento)}
           >
             <InfoOutlineIcon /> 
             <S.InfoContainer>

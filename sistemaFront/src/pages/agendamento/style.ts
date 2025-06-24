@@ -42,3 +42,12 @@ export const ButtonContainer = styled.div`
   margin-top: 1.5rem;
   width: 100%;
 `;
+
+export const TituloForm = styled.label`
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: start;
+  margin-bottom: 4px;
+  display: block;
+`;
+
