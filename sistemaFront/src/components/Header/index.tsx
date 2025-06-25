@@ -179,7 +179,7 @@ const Header = () => {
           </div>
 
           <div style={{ position: "relative" }}>
-            <button
+            {/* <button
               style={{
                 background: "none",
                 border: "none",
@@ -196,7 +196,7 @@ const Header = () => {
                 alt="Menu de opções"
                 style={{ width: 35, height: 35 }}
               />
-            </button>
+            </button> */}
             {showOptions && (
               <div
                 style={{
