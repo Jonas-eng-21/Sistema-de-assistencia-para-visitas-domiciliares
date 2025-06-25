@@ -127,7 +127,7 @@ const EditarPaciente = () => {
               <S.TituloForm>Nome:</S.TituloForm>
               <TextField
                 fullWidth
-                label="Nome"
+                // label="Nome"
                 variant="filled"
                 {...register("nome")}
                 error={!!errors.nome}
@@ -140,7 +140,7 @@ const EditarPaciente = () => {
               <S.TituloForm>CPF:</S.TituloForm>
               <TextField
                 fullWidth
-                label="CPF"
+                // label="CPF"
                 variant="filled"
                 {...register("cpf")}
                 error={!!errors.cpf}
@@ -153,7 +153,7 @@ const EditarPaciente = () => {
               <S.TituloForm>Email:</S.TituloForm>
               <TextField
                 fullWidth
-                label="Email"
+                // label="Email"
                 variant="filled"
                 {...register("email")}
                 error={!!errors.email}
@@ -166,7 +166,7 @@ const EditarPaciente = () => {
               <S.TituloForm>Doença:</S.TituloForm>
               <TextField
                 fullWidth
-                label="Doença"
+                // label="Doença"
                 variant="filled"
                 {...register("doenca")}
                 error={!!errors.doenca}
@@ -177,7 +177,7 @@ const EditarPaciente = () => {
               <S.TituloForm>CEP:</S.TituloForm>
               <TextField
                 fullWidth
-                label="CEP"
+                // label="CEP"
                 variant="filled"
                 {...register("cep")}
                 error={!!errors.cep}
@@ -190,7 +190,7 @@ const EditarPaciente = () => {
               <S.TituloForm>Rua:</S.TituloForm>
               <TextField
                 fullWidth
-                label="Rua"
+                // label="Rua"
                 variant="filled"
                 {...register("rua")}
                 error={!!errors.rua}
@@ -203,7 +203,7 @@ const EditarPaciente = () => {
               <S.TituloForm>Número:</S.TituloForm>
               <TextField
                 fullWidth
-                label="Número"
+                // label="Número"
                 variant="filled"
                 {...register("numero")}
                 error={!!errors.numero}
@@ -214,7 +214,7 @@ const EditarPaciente = () => {
               <S.TituloForm>Bairro:</S.TituloForm>
               <TextField
                 fullWidth
-                label="Bairro"
+                // label="Bairro"
                 variant="filled"
                 {...register("bairro")}
                 error={!!errors.bairro}
@@ -227,7 +227,7 @@ const EditarPaciente = () => {
               <S.TituloForm>Complemento:</S.TituloForm>
               <TextField
                 fullWidth
-                label="Complemento"
+                // label="Complemento"
                 variant="filled"
                 {...register("complemento")}
                 error={!!errors.complemento}
@@ -238,7 +238,7 @@ const EditarPaciente = () => {
               <S.TituloForm>Cidade:</S.TituloForm>
               <TextField
                 fullWidth
-                label="Cidade"
+                // label="Cidade"
                 variant="filled"
                 {...register("cidade")}
                 error={!!errors.cidade}
@@ -251,7 +251,7 @@ const EditarPaciente = () => {
               <S.TituloForm>Estado:</S.TituloForm>
               <TextField
                 fullWidth
-                label="Estado"
+                // label="Estado"
                 variant="filled"
                 {...register("estado")}
                 error={!!errors.estado}
@@ -263,7 +263,7 @@ const EditarPaciente = () => {
               <TextField
                 fullWidth
                 select
-                label="Prioridade"
+                // label="Prioridade"
                 variant="filled"
                 {...register("prioridade")}
                 error={!!errors.prioridade}
@@ -279,7 +279,7 @@ const EditarPaciente = () => {
             <S.TituloForm>Observação:</S.TituloForm>
             <TextField
               fullWidth
-              label="Observação"
+              // label="Observação"
               variant="filled"
               {...register("observacao")}
               error={!!errors.observacao}
