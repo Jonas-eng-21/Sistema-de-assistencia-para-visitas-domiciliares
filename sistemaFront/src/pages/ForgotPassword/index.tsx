@@ -122,6 +122,48 @@ const ForgotPassword: React.FC = () => {
         {message && <p className="mt-4 text-sm">{message}</p>}
       </S.Card>
 
+      {/* Botão para limpar banco */}
+      <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
+        <button
+          type="button"
+          className="custom-button"
+          style={{
+            backgroundColor: "#ef9a9a",
+            color: "#000000",
+            padding: "10px",
+            borderRadius: "8px",
+            fontSize: "1rem",
+            boxShadow: "0 2px 8px rgba(255, 0, 0, 0.15)",
+            textTransform: "none",
+            border: "none",
+            cursor: "pointer",
+            transition: "background 0.2s",
+            maxWidth: "fit-content",
+            width: "auto",
+            minWidth: "unset"
+          }}
+          onClick={async () => {
+            try {
+              const response = await fetch("https://back-sus-visitas-domiciliares.onrender.com/api/test-utils/limpar-banco", {
+                method: 'DELETE',
+              });
+
+              if (response.status === 200) {
+                toast.success("Base de dados limpa com sucesso!");
+              } else {
+                toast.warning("Falha ao limpar a base de dados.");
+              }
+            } catch (error) {
+              console.error("Erro ao limpar a base de dados:", error);
+              toast.error("Erro de rede ao tentar limpar o banco.");
+            }
+          }}
+          onMouseOver={e => (e.currentTarget.style.backgroundColor = "#e57373")}
+          onMouseOut={e => (e.currentTarget.style.backgroundColor = "#ef9a9a")}
+        >
+          ⚠️ Limpar Banco (Testes)
+        </button>
+      </div>
     </S.Background>
   );
 };
