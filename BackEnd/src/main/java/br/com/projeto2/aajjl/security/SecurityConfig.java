@@ -43,6 +43,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/pacientes").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/pacientes").permitAll()
                         .requestMatchers(HttpMethod.POST, "/password/forgot-password").permitAll()
                         .requestMatchers(HttpMethod.POST, "/password/reset-password").permitAll()
                         .anyRequest().authenticated()
