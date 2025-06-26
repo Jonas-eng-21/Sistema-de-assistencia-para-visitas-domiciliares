@@ -3,7 +3,6 @@ export type Profession =
   | "ENFERMEIRO"
   | "ENFERMEIRO_CHEFE"
   | "ASSISTENTE_SOCIAL"
-  | "PACIENTE"
   | "AGENTE_DE_SAÚDE_ACS"
   | "CLINICO_GERAL"
   | "NUTRICIONISTA"
