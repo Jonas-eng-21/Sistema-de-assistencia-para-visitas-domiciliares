@@ -123,7 +123,7 @@ const ForgotPassword: React.FC = () => {
       </S.Card>
 
       {/* Botão para limpar banco */}
-      <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
+      {/* <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
         <button
           type="button"
           className="custom-button"
@@ -163,7 +163,7 @@ const ForgotPassword: React.FC = () => {
         >
           ⚠️ Limpar Banco (Testes)
         </button>
-      </div>
+      </div> */}
     </S.Background>
   );
 };
