@@ -27,4 +27,4 @@ A plataforma oferece uma alternativa moderna aos métodos manuais (papel, telefo
 
 > Detalhes técnicos sobre a arquitetura do front podem ser encontrados no `frontend/README.md`.
 
-## 🚀 Status: Em desenvolvimento 
+## 🚀 Status: Pronto
